@@ -120,16 +120,21 @@
             background: transparent;
             color: #666;
             font-weight: 500;
+            user-select: none;
+            position: relative;
+            z-index: 1;
         }
 
         .auth-tab:hover {
             background: #f8f9fa;
             color: #007bff;
+            transform: translateY(-1px);
         }
 
         .auth-tab.active {
             color: #007bff;
             border-bottom-color: #007bff;
+            background: #f8f9fa;
             background: #f8f9fa;
             font-weight: 600;
         }
@@ -433,8 +438,8 @@
             
             <div class="auth-section">
                 <div class="auth-tabs">
-                    <div class="auth-tab active" onclick="switchTab('signin')">Sign In</div>
-                    <div class="auth-tab" onclick="switchTab('signup')">Sign Up</div>
+                    <div class="auth-tab active" id="signinTab">Sign In</div>
+                    <div class="auth-tab" id="signupTab">Sign Up</div>
                 </div>
                 
                 <!-- Sign In Tab -->
@@ -1275,6 +1280,24 @@
             
             // Initialize tabs - make sure signin is active by default
             switchTab('signin');
+            
+            // Add event listeners to tab buttons
+            const signinTab = document.getElementById('signinTab');
+            const signupTab = document.getElementById('signupTab');
+            
+            if (signinTab) {
+                signinTab.addEventListener('click', function() {
+                    console.log('Sign In tab clicked'); // Debug log
+                    switchTab('signin');
+                });
+            }
+            
+            if (signupTab) {
+                signupTab.addEventListener('click', function() {
+                    console.log('Sign Up tab clicked'); // Debug log
+                    switchTab('signup');
+                });
+            }
             
             // Check if form exists
             const signupForm = document.getElementById('signupForm');
