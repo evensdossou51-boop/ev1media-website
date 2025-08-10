@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - EV1 Media</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="customer-database.js"></script>
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .account-container {
+            max-width: 1200px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
+        }
+        .account-header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .account-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .account-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .account-card h3 {
+            color: #007bff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .empty-state {
+            text-align: center;
+            color: #666;
+            padding: 40px 0;
+        }
+        .empty-state i {
+            font-size: 48px;
+            color: #dee2e6;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 768px) {
+            .account-grid {
+                grid-template-columns: 1fr;
+            }
+            .account-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-bar">
+            <a href="index.html" class="logo-text">
+                <img src="images/logo.jpg" alt="EV1Media Logo">
+                EV1Media
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="account-container">
+        <div class="account-header">
+            <div class="profile-picture" id="profilePicture">
+                <span id="profileInitials">JD</span>
+            </div>
+            <div>
+                <h1 id="userName">Welcome back!</h1>
+                <p id="userEmail" style="color: #666; margin: 5px 0 0 0;"></p>
+                <p id="memberSince" style="color: #666; font-size: 14px; margin: 5px 0 0 0;"></p>
+            </div>
+            <div style="margin-left: auto;">
+                <button onclick="logout()" class="btn" style="background: #dc3545;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <div class="account-grid">
+            <div class="account-card">
+                <h3><i class="fas fa-user"></i> Profile Information</h3>
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <button type="submit" class="btn">
+                        <i class="fas fa-save"></i> Update Profile
+                    </button>
+                </form>
+            </div>
+
+            <div class="account-card">
+                <h3><i class="fas fa-chart-bar"></i> Account Statistics</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                        <div style="font-size: 24px; font-weight: bold; color: #007bff;" id="totalOrders">0</div>
+                        <div style="color: #666; font-size: 14px;">Total Orders</div>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                        <div style="font-size: 24px; font-weight: bold; color: #28a745;" id="totalSpent">$0</div>
+                        <div style="color: #666; font-size: 14px;">Total Spent</div>
+                    </div>
+                </div>
+                
+                <h4 style="margin-bottom: 15px;"><i class="fas fa-shopping-cart"></i> Current Cart</h4>
+                <div id="currentCart">
+                    <div class="empty-state">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Your cart is empty</p>
+                        <a href="sound-rental.html" class="btn" style="display: inline-block; text-decoration: none;">
+                            Browse Services
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="account-card" style="grid-column: 1 / -1;">
+                <h3><i class="fas fa-history"></i> Order History</h3>
+                <div id="orderHistory">
+                    <div class="empty-state">
+                        <i class="fas fa-receipt"></i>
+                        <p>No orders yet</p>
+                        <a href="sound-rental.html" class="btn" style="display: inline-block; text-decoration: none;">
+                            Start Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 EV1Media. All rights reserved.</p>
+        <p>
+            <a href="mailto:info@ev1media.com">info@ev1media.com</a> |
+            <a href="tel:+12393516598">+1 (239) 351-6598</a>
+        </p>
+        <p>
+            <a href="https://facebook.com/ev1media" target="_blank">Facebook</a> |
+            <a href="https://instagram.com/ev1media" target="_blank">Instagram</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAccountPage();
+        });
+
+        function initializeAccountPage() {
+            const currentUser = CustomerAPI.getCurrentUser();
+            
+            if (!currentUser) {
+                alert('Please log in to access your account.');
+                window.location.href = 'checkout.html';
+                return;
+            }
+
+            loadUserInfo(currentUser);
+            loadUserStats(currentUser);
+            loadCurrentCart(currentUser);
+            loadOrderHistory(currentUser);
+        }
+
+        function loadUserInfo(user) {
+            document.getElementById('userName').textContent = 'Welcome back, ' + user.firstName + '!';
+            document.getElementById('userEmail').textContent = user.email;
+            
+            if (user.createdAt) {
+                const memberSince = new Date(user.createdAt).toLocaleDateString();
+                document.getElementById('memberSince').textContent = 'Member since ' + memberSince;
+            }
+
+            const initials = (user.firstName || '').charAt(0) + (user.lastName || '').charAt(0);
+            document.getElementById('profileInitials').textContent = initials;
+
+            document.getElementById('firstName').value = user.firstName || '';
+            document.getElementById('lastName').value = user.lastName || '';
+            document.getElementById('email').value = user.email || '';
+            document.getElementById('phone').value = user.phone || '';
+        }
+
+        function loadUserStats(user) {
+            const stats = CustomerAPI.getStats(user.id);
+            document.getElementById('totalOrders').textContent = stats.totalOrders;
+            document.getElementById('totalSpent').textContent = '$' + stats.totalSpent.toFixed(2);
+        }
+
+        function loadCurrentCart(user) {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartContainer = document.getElementById('currentCart');
+            
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<div class="empty-state"><i class="fas fa-shopping-cart"></i><p>Your cart is empty</p><a href="sound-rental.html" class="btn" style="display: inline-block; text-decoration: none;">Browse Services</a></div>';
+                return;
+            }
+
+            let total = 0;
+            let cartHTML = '';
+            cart.forEach(function(item) {
+                const itemTotal = (item.price + (item.transport || 0)) * item.quantity;
+                total += itemTotal;
+                cartHTML += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e9ecef;"><div><div style="font-weight: 600;">' + item.name + '</div><div style="font-size: 14px; color: #666;">Quantity: ' + item.quantity + '</div></div><div style="font-weight: bold; color: #007bff;">$' + itemTotal.toFixed(2) + '</div></div>';
+            });
+
+            cartHTML += '<div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #007bff;"><div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px;"><span>Total:</span><span style="color: #007bff;">$' + total.toFixed(2) + '</span></div><a href="final-checkout.html" class="btn" style="width: 100%; margin-top: 10px; text-align: center; display: block; text-decoration: none;">Proceed to Checkout</a></div>';
+            
+            cartContainer.innerHTML = cartHTML;
+        }
+
+        function loadOrderHistory(user) {
+            const orders = CustomerAPI.getOrders(user.id);
+            const historyContainer = document.getElementById('orderHistory');
+            
+            if (orders.length === 0) {
+                historyContainer.innerHTML = '<div class="empty-state"><i class="fas fa-receipt"></i><p>No orders yet</p><a href="sound-rental.html" class="btn" style="display: inline-block; text-decoration: none;">Start Shopping</a></div>';
+                return;
+            }
+
+            let orderHTML = '';
+            orders.forEach(function(order) {
+                orderHTML += '<div style="padding: 15px 0; border-bottom: 1px solid #e9ecef;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"><div><strong>Order #' + order.id + '</strong><div style="font-size: 14px; color: #666; margin-top: 2px;">' + new Date(order.createdAt).toLocaleDateString() + '</div></div><div><span style="padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; background: #fff3cd; color: #856404;">' + order.status.toUpperCase() + '</span><div style="font-weight: bold; margin-top: 5px;">$' + (order.total ? order.total.toFixed(2) : '0.00') + '</div></div></div></div>';
+            });
+            historyContainer.innerHTML = orderHTML;
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currentUser = CustomerAPI.getCurrentUser();
+            if (!currentUser) return;
+
+            const formData = new FormData(e.target);
+            const updateData = {};
+            
+            for (let pair of formData.entries()) {
+                updateData[pair[0]] = pair[1];
+            }
+
+            const updated = CustomerAPI.updateProfile(currentUser.id, updateData);
+            if (updated) {
+                Object.assign(currentUser, updateData);
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                alert('Profile updated successfully!');
+                loadUserInfo(currentUser);
+            } else {
+                alert('Failed to update profile. Please try again.');
+            }
+        });
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                CustomerAPI.logout();
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

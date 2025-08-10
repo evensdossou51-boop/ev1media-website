@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sound System Rental - EV1Media | Professional Audio Equipment | Florida</title>
+  <meta name="description" content="Professional sound system rental services in Florida. High-quality speakers, microphones, mixing equipment for events, conferences, weddings, and special occasions.">
+  <meta name="keywords" content="sound system rental, audio equipment rental, speaker rental, microphone rental, Florida, event sound, conference audio, PA system rental">
+  <meta name="author" content="EV1Media">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="customer-database.js"></script>
+  
+  <!-- Removed old account button styles since we're integrating into header -->
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script>
+</head>
+<body>
+  <!-- Account integration will be automatic -->
+  <header>
+    <div class="header-bar">
+      <a href="index.html" class="logo-text">
+        <img src="images/logo.jpg" alt="EV1Media Logo">
+        EV1Media
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Welcome Section - Sound Rental Hero -->
+    <section class="welcome-section">
+      <div class="welcome-content">
+        <h1>Sound System Rental</h1>
+        <p>Professional audio equipment rental for events, conferences, weddings, and special occasions throughout Florida. Crystal-clear sound that ensures your message is heard by every guest.</p>
+        <div class="welcome-features">
+          <div class="welcome-feature">
+            <i class="fas fa-volume-up"></i>
+            <h3>Professional Grade</h3>
+            <p>High-quality PA systems and speakers</p>
+          </div>
+          <div class="welcome-feature">
+            <i class="fas fa-microphone"></i>
+            <h3>Complete Setup</h3>
+            <p>Wireless mics, mixing, and full installation</p>
+          </div>
+          <div class="welcome-feature">
+            <i class="fas fa-tools"></i>
+            <h3>Expert Support</h3>
+            <p>Professional setup and on-site assistance</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rental Packages Section -->
+    <section class="services-section">
+      <div class="services-content">
+        <h2 style="color: #007bff; text-align: center;">Our Rental Packages</h2>
+        <p style="text-align: center; margin-bottom: 40px; color: #666; font-size: 1.1rem;">Professional sound equipment packages for every occasion</p>
+        
+        <!-- Packages Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+          
+          <!-- Placeholder for additional packages -->
+          <!-- Add your next package here -->
+          
+          <!-- Speech Package -->
+          <div class="service-card" style="text-align: left;">
+            <h3 style="text-align: center; margin-bottom: 20px; color: #007bff;">Speech Package</h3>
+            <p style="text-align: center; color: #666; margin-bottom: 25px;">Perfect for presentations and small events</p>
+            
+            <!-- Smaller Package Images Slideshow -->
+            <div style="text-align: center; margin-bottom: 25px;">
+              <div class="speech-slideshow-container" style="position: relative; max-width: 100%; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.15);">
+                <div class="speech-slides">
+                  <img src="images/speech1.jpg" alt="Speech Package Equipment 1" class="speech-slide active" style="width: 100%; height: 200px; object-fit: contain; display: block; background-color: #f8f9fa;">
+                  <img src="images/speech2.jpg" alt="Speech Package Equipment 2" class="speech-slide" style="width: 100%; height: 200px; object-fit: contain; display: none; background-color: #f8f9fa;">
+                  <img src="images/speech3.jpg" alt="Speech Package Equipment 3" class="speech-slide" style="width: 100%; height: 200px; object-fit: contain; display: none; background-color: #f8f9fa;">
+                </div>
+                
+                <!-- Navigation arrows -->
+                <div class="slideshow-nav">
+                  <button class="prev-btn" onclick="changeSpeechSlide(-1)" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 8px 10px; border-radius: 50%; cursor: pointer; font-size: 14px; z-index: 10;">
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
+                  <button class="next-btn" onclick="changeSpeechSlide(1)" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 8px 10px; border-radius: 50%; cursor: pointer; font-size: 14px; z-index: 10;">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+                
+                <!-- Dot indicators -->
+                <div class="slideshow-dots" style="text-align: center; padding: 10px 0; background: rgba(0,0,0,0.1);">
+                  <span class="dot active" onclick="currentSpeechSlide(1)" style="height: 8px; width: 8px; margin: 0 3px; background-color: #007bff; border-radius: 50%; display: inline-block; cursor: pointer; transition: background-color 0.3s;"></span>
+                  <span class="dot" onclick="currentSpeechSlide(2)" style="height: 8px; width: 8px; margin: 0 3px; background-color: rgba(255,255,255,0.5); border-radius: 50%; display: inline-block; cursor: pointer; transition: background-color 0.3s;"></span>
+                  <span class="dot" onclick="currentSpeechSlide(3)" style="height: 8px; width: 8px; margin: 0 3px; background-color: rgba(255,255,255,0.5); border-radius: 50%; display: inline-block; cursor: pointer; transition: background-color 0.3s;"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="service-icon-circle" style="margin: 0 auto 15px;">
+              <i class="fas fa-microphone"></i>
+            </div>
+            
+            <h4 style="color: #007bff;">Package Includes:</h4>
+            <ul style="margin: 15px 0; padding-left: 20px; line-height: 1.7; font-size: 1rem;">
+              <li><strong>1 Wireless EW-D 835-S Microphone</strong></li>
+              <li><strong>2 QSC K12.2 Loudspeakers</strong></li>
+              <li><strong>1 Mackie ProFXv3 Mixer</strong></li>
+              <li><strong>XLR Cables</strong></li>
+            </ul>
+            
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px;">
+              <h5 style="color: #333; margin-bottom: 10px;"><i class="fas fa-dollar-sign"></i> Pricing</h5>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 1rem;">
+                <span><strong>Package Rate:</strong></span>
+                <span style="color: #007bff; font-weight: bold;">$300/day</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 1rem;">
+                <span><strong>Transportation:</strong></span>
+                <span style="color: #007bff; font-weight: bold;">$100</span>
+              </div>
+              <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #dee2e6;">
+                <p style="margin: 0; font-size: 0.9rem; color: #666;">
+                  <i class="fas fa-check-circle" style="color: #28a745; margin-right: 5px;"></i>
+                  Includes setup, breakdown, and installation
+                </p>
+              </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+              <button onclick="addToCart('speech-package')" class="add-to-cart-btn" style="background: #28a745; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; transition: background 0.3s;">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Rental Process Section -->
+    <section id="about">
+      <h2>How It Works</h2>
+      <div class="about-flex">
+        <div class="about-photo-block">
+          <img src="images/evens.jpg" alt="Professional Sound Setup" class="about-photo">
+          <div class="about-team-info">
+            <strong>Professional Setup</strong><br>
+            Sound System Rental<br>
+            📞 <a href="tel:+12393516598">(239) 351-6598</a><br>
+            📧 <a href="mailto:info@ev1media.com">info@ev1media.com</a><br>
+            📍 <strong>Service Area:</strong> Florida
+          </div>
+        </div>
+        <div style="flex: 1;">
+          <h3>1. Consultation</h3>
+          <p>Contact us to discuss your event details, venue size, and specific audio requirements. We'll help you choose the perfect equipment package.</p>
+          
+          <h3>2. Equipment Selection</h3>
+          <p>Based on your needs and budget, we'll recommend the ideal sound system setup from our professional-grade equipment inventory.</p>
+          
+          <h3>3. Delivery & Professional Setup</h3>
+          <p>Our team delivers, sets up, and thoroughly tests all equipment before your event starts, ensuring everything works perfectly.</p>
+          
+          <h3>4. Event Support</h3>
+          <p>Optional on-site technical support during your event for complete peace of mind and professional sound management.</p>
+          
+          <h3>5. Breakdown & Pickup</h3>
+          <p>After your event, we handle all equipment breakdown and pickup, so you can focus on what matters most.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Ready to Rent Sound Equipment?</h2>
+      <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">Contact us today for a custom quote and to check availability for your event date.</p>
+      
+      <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <i class="fas fa-phone" style="font-size: 2rem; color: #007bff; margin-bottom: 10px;"></i>
+          <h3>Call Us</h3>
+          <p><a href="tel:+12393516598" style="color: #007bff; text-decoration: none; font-weight: 600;">(239) 351-6598</a></p>
+        </div>
+        
+        <div style="text-align: center;">
+          <i class="fas fa-envelope" style="font-size: 2rem; color: #007bff; margin-bottom: 10px;"></i>
+          <h3>Email Us</h3>
+          <p><a href="mailto:info@ev1media.com" style="color: #007bff; text-decoration: none; font-weight: 600;">info@ev1media.com</a></p>
+        </div>
+        
+        <div style="text-align: center;">
+          <i class="fab fa-whatsapp" style="font-size: 2rem; color: #25D366; margin-bottom: 10px;"></i>
+          <h3>WhatsApp</h3>
+          <p><a href="https://wa.me/12393516598?text=Hi!%20I'm%20interested%20in%20sound%20system%20rental." target="_blank" style="color: #25D366; text-decoration: none; font-weight: 600;">Chat with us</a></p>
+        </div>
+      </div>
+      
+      <div style="text-align:center; margin: 32px 0;">
+        <a href="https://forms.zohopublic.com/infoev1m1/form/WEBSITEINQUIRIES/formperma/0jL3upkrgPmT0Z53-Hybn26V2KWv9IJlnVkHeJK5miQ"
+           title="WEBSITE INQUIRIES"
+           target="_blank"
+           class="zoho-form-btn"
+           onclick="zforms_open_window(this.href, 648, 700); return false;">
+          Request a Sound Rental Quote
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 EV1Media. All rights reserved.</p>
+    <p>
+      <a href="mailto:info@ev1media.com">info@ev1media.com</a> |
+      <a href="tel:+12393516598">+1 (239) 351-6598</a>
+    </p>
+    <p>
+      <a href="https://facebook.com/ev1media" target="_blank">Facebook</a> |
+      <a href="https://instagram.com/ev1media" target="_blank">Instagram</a>
+    </p>
+  </footer>
+  
+  <!-- Cart Section -->
+  <div id="cart-section" class="cart-container" style="position: fixed; bottom: 80px; right: 20px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); padding: 15px; max-width: 300px; z-index: 1000; display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h4 style="margin: 0; color: #007bff;"><i class="fas fa-shopping-cart"></i> Cart</h4>
+      <button onclick="toggleCart()" style="background: none; border: none; color: #666; cursor: pointer; font-size: 16px;">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div id="cart-items" style="margin-bottom: 15px;">
+      <p style="color: #666; margin: 0; text-align: center;">Your cart is empty</p>
+    </div>
+    <div style="border-top: 1px solid #dee2e6; padding-top: 10px;">
+      <div id="cart-total" style="font-weight: bold; margin-bottom: 10px;">Total: $0</div>
+      <button onclick="proceedToCheckout()" class="checkout-btn" style="width: 100%; background: #007bff; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: 600;">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+  
+  <!-- Cart Toggle Button -->
+  <button id="cart-toggle" onclick="toggleCart()" class="cart-btn" style="position: fixed; bottom: 20px; right: 90px; background: #007bff; color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; box-shadow: 0 5px 15px rgba(0,123,255,0.3); z-index: 1001; font-size: 18px;">
+    <i class="fas fa-shopping-cart"></i>
+    <span id="cart-count" style="position: absolute; top: -5px; right: -5px; background: #dc3545; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: none; align-items: center; justify-content: center;">0</span>
+  </button>
+  
+  <!-- WhatsApp Button -->
+  <a href="https://wa.me/12393516598?text=Hi!%20I'm%20interested%20in%20sound%20system%20rental%20services." target="_blank" class="whatsapp-btn" title="Chat with us on WhatsApp" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 5px 15px rgba(37,211,102,0.3); z-index: 1000; font-size: 18px;">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <script type="text/javascript">
+function zforms_open_window(url, height, width){
+  var leftPos = (screen.width - width) / 2;
+  var topPos = (screen.height - height) / 2;
+  window.open(url, null, 'width='+width+',height='+height+',left='+leftPos+',top='+topPos+',toolbar=0,location=0,status=1,scrollbars=1,resizable=1');
+}
+
+// Speech Package Slideshow Functions
+let speechSlideIndex = 1;
+
+function changeSpeechSlide(n) {
+  showSpeechSlide(speechSlideIndex += n);
+}
+
+function currentSpeechSlide(n) {
+  showSpeechSlide(speechSlideIndex = n);
+}
+
+function showSpeechSlide(n) {
+  let slides = document.getElementsByClassName("speech-slide");
+  let dots = document.getElementsByClassName("dot");
+  
+  if (n > slides.length) {speechSlideIndex = 1}
+  if (n < 1) {speechSlideIndex = slides.length}
+  
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].style.backgroundColor = "rgba(255,255,255,0.5)";
+    dots[i].classList.remove("active");
+  }
+  
+  if (slides[speechSlideIndex-1]) {
+    slides[speechSlideIndex-1].style.display = "block";
+  }
+  if (dots[speechSlideIndex-1]) {
+    dots[speechSlideIndex-1].style.backgroundColor = "#007bff";
+    dots[speechSlideIndex-1].classList.add("active");
+  }
+}
+
+// Auto slideshow for speech package (optional - every 5 seconds)
+setInterval(() => {
+  changeSpeechSlide(1);
+}, 5000);
+
+// Cart functionality
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+function addToCart(packageId) {
+  const packages = {
+    'speech-package': {
+      name: 'Speech Package',
+      price: 300,
+      transport: 100
+    }
+  };
+  
+  const package = packages[packageId];
+  if (package) {
+    // Check if already in cart
+    const existingItem = cart.find(item => item.id === packageId);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({
+        id: packageId,
+        name: package.name,
+        price: package.price,
+        transport: package.transport,
+        quantity: 1
+      });
+    }
+    updateCartDisplay();
+    showCart();
+    
+    // Show success message
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+    btn.style.background = '#28a745';
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.style.background = '#28a745';
+    }, 2000);
+  }
+}
+
+function removeFromCart(packageId) {
+  cart = cart.filter(item => item.id !== packageId);
+  updateCartDisplay();
+}
+
+function updateCartDisplay() {
+  const cartItems = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const cartCount = document.getElementById('cart-count');
+  
+  if (cart.length === 0) {
+    cartItems.innerHTML = '<p style="color: #666; margin: 0; text-align: center;">Your cart is empty</p>';
+    cartTotal.innerHTML = 'Total: $0';
+    cartCount.style.display = 'none';
+  } else {
+    let total = 0;
+    let itemCount = 0;
+    cartItems.innerHTML = cart.map(item => {
+      const itemTotal = (item.price + item.transport) * item.quantity;
+      total += itemTotal;
+      itemCount += item.quantity;
+      return `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee;">
+          <div>
+            <div style="font-weight: 600; font-size: 0.9rem;">${item.name}</div>
+            <div style="font-size: 0.8rem; color: #666;">$${item.price + item.transport}/day × ${item.quantity}</div>
+          </div>
+          <button onclick="removeFromCart('${item.id}')" style="background: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 12px;">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `;
+    }).join('');
+    
+    cartTotal.innerHTML = `Total: $${total}`;
+    cartCount.innerHTML = itemCount;
+    cartCount.style.display = 'flex';
+  }
+  
+  // Save cart to localStorage whenever it's updated
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function toggleCart() {
+  const cartSection = document.getElementById('cart-section');
+  const cartToggle = document.getElementById('cart-toggle');
+  
+  if (cartSection.style.display === 'none' || cartSection.style.display === '') {
+    cartSection.style.display = 'block';
+    cartToggle.style.display = 'none';
+  } else {
+    cartSection.style.display = 'none';
+    cartToggle.style.display = 'block';
+  }
+}
+
+function showCart() {
+  const cartSection = document.getElementById('cart-section');
+  const cartToggle = document.getElementById('cart-toggle');
+  cartSection.style.display = 'block';
+  cartToggle.style.display = 'none';
+}
+
+function proceedToCheckout() {
+  if (cart.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  
+  // Save cart to localStorage
+  localStorage.setItem('cart', JSON.stringify(cart));
+  
+  // Check if user is logged in
+  const currentUser = CustomerAPI.getCurrentUser();
+  if (currentUser) {
+    // User is logged in, go to final checkout
+    window.location.href = 'final-checkout.html';
+  } else {
+    // User not logged in, go to regular checkout to login/signup
+    window.location.href = 'checkout.html';
+  }
+}
+</script>
+
+<script>
+// Background slideshow for services section (if images exist)
+const bgImages = [
+  "images/equipment1.png",
+  "images/equipment2.png", 
+  "images/equipment3.png"
+];
+
+const servicesSection = document.querySelector('.services-bg-slideshow');
+if (servicesSection) {
+  bgImages.forEach((src, idx) => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.className = 'bg-slide-img' + (idx === 0 ? ' active' : '');
+    servicesSection.prepend(img);
+  });
+
+  let bgIndex = 0;
+  setInterval(() => {
+    const slides = document.querySelectorAll('.services-bg-slideshow .bg-slide-img');
+    if (slides.length > 0) {
+      slides.forEach((img, i) => img.classList.remove('active'));
+      bgIndex = (bgIndex + 1) % slides.length;
+      slides[bgIndex].classList.add('active');
+    }
+  }, 6000);
+}
+
+// Initialize account integration
+document.addEventListener('DOMContentLoaded', function() {
+  AccountWidget.init();
+  loadUserCart();
+  updateCartDisplay(); // Initialize cart display on page load
+});
+
+function loadUserCart() {
+  const currentUser = CustomerAPI.getCurrentUser();
+  if (currentUser) {
+    // Load user's persistent cart
+    const savedCart = CustomerAPI.getCart(currentUser.id);
+    if (savedCart.length > 0 && (!localStorage.getItem('cart') || JSON.parse(localStorage.getItem('cart')).length === 0)) {
+      localStorage.setItem('cart', JSON.stringify(savedCart));
+      updateCartDisplay();
+    }
+  }
+}
+</script>

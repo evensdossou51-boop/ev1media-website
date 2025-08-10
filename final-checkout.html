@@ -1,0 +1,543 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Checkout - EV1 Media</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="customer-database.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .checkout-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .checkout-header h1 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .order-summary {
+            margin-bottom: 30px;
+        }
+
+        .order-summary h3 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-details h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .item-details p {
+            color: #666;
+            font-size: 14px;
+            margin: 2px 0;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 16px;
+        }
+
+        .total-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .total-final {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            border-top: 2px solid #007bff;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .payment-section {
+            margin: 30px 0;
+        }
+
+        .payment-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover,
+        .payment-method.selected {
+            border-color: #007bff;
+            background: #f8f9fa;
+        }
+
+        .payment-method i {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .contact-info h4 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #856404;
+            transition: background 0.3s;
+        }
+
+        .contact-method:hover {
+            background: #f8f9fa;
+            color: #007bff;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #218838;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .order-notes {
+            margin: 20px 0;
+        }
+
+        .order-notes textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .order-notes textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <!-- Header -->
+        <div class="checkout-header">
+            <h1><i class="fas fa-credit-card"></i> Final Checkout</h1>
+            <p>Review your order and complete your purchase</p>
+        </div>
+
+        <!-- User Information -->
+        <div class="user-info">
+            <div class="user-avatar" id="userAvatar">
+                <span id="userInitials">JD</span>
+            </div>
+            <div>
+                <h3 id="userName">Loading...</h3>
+                <p id="userEmail">Loading...</p>
+                <p style="font-size: 14px; color: #666;">Account verified and ready to order</p>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h3><i class="fas fa-shopping-cart"></i> Order Summary</h3>
+            <div id="orderItems">
+                <!-- Items will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Total Section -->
+        <div class="total-section">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">$0.00</span>
+            </div>
+            <div class="total-row">
+                <span>Transportation:</span>
+                <span id="transportation">$0.00</span>
+            </div>
+            <div class="total-row">
+                <span>Tax (8.5%):</span>
+                <span id="tax">$0.00</span>
+            </div>
+            <div class="total-row total-final">
+                <span>Total:</span>
+                <span id="finalTotal">$0.00</span>
+            </div>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="payment-section">
+            <h3><i class="fas fa-credit-card"></i> Complete Your Order</h3>
+            <div class="payment-methods">
+                <div class="payment-method selected" data-method="contact">
+                    <i class="fas fa-phone"></i>
+                    <h4>Contact to Complete</h4>
+                    <p>Call or message us to finalize payment and schedule delivery</p>
+                </div>
+                <div class="payment-method" data-method="quote">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h4>Request Quote</h4>
+                    <p>Get a detailed quote and payment options for your order</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h4><i class="fas fa-headset"></i> Contact Us to Complete Your Order</h4>
+            <div class="contact-methods">
+                <a href="tel:+12393516598" class="contact-method">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <div style="font-weight: 600;">Call Us</div>
+                        <div style="font-size: 14px;">(239) 351-6598</div>
+                    </div>
+                </a>
+                <a href="mailto:info@ev1media.com" class="contact-method">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <div style="font-weight: 600;">Email Us</div>
+                        <div style="font-size: 14px;">info@ev1media.com</div>
+                    </div>
+                </a>
+                <a href="https://wa.me/12393516598" target="_blank" class="contact-method">
+                    <i class="fab fa-whatsapp"></i>
+                    <div>
+                        <div style="font-weight: 600;">WhatsApp</div>
+                        <div style="font-size: 14px;">Quick Chat</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Order Notes -->
+        <div class="order-notes">
+            <h4><i class="fas fa-sticky-note"></i> Additional Notes (Optional)</h4>
+            <textarea id="orderNotes" placeholder="Any special requirements, delivery instructions, or additional services needed..."></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="account.html" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Account
+            </a>
+            <button onclick="submitOrder()" class="btn btn-primary">
+                <i class="fas fa-check"></i> Submit Order Request
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let orderData = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFinalCheckout();
+        });
+
+        function initializeFinalCheckout() {
+            currentUser = CustomerAPI.getCurrentUser();
+            
+            if (!currentUser) {
+                alert('Please log in to complete your order.');
+                window.location.href = 'checkout.html';
+                return;
+            }
+
+            loadUserInfo();
+            loadOrderSummary();
+            setupPaymentMethods();
+        }
+
+        function loadUserInfo() {
+            document.getElementById('userName').textContent = currentUser.firstName + ' ' + currentUser.lastName;
+            document.getElementById('userEmail').textContent = currentUser.email;
+            
+            const initials = (currentUser.firstName || '').charAt(0) + (currentUser.lastName || '').charAt(0);
+            document.getElementById('userInitials').textContent = initials;
+        }
+
+        function loadOrderSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const orderItemsContainer = document.getElementById('orderItems');
+            
+            if (cart.length === 0) {
+                orderItemsContainer.innerHTML = '<p style="text-align: center; color: #666;">No items in cart</p>';
+                return;
+            }
+
+            let subtotal = 0;
+            let transportation = 0;
+
+            orderItemsContainer.innerHTML = cart.map(item => {
+                const itemSubtotal = item.price * item.quantity;
+                const itemTransport = (item.transport || 0) * item.quantity;
+                subtotal += itemSubtotal;
+                transportation += itemTransport;
+
+                return `
+                    <div class="order-item">
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>Quantity: ${item.quantity}</p>
+                            <p>Rate: $${item.price}/day</p>
+                            ${item.transport ? `<p>Transportation: $${item.transport}/day</p>` : ''}
+                        </div>
+                        <div class="item-price">
+                            $${(itemSubtotal + itemTransport).toFixed(2)}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const tax = (subtotal + transportation) * 0.085;
+            const total = subtotal + transportation + tax;
+
+            document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('transportation').textContent = '$' + transportation.toFixed(2);
+            document.getElementById('tax').textContent = '$' + tax.toFixed(2);
+            document.getElementById('finalTotal').textContent = '$' + total.toFixed(2);
+
+            // Store order data for submission
+            orderData = {
+                items: cart,
+                subtotal: subtotal,
+                transportation: transportation,
+                tax: tax,
+                total: total,
+                notes: ''
+            };
+        }
+
+        function setupPaymentMethods() {
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    paymentMethods.forEach(m => m.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        }
+
+        function submitOrder() {
+            if (!currentUser || !orderData) {
+                alert('Error: Missing user or order data');
+                return;
+            }
+
+            // Get order notes
+            const notes = document.getElementById('orderNotes').value;
+            orderData.notes = notes;
+
+            // Get selected payment method
+            const selectedMethod = document.querySelector('.payment-method.selected');
+            const paymentMethod = selectedMethod ? selectedMethod.dataset.method : 'contact';
+
+            // Create order in database
+            const order = CustomerAPI.createOrder(currentUser.id, {
+                ...orderData,
+                paymentMethod: paymentMethod,
+                customerInfo: {
+                    name: currentUser.firstName + ' ' + currentUser.lastName,
+                    email: currentUser.email,
+                    phone: currentUser.phone
+                },
+                status: 'pending',
+                requestedAt: new Date().toISOString()
+            });
+
+            if (order) {
+                // Clear cart
+                localStorage.removeItem('cart');
+                CustomerAPI.saveCart(currentUser.id, []);
+
+                // Show success message
+                alert('Order submitted successfully! Order ID: ' + order.id + '\n\nWe will contact you shortly to confirm details and arrange payment.');
+
+                // Redirect to account page
+                window.location.href = 'account.html';
+            } else {
+                alert('Error submitting order. Please try again or contact us directly.');
+            }
+        }
+
+        // Add some visual feedback
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.contact-method')) {
+                const method = e.target.closest('.contact-method');
+                method.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    method.style.transform = 'scale(1)';
+                }, 150);
+            }
+        });
+    </script>
+</body>
+</html>

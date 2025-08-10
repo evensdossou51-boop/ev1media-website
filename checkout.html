@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - EV1 Media</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Customer database will be loaded inline for now -->
+    <!-- Google Sign-In will be loaded conditionally -->
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .checkout-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .order-summary {
+            background: #f8f9fa;
+            padding: 40px;
+            border-right: 1px solid #e9ecef;
+        }
+
+        .order-summary h2 {
+            color: #007bff;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .item-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .item-info p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .total-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #007bff;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total-final {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .checkout-form {
+            padding: 40px;
+        }
+
+        .checkout-form h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .auth-section {
+            margin-bottom: 40px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+            background: transparent;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .auth-tab:hover {
+            background: #f8f9fa;
+            color: #007bff;
+        }
+
+        .auth-tab.active {
+            color: #007bff;
+            border-bottom-color: #007bff;
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .auth-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .auth-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .google-signin {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #dee2e6;
+            z-index: 1;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-group input:valid {
+            border-color: #28a745;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .password-requirements {
+            margin-top: 8px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            font-size: 12px;
+            border-left: 3px solid #dee2e6;
+        }
+
+        .password-requirements.show {
+            display: block;
+        }
+
+        .password-requirements.hide {
+            display: none;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin: 4px 0;
+            color: #666;
+        }
+
+        .requirement.valid {
+            color: #28a745;
+        }
+
+        .requirement.invalid {
+            color: #dc3545;
+        }
+
+        .requirement i {
+            margin-right: 8px;
+            font-size: 10px;
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .strength-weak { background: #dc3545; width: 25%; }
+        .strength-fair { background: #ffc107; width: 50%; }
+        .strength-good { background: #17a2b8; width: 75%; }
+        .strength-strong { background: #28a745; width: 100%; }
+
+        #verificationCode {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        #verificationCode:focus {
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+        }
+
+        .resend-options {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .resend-options button {
+            background: none;
+            border: none;
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background 0.2s;
+        }
+
+        .resend-options button:hover {
+            background: rgba(0, 123, 255, 0.1);
+            text-decoration: none;
+        }
+
+        .phone-verify-icon {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .checkout-btn:hover {
+            background: #218838;
+        }
+
+        .checkout-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #007bff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+
+        .back-link i {
+            margin-right: 8px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+            
+            .order-summary {
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <!-- Order Summary Section -->
+        <div class="order-summary">
+            <a href="sound-rental.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Services
+            </a>
+            
+            <h2><i class="fas fa-shopping-cart"></i> Order Summary</h2>
+            
+            <div id="orderItems">
+                <!-- Cart items will be loaded here -->
+            </div>
+            
+            <div class="total-section">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Tax (8.5%):</span>
+                    <span id="tax">$0.00</span>
+                </div>
+                <div class="total-row total-final">
+                    <span>Total:</span>
+                    <span id="finalTotal">$0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Form Section -->
+        <div class="checkout-form">
+            <h2><i class="fas fa-user-plus"></i> Account & Checkout</h2>
+            
+            <div class="auth-section">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" onclick="switchTab('signin')">Sign In</div>
+                    <div class="auth-tab" onclick="switchTab('signup')">Sign Up</div>
+                </div>
+                
+                <!-- Sign In Tab -->
+                <div id="signin" class="auth-content active">
+                    <form id="signinForm">
+                        <div class="form-group">
+                            <label for="signinEmail">Email Address</label>
+                            <input type="email" id="signinEmail" placeholder="Enter your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signinPassword">Password</label>
+                            <input type="password" id="signinPassword" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="checkout-btn">Sign In</button>
+                    </form>
+                </div>
+                
+                <!-- Sign Up Tab -->
+                <div id="signup" class="auth-content">
+                    <form id="signupForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" placeholder="Enter your first name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" placeholder="Enter your last name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Enter your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Enter your phone number (e.g., +1234567890)" required pattern="[\+]?[0-9\s\-\(\)]+">
+                            <div class="error-message" id="phoneError" style="display: none;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="Create a secure password" required>
+                            <div class="password-requirements hide" id="passwordRequirements">
+                                <div class="requirement" id="lengthReq">
+                                    <i class="fas fa-times"></i> At least 8 characters
+                                </div>
+                                <div class="requirement" id="uppercaseReq">
+                                    <i class="fas fa-times"></i> One uppercase letter
+                                </div>
+                                <div class="requirement" id="lowercaseReq">
+                                    <i class="fas fa-times"></i> One lowercase letter
+                                </div>
+                                <div class="requirement" id="numberReq">
+                                    <i class="fas fa-times"></i> One number
+                                </div>
+                                <div class="requirement" id="specialReq">
+                                    <i class="fas fa-times"></i> One special character (!@#$%^&*)
+                                </div>
+                            </div>
+                            <div class="password-strength">
+                                <div class="password-strength-bar" id="strengthBar"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                        </div>
+                        <button type="submit" class="checkout-btn" id="signupButton">
+                            <i class="fas fa-user-plus"></i> Create Account & Continue
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Phone Verification Tab -->
+                <div id="phone-verify" class="auth-content" style="display: none;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <i class="fas fa-mobile-alt phone-verify-icon" style="font-size: 48px; color: #007bff; margin-bottom: 15px;"></i>
+                        <h3 style="color: #333; margin-bottom: 10px;">Verify Your Phone Number</h3>
+                        <p style="color: #666; font-size: 14px;">We've sent a 6-digit verification code to <span id="verifyPhoneNumber" style="font-weight: 600; color: #007bff;"></span></p>
+                    </div>
+                    
+                    <form id="verifyForm">
+                        <div class="form-group">
+                            <label for="verificationCode">Verification Code</label>
+                            <input type="text" id="verificationCode" placeholder="000000" required maxlength="6" pattern="[0-9]{6}" style="text-align: center; font-size: 24px; letter-spacing: 0.3em; padding: 20px;">
+                            <div class="error-message" id="verifyError" style="display: none;"></div>
+                            <div class="success-message" id="verifySuccess" style="display: none;"></div>
+                        </div>
+                        
+                        <button type="submit" class="checkout-btn">
+                            <i class="fas fa-check"></i> Verify & Create Account
+                        </button>
+                        
+                        <div class="resend-options">
+                            <button type="button" onclick="resendCode()">
+                                <i class="fas fa-redo"></i> Resend Code
+                            </button>
+                            <span style="color: #666;">|</span>
+                            <button type="button" onclick="editPhoneNumber()">
+                                <i class="fas fa-edit"></i> Edit Phone Number
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="checkoutSection" style="display: none;">
+                <h3 style="color: #333; margin-bottom: 20px;">Complete Your Order</h3>
+                <button onclick="completeOrder()" class="checkout-btn">
+                    <i class="fas fa-credit-card"></i> Complete Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Customer Database Management System (Inline)
+        class CustomerDatabase {
+            constructor() {
+                this.customers = this.loadCustomers();
+                this.orders = this.loadOrders();
+                this.carts = this.loadCarts();
+            }
+
+            loadCustomers() {
+                return JSON.parse(localStorage.getItem('customers') || '[]');
+            }
+
+            loadOrders() {
+                return JSON.parse(localStorage.getItem('orders') || '[]');
+            }
+
+            loadCarts() {
+                return JSON.parse(localStorage.getItem('persistent_carts') || '{}');
+            }
+
+            saveCustomers() {
+                localStorage.setItem('customers', JSON.stringify(this.customers));
+            }
+
+            saveOrders() {
+                localStorage.setItem('orders', JSON.stringify(this.orders));
+            }
+
+            saveCarts() {
+                localStorage.setItem('persistent_carts', JSON.stringify(this.carts));
+            }
+
+            createCustomer(customerData) {
+                const customer = {
+                    id: Date.now().toString(),
+                    ...customerData,
+                    profilePicture: null,
+                    createdAt: new Date().toISOString(),
+                    lastLogin: new Date().toISOString(),
+                    isActive: true
+                };
+
+                this.customers.push(customer);
+                this.saveCustomers();
+                return customer;
+            }
+
+            getCustomer(customerId) {
+                return this.customers.find(c => c.id === customerId);
+            }
+
+            getCustomerByEmail(email) {
+                return this.customers.find(c => c.email === email);
+            }
+
+            updateCustomer(customerId, updateData) {
+                const customerIndex = this.customers.findIndex(c => c.id === customerId);
+                if (customerIndex !== -1) {
+                    this.customers[customerIndex] = { ...this.customers[customerIndex], ...updateData };
+                    this.saveCustomers();
+                    return this.customers[customerIndex];
+                }
+                return null;
+            }
+
+            createOrder(customerId, orderData) {
+                const order = {
+                    id: Date.now().toString(),
+                    customerId: customerId,
+                    ...orderData,
+                    status: 'pending',
+                    createdAt: new Date().toISOString()
+                };
+
+                this.orders.push(order);
+                this.saveOrders();
+                return order;
+            }
+
+            getCustomerOrders(customerId) {
+                return this.orders.filter(o => o.customerId === customerId);
+            }
+
+            saveCustomerCart(customerId, cartItems) {
+                this.carts[customerId] = {
+                    items: cartItems,
+                    lastUpdated: new Date().toISOString()
+                };
+                this.saveCarts();
+            }
+
+            getCustomerCart(customerId) {
+                return this.carts[customerId]?.items || [];
+            }
+
+            clearCustomerCart(customerId) {
+                delete this.carts[customerId];
+                this.saveCarts();
+            }
+
+            authenticateCustomer(email, password) {
+                const customer = this.getCustomerByEmail(email);
+                if (customer && customer.password === password) {
+                    customer.lastLogin = new Date().toISOString();
+                    this.updateCustomer(customer.id, customer);
+                    return customer;
+                }
+                return null;
+            }
+
+            setCurrentUser(customer) {
+                localStorage.setItem('currentUser', JSON.stringify(customer));
+                const tempCart = JSON.parse(localStorage.getItem('cart') || '[]');
+                if (tempCart.length > 0) {
+                    this.saveCustomerCart(customer.id, tempCart);
+                    localStorage.removeItem('cart');
+                }
+            }
+
+            getCurrentUser() {
+                return JSON.parse(localStorage.getItem('currentUser') || 'null');
+            }
+
+            logout() {
+                const currentUser = this.getCurrentUser();
+                if (currentUser) {
+                    const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    if (currentCart.length > 0) {
+                        this.saveCustomerCart(currentUser.id, currentCart);
+                    }
+                }
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('cart');
+            }
+        }
+
+        // Initialize global database instance
+        window.customerDB = new CustomerDatabase();
+
+        // Utility functions for easy access
+        window.CustomerAPI = {
+            login: (email, password) => customerDB.authenticateCustomer(email, password),
+            logout: () => customerDB.logout(),
+            getCurrentUser: () => customerDB.getCurrentUser(),
+            register: (customerData) => customerDB.createCustomer(customerData),
+            updateProfile: (customerId, data) => customerDB.updateCustomer(customerId, data),
+            saveCart: (customerId, items) => customerDB.saveCustomerCart(customerId, items),
+            getCart: (customerId) => customerDB.getCustomerCart(customerId),
+            getOrders: (customerId) => customerDB.getCustomerOrders(customerId),
+            createOrder: (customerId, orderData) => customerDB.createOrder(customerId, orderData)
+        };
+
+        // Password validation functions
+        function validatePassword(password) {
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /\d/.test(password),
+                special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+            };
+            
+            return requirements;
+        }
+
+        function updatePasswordRequirements(password) {
+            const requirements = validatePassword(password);
+            const requirementsDiv = document.getElementById('passwordRequirements');
+            
+            // Show requirements when user starts typing
+            if (password.length > 0) {
+                requirementsDiv.className = 'password-requirements show';
+            } else {
+                requirementsDiv.className = 'password-requirements hide';
+            }
+            
+            // Update each requirement
+            Object.keys(requirements).forEach(req => {
+                const element = document.getElementById(req + 'Req');
+                const icon = element.querySelector('i');
+                
+                if (requirements[req]) {
+                    element.className = 'requirement valid';
+                    icon.className = 'fas fa-check';
+                } else {
+                    element.className = 'requirement invalid';
+                    icon.className = 'fas fa-times';
+                }
+            });
+            
+            // Update strength bar
+            updatePasswordStrength(requirements);
+        }
+
+        function updatePasswordStrength(requirements) {
+            const strengthBar = document.getElementById('strengthBar');
+            const validCount = Object.values(requirements).filter(Boolean).length;
+            
+            strengthBar.className = 'password-strength-bar';
+            
+            if (validCount <= 1) {
+                strengthBar.classList.add('strength-weak');
+            } else if (validCount <= 3) {
+                strengthBar.classList.add('strength-fair');
+            } else if (validCount <= 4) {
+                strengthBar.classList.add('strength-good');
+            } else {
+                strengthBar.classList.add('strength-strong');
+            }
+        }
+
+        function isPasswordValid(password) {
+            const requirements = validatePassword(password);
+            return Object.values(requirements).every(Boolean);
+        }
+
+        // Load cart items from localStorage
+        function loadCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderItemsContainer = document.getElementById('orderItems');
+            
+            if (cart.length === 0) {
+                orderItemsContainer.innerHTML = '<p style="color: #666; text-align: center;">Your cart is empty</p>';
+                document.querySelector('.checkout-btn').disabled = true;
+                return;
+            }
+
+            let subtotal = 0;
+            orderItemsContainer.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div class="item-info">
+                        <h4>${item.name}</h4>
+                        <p>Quantity: ${item.quantity}</p>
+                    </div>
+                    <div class="item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                `;
+                orderItemsContainer.appendChild(itemElement);
+                subtotal += item.price * item.quantity;
+            });
+
+            const tax = subtotal * 0.085;
+            const total = subtotal + tax;
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('finalTotal').textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Switch between sign in and sign up tabs
+        function switchTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector(`.auth-tab:nth-child(${tab === 'signin' ? '1' : '2'})`).classList.add('active');
+            document.getElementById(tab).classList.add('active');
+        }
+
+        // Phone verification variables
+        let pendingUserData = null;
+        let verificationCode = null;
+        let verificationAttempts = 0;
+        const maxAttempts = 3;
+
+        // Generate random 6-digit verification code
+        function generateVerificationCode() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        // Simulate sending SMS (in production, integrate with SMS service like Twilio)
+        function sendVerificationCode(phoneNumber, code) {
+            console.log(`Sending verification code ${code} to ${phoneNumber}`);
+            // In production, you would make an API call to your SMS service
+            // For demo purposes, we'll show the code in an alert
+            alert(`Verification code sent to ${phoneNumber}: ${code}\n\nIn production, this would be sent via SMS.`);
+            return true;
+        }
+
+        // Format phone number for display
+        function formatPhoneNumber(phone) {
+            // Simple formatting for display
+            const cleaned = phone.replace(/\D/g, '');
+            if (cleaned.length === 11 && cleaned.startsWith('1')) {
+                return `+1 (${cleaned.slice(1, 4)}) ${cleaned.slice(4, 7)}-${cleaned.slice(7)}`;
+            } else if (cleaned.length === 10) {
+                return `+1 (${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+            }
+            return phone;
+        }
+
+        // Validate phone number
+        function validatePhoneNumber(phone) {
+            const cleaned = phone.replace(/\D/g, '');
+            return cleaned.length >= 10 && cleaned.length <= 15;
+        }
+
+        // Handle sign up form
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            console.log('Signup form submitted'); // Debug log
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const phone = document.getElementById('phone').value;
+            
+            console.log('Password validation starting...'); // Debug log
+            
+            // Validate phone number
+            if (!validatePhoneNumber(phone)) {
+                const phoneError = document.getElementById('phoneError');
+                phoneError.textContent = 'Please enter a valid phone number (10-15 digits)';
+                phoneError.style.display = 'block';
+                return;
+            } else {
+                document.getElementById('phoneError').style.display = 'none';
+            }
+            
+            // Validate password strength
+            if (!isPasswordValid(password)) {
+                alert('Please ensure your password meets all requirements.');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            console.log('Creating user data...'); // Debug log
+
+            // Store user data temporarily (don't create account yet)
+            pendingUserData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: phone,
+                password: password,
+                authMethod: 'email'
+            };
+
+            console.log('User data prepared:', pendingUserData); // Debug log
+
+            // Generate and send verification code
+            verificationCode = generateVerificationCode();
+            verificationAttempts = 0;
+            
+            if (sendVerificationCode(phone, verificationCode)) {
+                // Show phone verification section
+                showPhoneVerification();
+            } else {
+                alert('Failed to send verification code. Please try again.');
+            }
+        });
+
+        // Show phone verification step
+        function showPhoneVerification() {
+            // Hide signup form
+            document.querySelectorAll('.auth-content').forEach(content => {
+                content.classList.remove('active');
+                content.style.display = 'none';
+            });
+            
+            // Show verification form
+            const verifySection = document.getElementById('phone-verify');
+            verifySection.style.display = 'block';
+            verifySection.classList.add('active');
+            
+            // Update phone number display
+            document.getElementById('verifyPhoneNumber').textContent = formatPhoneNumber(pendingUserData.phone);
+            
+            // Focus on verification code input
+            document.getElementById('verificationCode').focus();
+        }
+
+        // Handle phone verification
+        document.getElementById('verifyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const enteredCode = document.getElementById('verificationCode').value;
+            const verifyError = document.getElementById('verifyError');
+            const verifySuccess = document.getElementById('verifySuccess');
+            
+            // Hide previous messages
+            verifyError.style.display = 'none';
+            verifySuccess.style.display = 'none';
+            
+            if (enteredCode === verificationCode) {
+                // Verification successful
+                verifySuccess.textContent = 'Phone number verified successfully!';
+                verifySuccess.style.display = 'block';
+                
+                // Create account
+                try {
+                    const customer = CustomerAPI.register(pendingUserData);
+                    console.log('Customer created:', customer); // Debug log
+                    
+                    customerDB.setCurrentUser(customer);
+                    console.log('Current user set, redirecting...'); // Debug log
+                    
+                    // Check if user has items in cart and redirect accordingly
+                    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    if (cart.length > 0) {
+                        alert('Account created and verified successfully! Redirecting to checkout...');
+                        window.location.href = 'final-checkout.html';
+                    } else {
+                        alert('Account created and verified successfully! Redirecting to your account...');
+                        window.location.href = 'account.html';
+                    }
+                } catch (error) {
+                    console.error('Error creating account:', error);
+                    verifyError.textContent = 'Error creating account. Please try again.';
+                    verifyError.style.display = 'block';
+                }
+            } else {
+                // Verification failed
+                verificationAttempts++;
+                
+                if (verificationAttempts >= maxAttempts) {
+                    verifyError.textContent = `Too many failed attempts. Please request a new code.`;
+                    document.getElementById('verificationCode').disabled = true;
+                    document.querySelector('#verifyForm button[type="submit"]').disabled = true;
+                } else {
+                    const remainingAttempts = maxAttempts - verificationAttempts;
+                    verifyError.textContent = `Invalid code. ${remainingAttempts} attempt(s) remaining.`;
+                }
+                verifyError.style.display = 'block';
+                
+                // Clear the input
+                document.getElementById('verificationCode').value = '';
+            }
+        });
+
+        // Resend verification code
+        function resendCode() {
+            if (!pendingUserData) return;
+            
+            verificationCode = generateVerificationCode();
+            verificationAttempts = 0;
+            
+            // Re-enable inputs if they were disabled
+            document.getElementById('verificationCode').disabled = false;
+            document.querySelector('#verifyForm button[type="submit"]').disabled = false;
+            document.getElementById('verificationCode').value = '';
+            
+            // Hide error messages
+            document.getElementById('verifyError').style.display = 'none';
+            document.getElementById('verifySuccess').style.display = 'none';
+            
+            if (sendVerificationCode(pendingUserData.phone, verificationCode)) {
+                alert('New verification code sent!');
+            } else {
+                alert('Failed to resend code. Please try again.');
+            }
+        }
+
+        // Edit phone number (go back to signup form)
+        function editPhoneNumber() {
+            // Hide verification form
+            document.getElementById('phone-verify').style.display = 'none';
+            document.getElementById('phone-verify').classList.remove('active');
+            
+            // Show signup form
+            document.getElementById('signup').style.display = 'block';
+            document.getElementById('signup').classList.add('active');
+            
+            // Focus on phone input
+            document.getElementById('phone').focus();
+            document.getElementById('phone').select();
+        }
+
+        // Handle sign in form
+        document.getElementById('signinForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('signinEmail').value;
+            const password = document.getElementById('signinPassword').value;
+            
+            // Authenticate using database
+            const customer = CustomerAPI.login(email, password);
+            
+            if (customer) {
+                customerDB.setCurrentUser(customer);
+                // If user has items in cart, redirect to final checkout
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                if (cart.length > 0) {
+                    window.location.href = 'final-checkout.html';
+                } else {
+                    window.location.href = 'account.html';
+                }
+            } else {
+                alert('Invalid credentials. Please try again or sign up.');
+            }
+        });
+
+        // Save user data to localStorage (and prepare for database)
+        function saveUserData(userData) {
+            // Save to localStorage (client-side storage)
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push(userData);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+            
+            // In production, you would send this data to your backend server
+            // fetch('/api/users', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(userData)
+            // });
+            
+            console.log('User data saved:', userData);
+        }
+
+        // Show checkout section after authentication
+        function showCheckoutSection() {
+            document.querySelector('.auth-section').style.display = 'none';
+            document.getElementById('checkoutSection').style.display = 'block';
+        }
+
+        // Complete the order
+        function completeOrder() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (!currentUser || cart.length === 0) {
+                alert('Please ensure you are signed in and have items in your cart.');
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.085;
+            const total = subtotal + tax;
+
+            const order = {
+                id: Date.now().toString(),
+                userId: currentUser.id,
+                items: cart,
+                subtotal: subtotal,
+                tax: tax,
+                total: total,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+
+            // Save order
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Clear cart
+            localStorage.removeItem('cart');
+
+            // Redirect to success page or show confirmation
+            alert(`Order placed successfully! Order ID: ${order.id}`);
+            window.location.href = 'sound-rental.html';
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, initializing...'); // Debug log
+            
+            loadCartItems();
+            
+            // Check if form exists
+            const signupForm = document.getElementById('signupForm');
+            console.log('Signup form found:', signupForm); // Debug log
+            
+            // Add password validation listeners
+            const passwordInput = document.getElementById('password');
+            if (passwordInput) {
+                console.log('Password input found'); // Debug log
+                passwordInput.addEventListener('input', function(e) {
+                    updatePasswordRequirements(e.target.value);
+                });
+                
+                passwordInput.addEventListener('focus', function(e) {
+                    if (e.target.value.length > 0) {
+                        document.getElementById('passwordRequirements').className = 'password-requirements show';
+                    }
+                });
+            } else {
+                console.log('Password input NOT found'); // Debug log
+            }
+        });
+    </script>
+</body>
+</html>
