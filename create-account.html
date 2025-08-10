@@ -806,134 +806,32 @@
             document.getElementById('finalTotal').textContent = `$${total.toFixed(2)}`;
         }
 
-        // Show authentication required message
-        function showAuthenticationRequired() {
-            const checkoutForm = document.querySelector('.checkout-form');
-            if (checkoutForm) {
-                checkoutForm.innerHTML = `
-                    <div style="text-align: center; padding: 40px;">
-                        <div style="font-size: 64px; color: #007bff; margin-bottom: 20px;">
-                            <i class="fas fa-user-lock"></i>
-                        </div>
-                        <h2 style="color: #333; margin-bottom: 15px;">Sign In Required</h2>
-                        <p style="color: #666; margin-bottom: 30px;">Please sign in or create an account to complete your order</p>
-                        
-                        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                            <a href="login.html?redirect=checkout" class="checkout-btn" style="text-decoration: none; display: inline-flex; align-items: center; min-width: 150px; justify-content: center;">
-                                <i class="fas fa-sign-in-alt"></i> Sign In
-                            </a>
-                            <a href="create-account.html?redirect=checkout" class="checkout-btn" style="text-decoration: none; display: inline-flex; align-items: center; min-width: 150px; justify-content: center; background: linear-gradient(135deg, #28a745, #20692b);">
-                                <i class="fas fa-user-plus"></i> Create Account
-                            </a>
-                        </div>
-                        
-                        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6;">
-                            <p style="color: #666; font-size: 14px;">
-                                <i class="fas fa-shield-alt"></i> Your cart is saved and will be restored after signing in
-                            </p>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        // Show checkout form for logged-in users
-        function showCheckoutForm() {
-            const currentUser = customerDB.getCurrentUser();
-            const checkoutForm = document.querySelector('.checkout-form');
+        // Switch between sign in and sign up tabs
+        function switchTab(tab) {
+            console.log('Switching to tab:', tab); // Debug log
             
-            if (checkoutForm && currentUser) {
-                checkoutForm.innerHTML = `
-                    <h2><i class="fas fa-credit-card"></i> Checkout</h2>
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
-                        <h3 style="color: #333; margin-bottom: 15px;">
-                            <i class="fas fa-user"></i> Signed in as: ${currentUser.firstName} ${currentUser.lastName}
-                        </h3>
-                        <p style="color: #666; margin-bottom: 10px;">
-                            <i class="fas fa-envelope"></i> ${currentUser.email}
-                        </p>
-                        <a href="account.html" style="color: #007bff; text-decoration: none;">
-                            <i class="fas fa-cog"></i> Manage Account
-                        </a>
-                    </div>
-                    
-                    <form id="checkoutForm">
-                        <div class="form-group">
-                            <label for="deliveryAddress">Delivery Address</label>
-                            <textarea id="deliveryAddress" placeholder="Enter delivery address for equipment setup" rows="3" style="width: 100%; padding: 15px; border: 1px solid #dee2e6; border-radius: 8px; font-size: 16px; resize: vertical;" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="eventDate">Event Date</label>
-                            <input type="date" id="eventDate" style="width: 100%; padding: 15px; border: 1px solid #dee2e6; border-radius: 8px; font-size: 16px;" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="specialRequests">Special Requests (Optional)</label>
-                            <textarea id="specialRequests" placeholder="Any special setup requirements or notes" rows="3" style="width: 100%; padding: 15px; border: 1px solid #dee2e6; border-radius: 8px; font-size: 16px; resize: vertical;"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="checkout-btn" style="width: 100%; margin-top: 20px;">
-                            <i class="fas fa-shopping-cart"></i> Place Order
-                        </button>
-                    </form>
-                `;
-                
-                // Add checkout form submission handler
-                document.getElementById('checkoutForm').addEventListener('submit', handleCheckoutSubmission);
-            }
-        }
-
-        // Handle checkout form submission
-        function handleCheckoutSubmission(e) {
-            e.preventDefault();
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-content').forEach(c => {
+                c.classList.remove('active');
+                c.style.display = 'none';
+            });
             
-            const currentUser = customerDB.getCurrentUser();
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                window.location.href = 'sound-rental.html';
-                return;
+            // Add active class to selected tab button
+            if (tab === 'signin') {
+                document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+            } else {
+                document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
             }
             
-            // Create order object
-            const order = {
-                customerId: currentUser.id,
-                items: cart,
-                deliveryAddress: document.getElementById('deliveryAddress').value,
-                eventDate: document.getElementById('eventDate').value,
-                specialRequests: document.getElementById('specialRequests').value,
-                orderDate: new Date().toISOString(),
-                status: 'pending',
-                total: calculateTotal(cart)
-            };
-            
-            // Save order
-            try {
-                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-                order.id = Date.now().toString();
-                orders.push(order);
-                localStorage.setItem('orders', JSON.stringify(orders));
-                
-                // Clear cart
-                localStorage.removeItem('cart');
-                
-                // Show success and redirect
-                alert('Order placed successfully! We will contact you shortly to confirm details.');
-                window.location.href = 'account.html';
-                
-            } catch (error) {
-                console.error('Error placing order:', error);
-                alert('Error placing order. Please try again.');
+            // Show selected content
+            const contentElement = document.getElementById(tab);
+            if (contentElement) {
+                contentElement.classList.add('active');
+                contentElement.style.display = 'block';
+            } else {
+                console.error('Content element not found:', tab);
             }
-        }
-
-        // Calculate cart total
-        function calculateTotal(cart) {
-            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.085; // 8.5% tax
-            return subtotal + tax;
         }
 
         // Email verification variables
@@ -1378,25 +1276,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Page loaded, initializing...'); // Debug log
             
-            // Initialize database
-            customerDB = new CustomerDatabase();
-            customerAPI = new CustomerAPI(customerDB);
-
-            // Initialize account widget
-            const accountWidget = new AccountWidget(customerDB);
-            accountWidget.render();
-
-            // Check if user is logged in
-            const currentUser = customerDB.getCurrentUser();
-            if (!currentUser) {
-                // User not logged in - show auth options
-                showAuthenticationRequired();
-                return;
-            }
-
-            // User is logged in - proceed with checkout
             loadCartItems();
-            showCheckoutForm();
             
             // Initialize tabs - make sure signin is active by default
             switchTab('signin');
