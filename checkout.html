@@ -803,11 +803,30 @@
 
         // Switch between sign in and sign up tabs
         function switchTab(tab) {
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.auth-content').forEach(c => c.classList.remove('active'));
+            console.log('Switching to tab:', tab); // Debug log
             
-            document.querySelector(`.auth-tab:nth-child(${tab === 'signin' ? '1' : '2'})`).classList.add('active');
-            document.getElementById(tab).classList.add('active');
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-content').forEach(c => {
+                c.classList.remove('active');
+                c.style.display = 'none';
+            });
+            
+            // Add active class to selected tab button
+            if (tab === 'signin') {
+                document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+            } else {
+                document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
+            }
+            
+            // Show selected content
+            const contentElement = document.getElementById(tab);
+            if (contentElement) {
+                contentElement.classList.add('active');
+                contentElement.style.display = 'block';
+            } else {
+                console.error('Content element not found:', tab);
+            }
         }
 
         // Email verification variables
@@ -1253,6 +1272,9 @@
             console.log('Page loaded, initializing...'); // Debug log
             
             loadCartItems();
+            
+            // Initialize tabs - make sure signin is active by default
+            switchTab('signin');
             
             // Check if form exists
             const signupForm = document.getElementById('signupForm');
