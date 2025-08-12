@@ -6,7 +6,6 @@
     <title>Sign In - EV1 Media</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
@@ -155,12 +154,6 @@
             margin-top: 5px;
         }
 
-        .success-message {
-            color: #28a745;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
         .back-link {
             text-align: center;
             margin-top: 30px;
@@ -176,36 +169,6 @@
 
         .back-link a:hover {
             text-decoration: underline;
-        }
-
-        /* Password requirements styling */
-        .password-requirements {
-            margin-top: 8px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            font-size: 12px;
-            display: none;
-        }
-
-        .password-requirements.show {
-            display: block;
-        }
-
-        .requirement {
-            display: flex;
-            align-items: center;
-            margin: 3px 0;
-            color: #dc3545;
-        }
-
-        .requirement.valid {
-            color: #28a745;
-        }
-
-        .requirement i {
-            width: 16px;
-            margin-right: 8px;
         }
     </style>
 </head>
@@ -256,28 +219,10 @@
                         <label for="email">Email Address</label>
                         <input type="email" id="email" placeholder="Enter your email address" required>
                         <div class="error-message" id="emailError" style="display: none;"></div>
-                        <small style="color: #666; font-size: 12px;">Your email will be used for account communications</small>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" id="password" placeholder="Create a secure password" required>
-                        <div class="password-requirements" id="passwordRequirements">
-                            <div class="requirement" id="lengthReq">
-                                <i class="fas fa-times"></i> At least 8 characters
-                            </div>
-                            <div class="requirement" id="uppercaseReq">
-                                <i class="fas fa-times"></i> One uppercase letter
-                            </div>
-                            <div class="requirement" id="lowercaseReq">
-                                <i class="fas fa-times"></i> One lowercase letter
-                            </div>
-                            <div class="requirement" id="numberReq">
-                                <i class="fas fa-times"></i> One number
-                            </div>
-                            <div class="requirement" id="specialReq">
-                                <i class="fas fa-times"></i> One special character (!@#$%^&*)
-                            </div>
-                        </div>
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword">Confirm Password</label>
@@ -299,22 +244,16 @@
     <script>
         let customerDB, customerAPI;
 
-        // Switch between Sign In and Sign Up tabs
         function switchTab(tabName) {
-            console.log('Switching to tab:', tabName);
-            
-            // Remove active class from all tabs
             document.querySelectorAll('.auth-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Hide all auth content
             document.querySelectorAll('.auth-content').forEach(content => {
                 content.classList.remove('active');
                 content.style.display = 'none';
             });
             
-            // Activate the selected tab
             const selectedTab = document.getElementById(tabName + 'Tab');
             const selectedContent = document.getElementById(tabName);
             
@@ -322,64 +261,19 @@
                 selectedTab.classList.add('active');
                 selectedContent.classList.add('active');
                 selectedContent.style.display = 'block';
-                console.log('Tab switched successfully to:', tabName);
-            } else {
-                console.error('Tab elements not found for:', tabName);
             }
         }
 
-        // Password validation functions
-        function validatePassword(password) {
-            const requirements = {
-                length: password.length >= 8,
-                uppercase: /[A-Z]/.test(password),
-                lowercase: /[a-z]/.test(password),
-                number: /\d/.test(password),
-                special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
-            };
-            
-            return requirements;
-        }
-
-        function updatePasswordRequirements(password) {
-            const requirements = validatePassword(password);
-            
-            document.getElementById('lengthReq').className = requirements.length ? 'requirement valid' : 'requirement';
-            document.getElementById('lengthReq').innerHTML = requirements.length ? '<i class="fas fa-check"></i> At least 8 characters' : '<i class="fas fa-times"></i> At least 8 characters';
-            
-            document.getElementById('uppercaseReq').className = requirements.uppercase ? 'requirement valid' : 'requirement';
-            document.getElementById('uppercaseReq').innerHTML = requirements.uppercase ? '<i class="fas fa-check"></i> One uppercase letter' : '<i class="fas fa-times"></i> One uppercase letter';
-            
-            document.getElementById('lowercaseReq').className = requirements.lowercase ? 'requirement valid' : 'requirement';
-            document.getElementById('lowercaseReq').innerHTML = requirements.lowercase ? '<i class="fas fa-check"></i> One lowercase letter' : '<i class="fas fa-times"></i> One lowercase letter';
-            
-            document.getElementById('numberReq').className = requirements.number ? 'requirement valid' : 'requirement';
-            document.getElementById('numberReq').innerHTML = requirements.number ? '<i class="fas fa-check"></i> One number' : '<i class="fas fa-times"></i> One number';
-            
-            document.getElementById('specialReq').className = requirements.special ? 'requirement valid' : 'requirement';
-            document.getElementById('specialReq').innerHTML = requirements.special ? '<i class="fas fa-check"></i> One special character (!@#$%^&*)' : '<i class="fas fa-times"></i> One special character (!@#$%^&*)';
-        }
-
-        function isPasswordValid(password) {
-            const requirements = validatePassword(password);
-            return Object.values(requirements).every(req => req === true);
-        }
-
-        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize database
             customerDB = new CustomerDatabase();
             customerAPI = new CustomerAPI(customerDB);
 
-            // Check if user is already logged in
             const currentUser = customerDB.getCurrentUser();
             if (currentUser) {
-                // Redirect to account page if already logged in
                 window.location.href = 'account.html';
                 return;
             }
 
-            // Add tab click listeners
             document.getElementById('signinTab').addEventListener('click', function() {
                 switchTab('signin');
             });
@@ -388,7 +282,6 @@
                 switchTab('signup');
             });
 
-            // Sign in form handler
             document.getElementById('signinForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -406,7 +299,6 @@
                 }
             });
 
-            // Sign up form handler
             document.getElementById('signupForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -414,7 +306,6 @@
                 const confirmPassword = document.getElementById('confirmPassword').value;
                 const email = document.getElementById('email').value;
                 
-                // Validate email format
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
                     const emailError = document.getElementById('emailError');
@@ -425,18 +316,11 @@
                     document.getElementById('emailError').style.display = 'none';
                 }
                 
-                // Validate password strength
-                if (!isPasswordValid(password)) {
-                    alert('Please ensure your password meets all requirements.');
-                    return;
-                }
-                
                 if (password !== confirmPassword) {
                     alert('Passwords do not match!');
                     return;
                 }
 
-                // Create user data
                 const userData = {
                     firstName: document.getElementById('firstName').value,
                     lastName: document.getElementById('lastName').value,
@@ -445,7 +329,6 @@
                     authMethod: 'email'
                 };
 
-                // Create account directly (no email verification)
                 try {
                     const customer = CustomerAPI.register(userData);
                     customerDB.setCurrentUser(customer);
@@ -457,20 +340,6 @@
                     alert('Error creating account. This email may already be registered. Please try signing in instead.');
                 }
             });
-
-            // Password validation listeners
-            const passwordInput = document.getElementById('password');
-            if (passwordInput) {
-                passwordInput.addEventListener('input', function(e) {
-                    updatePasswordRequirements(e.target.value);
-                });
-                
-                passwordInput.addEventListener('focus', function(e) {
-                    if (e.target.value.length > 0) {
-                        document.getElementById('passwordRequirements').className = 'password-requirements show';
-                    }
-                });
-            }
         });
     </script>
 </body>
