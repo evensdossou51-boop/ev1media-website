@@ -474,7 +474,7 @@
                             <label for="email">Email Address</label>
                             <input type="email" id="email" placeholder="Enter your email address" required>
                             <div class="error-message" id="emailError" style="display: none;"></div>
-                            <small style="color: #666; font-size: 12px;">We'll send a verification code to this email</small>
+                            <small style="color: #666; font-size: 12px;">Your email will be used for account communications</small>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
@@ -505,7 +505,7 @@
                             <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
                         </div>
                         <button type="submit" class="checkout-btn" id="signupButton">
-                            <i class="fas fa-user-plus"></i> Create Account & Continue
+                            <i class="fas fa-user-plus"></i> Create Account
                         </button>
                     </form>
                 </div>
@@ -1104,15 +1104,26 @@
 
             console.log('User data prepared:', pendingUserData); // Debug log
 
-            // Generate and send verification code
-            verificationCode = generateVerificationCode();
-            verificationAttempts = 0;
-            
-            if (sendEmailVerificationCode(email, verificationCode)) {
-                // Show email verification section
-                showEmailVerification();
-            } else {
-                alert('Failed to send verification code. Please try again.');
+            // BYPASSED: Email verification - create account directly
+            try {
+                // Create account immediately without verification
+                const customer = CustomerAPI.register(pendingUserData);
+                console.log('Customer created:', customer); // Debug log
+                
+                customerDB.setCurrentUser(customer);
+                
+                // Check if user has items in cart and redirect accordingly
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                if (cart.length > 0) {
+                    alert('Account created successfully! Proceeding to checkout...');
+                    showCheckoutSection();
+                } else {
+                    alert('Account created successfully! Welcome to EV1Media!');
+                    window.location.href = 'account.html';
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Error creating account. This email may already be registered. Please try signing in instead.');
             }
         });
 
@@ -1443,3 +1454,4 @@
     </script>
 </body>
 </html>
+
