@@ -936,6 +936,35 @@
             return subtotal + tax;
         }
 
+        // Switch between Sign In and Sign Up tabs
+        function switchTab(tabName) {
+            console.log('Switching to tab:', tabName); // Debug log
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Hide all auth content
+            document.querySelectorAll('.auth-content').forEach(content => {
+                content.classList.remove('active');
+                content.style.display = 'none';
+            });
+            
+            // Activate the selected tab
+            const selectedTab = document.getElementById(tabName + 'Tab');
+            const selectedContent = document.getElementById(tabName);
+            
+            if (selectedTab && selectedContent) {
+                selectedTab.classList.add('active');
+                selectedContent.classList.add('active');
+                selectedContent.style.display = 'block';
+                console.log('Tab switched successfully to:', tabName); // Debug log
+            } else {
+                console.error('Tab elements not found for:', tabName); // Debug log
+            }
+        }
+
         // Email verification variables
         let pendingUserData = null;
         let verificationCode = null;
