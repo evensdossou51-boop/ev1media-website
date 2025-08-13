@@ -208,21 +208,67 @@
     </div>
   </div>
     <div class="header-bar">
-      <a href="index.html" class="logo-text">
-        <img src="images/logo.jpg" alt="EV1Media Logo">
-        EV1Media
-      </a>
-      <nav>
-        <ul>
-          <li class="hide-mobile"><a href="#about">About</a></li>
-          <li class="hide-mobile"><a href="#services">Services</a></li>
-          <li class="hide-mobile"><a href="#contact">Contact</a></li>
-          <li class="account-item">
-            <!-- Account widget will be inserted here -->
-          </li>
-        </ul>
-      </nav>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+        <a href="index.html" class="logo-text">
+          <img src="images/logo.jpg" alt="EV1Media Logo">
+          EV1Media
+        </a>
+        <div class="header-icons">
+          <a href="login.html" aria-label="Account" style="color:#222;"><i class="fas fa-user" style="font-size:1.5rem;"></i></a>
+          <!-- <a href="#" aria-label="Cart" style="color:#222;"><i class="fas fa-shopping-cart" style="font-size:1.5rem;"></i></a> -->
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li class="hide-mobile"><a href="#services">Services</a></li>
+            <li class="hide-mobile"><a href="#contact">Contact</a></li>
+            <li class="account-item">
+              <!-- Account widget will be inserted here -->
+            </li>
+          </ul>
+        </nav>
     </div>
+      /* Mobile header layout */
+      @media (max-width: 600px) {
+        .header-bar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          background: #e6f01c; /* Example green, adjust as needed */
+          min-height: 60px;
+          box-shadow: none;
+          padding: 0;
+        }
+        .hamburger {
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 2;
+        }
+        .logo-text {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          font-size: 1.3rem;
+        }
+        .header-icons {
+          position: absolute;
+          right: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          z-index: 2;
+        }
+        nav ul { display: none !important; }
+      }
   </header>
   <main>
     <!-- Welcome Section -->
