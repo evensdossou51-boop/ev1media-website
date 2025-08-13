@@ -40,6 +40,11 @@
       padding: 0;
       align-items: center;
     }
+    /* Hide Services and Contact in header on mobile */
+    @media (max-width: 600px) {
+      nav ul li.hide-mobile { display: none !important; }
+    }
+    }
     nav ul li a {
       color: #222;
       text-decoration: none;
@@ -191,8 +196,8 @@
       <nav>
         <ul>
           <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li class="hide-mobile"><a href="#services">Services</a></li>
+          <li class="hide-mobile"><a href="#contact">Contact</a></li>
           <li class="account-item">
             <!-- Account widget will be inserted here -->
           </li>
@@ -326,19 +331,27 @@ document.addEventListener('DOMContentLoaded', function() {
   var mobileNav = document.getElementById('mobileNav');
   var closeMobileNav = document.getElementById('closeMobileNav');
   if (hamburgerBtn && mobileNav && closeMobileNav) {
+    function showMenu() {
+      mobileNav.style.display = 'block';
+      setTimeout(() => mobileNav.classList.add('active'), 10);
+    }
+    function hideMenu() {
+      mobileNav.classList.remove('active');
+      setTimeout(() => { mobileNav.style.display = 'none'; }, 200);
+    }
     hamburgerBtn.style.display = window.innerWidth <= 600 ? 'block' : 'none';
     window.addEventListener('resize', function() {
       hamburgerBtn.style.display = window.innerWidth <= 600 ? 'block' : 'none';
     });
-    hamburgerBtn.addEventListener('click', function() {
-      mobileNav.style.display = 'block';
-    });
-    closeMobileNav.addEventListener('click', function() {
-      mobileNav.style.display = 'none';
-    });
+    hamburgerBtn.addEventListener('click', showMenu);
+    closeMobileNav.addEventListener('click', hideMenu);
     mobileNav.addEventListener('click', function(e) {
-      if (e.target === mobileNav) mobileNav.style.display = 'none';
+      if (e.target === mobileNav) hideMenu();
     });
+    // Animate menu
+    var style = document.createElement('style');
+    style.innerHTML = `.mobile-nav.active .mobile-nav-content { transform: translateX(0); opacity: 1; transition: all 0.2s; } .mobile-nav .mobile-nav-content { transform: translateX(-100%); opacity: 0; transition: all 0.2s; }`;
+    document.head.appendChild(style);
   }
 });
 </script>
