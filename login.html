@@ -245,15 +245,20 @@
         let customerDB, customerAPI;
 
         function switchTab(tabName) {
+            console.log('Switching to tab:', tabName);
+            
+            // Remove active class from all tabs
             document.querySelectorAll('.auth-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
+            // Hide all content sections
             document.querySelectorAll('.auth-content').forEach(content => {
                 content.classList.remove('active');
                 content.style.display = 'none';
             });
             
+            // Activate selected tab and content
             const selectedTab = document.getElementById(tabName + 'Tab');
             const selectedContent = document.getElementById(tabName);
             
@@ -261,10 +266,15 @@
                 selectedTab.classList.add('active');
                 selectedContent.classList.add('active');
                 selectedContent.style.display = 'block';
+                console.log('Tab switched successfully to:', tabName);
+            } else {
+                console.error('Could not find tab elements for:', tabName);
             }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing...');
+            
             customerDB = new CustomerDatabase();
             customerAPI = new CustomerAPI(customerDB);
 
@@ -274,14 +284,25 @@
                 return;
             }
 
-            document.getElementById('signinTab').addEventListener('click', function() {
-                switchTab('signin');
-            });
+            // Tab switching event listeners
+            const signinTab = document.getElementById('signinTab');
+            const signupTab = document.getElementById('signupTab');
             
-            document.getElementById('signupTab').addEventListener('click', function() {
-                switchTab('signup');
-            });
+            if (signinTab) {
+                signinTab.addEventListener('click', function() {
+                    console.log('Sign In tab clicked');
+                    switchTab('signin');
+                });
+            }
+            
+            if (signupTab) {
+                signupTab.addEventListener('click', function() {
+                    console.log('Sign Up tab clicked');
+                    switchTab('signup');
+                });
+            }
 
+            // Form submissions
             document.getElementById('signinForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -340,6 +361,8 @@
                     alert('Error creating account. This email may already be registered. Please try signing in instead.');
                 }
             });
+            
+            console.log('All event listeners added successfully');
         });
     </script>
 </body>
