@@ -168,7 +168,9 @@
     @media (max-width: 600px) {
       .header-bar { padding: 8px 4px; }
       nav ul { display: none; }
-      .hamburger { display: block; }
+      .hamburger { display: block; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 2; }
+      .logo-text { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0 auto; display: flex; align-items: center; font-size: 1.3rem; }
+      .header-icons { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 18px; z-index: 2; }
       .welcome-section, .services-section, #about, #contact { padding: 10px 2px; margin: 0 0 18px 0; border-radius: 0; }
       .welcome-content h1 { font-size: 1.2rem; }
       .service-card, .welcome-feature { font-size: 0.98rem; }
