@@ -344,7 +344,7 @@ window.AccountWidget = {
         } else {
             // User is not logged in - show login with person icon
             accountItem.innerHTML = `
-                <a href="checkout.html" style="
+                <a href="login.html" style="
                     display: inline-flex;
                     align-items: center;
                     text-decoration: none;
