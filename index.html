@@ -19,10 +19,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 32px;
+      padding: 4px 12px;
       background: #fff;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       position: relative;
+      min-height: 44px;
     }
     .logo-text {
       display: flex;
@@ -239,7 +240,9 @@
         <img src="images/logo.jpg" alt="EV1Media Logo">
         EV1Media
       </a>
-      <!-- Removed login icon from header -->
+      <div class="header-icons" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); z-index:2;">
+        <a href="login.html" aria-label="Account" style="color:#222;"><i class="fas fa-user" style="font-size:1.5rem;"></i></a>
+      </div>
       <nav>
         <ul>
           <li class="hide-mobile"><a href="#about">About</a></li>
