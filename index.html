@@ -1,6 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+    /* General Responsive Styles */
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6fa;
+    }
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 32px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: relative;
+    }
+    .logo-text {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #222;
+      text-decoration: none;
+    }
+    .logo-text img {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+    nav ul {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+    nav ul li a {
+      color: #222;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+    nav ul li a:hover {
+      color: #007bff;
+    }
+    .account-item { min-width: 80px; }
+    /* Hamburger for mobile */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #007bff;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+    /* Mobile nav overlay */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+    }
+    .mobile-nav-content {
+      background: #fff;
+      width: 80vw;
+      max-width: 320px;
+      height: 100vh;
+      padding: 40px 20px 20px 20px;
+      box-shadow: 2px 0 20px rgba(0,0,0,0.15);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .mobile-nav-content a {
+      display: block;
+      padding: 18px 0;
+      color: #333;
+      font-size: 1.1rem;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+    }
+    .mobile-nav-content a:last-child { border-bottom: none; }
+    .mobile-nav-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 2rem;
+      color: #007bff;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    /* Responsive Section Styles */
+    .welcome-section, .services-section, #about, #contact {
+      max-width: 1100px;
+      margin: 0 auto 32px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      padding: 32px 40px;
+    }
+    .welcome-section { margin-top: 32px; }
+    .welcome-content h1 { font-size: 2.2rem; margin-bottom: 12px; }
+    .welcome-features { display: flex; gap: 32px; margin-top: 24px; }
+    .welcome-feature { flex: 1; text-align: center; }
+    .welcome-feature i { font-size: 2.2rem; color: #007bff; margin-bottom: 8px; }
+    .services-grid { display: flex; gap: 32px; }
+    .service-card { flex: 1; background: #f8f9fa; border-radius: 12px; padding: 24px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .service-icon-circle { width: 56px; height: 56px; border-radius: 50%; background: #eaf1fb; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; }
+    .service-icon-circle i { font-size: 2rem; color: #007bff; }
+    .about-flex { display: flex; gap: 32px; align-items: flex-start; }
+    .about-photo-block { min-width: 180px; text-align: center; }
+    .about-photo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; }
+    .about-team-info { font-size: 1rem; margin-bottom: 8px; }
+    /* Footer */
+    footer { text-align: center; padding: 32px 0 16px 0; background: #fff; margin-top: 32px; font-size: 1rem; color: #666; }
+    .whatsapp-btn { position: fixed; bottom: 24px; right: 24px; background: #25d366; color: #fff; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 10000; }
+    .whatsapp-btn:hover { background: #128c7e; }
+    /* Mobile Styles */
+    @media (max-width: 800px) {
+      .header-bar { padding: 10px 12px; }
+      .welcome-section, .services-section, #about, #contact { padding: 18px 6px; border-radius: 0; }
+      .about-flex { flex-direction: column; gap: 12px; }
+      .services-grid, .welcome-features { flex-direction: column; gap: 18px; }
+      .service-card, .welcome-feature { padding: 16px 8px; }
+      .about-photo { width: 100px; height: 100px; }
+    }
+    @media (max-width: 600px) {
+      .header-bar { padding: 8px 4px; }
+      nav ul { display: none; }
+      .hamburger { display: block; }
+      .welcome-section, .services-section, #about, #contact { padding: 10px 2px; margin: 0 0 18px 0; border-radius: 0; }
+      .welcome-content h1 { font-size: 1.2rem; }
+      .service-card, .welcome-feature { font-size: 0.98rem; }
+      .about-photo { width: 70px; height: 70px; }
+      .whatsapp-btn { width: 44px; height: 44px; font-size: 1.3rem; bottom: 12px; right: 12px; }
+      .mobile-nav { display: none; }
+    }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EV1Media - Professional AV Solutions & Livestreaming | Florida</title>
@@ -26,6 +172,17 @@
 </head>
 <body>
   <header>
+  <!-- Hamburger for mobile -->
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-content">
+      <button class="mobile-nav-close" id="closeMobileNav" aria-label="Close menu">&times;</button>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
     <div class="header-bar">
       <a href="index.html" class="logo-text">
         <img src="images/logo.jpg" alt="EV1Media Logo">
@@ -162,6 +319,28 @@ function zforms_open_window(url, height, width){
   var topPos = (screen.height - height) / 2;
   window.open(url, null, 'width='+width+',height='+height+',left='+leftPos+',top='+topPos+',toolbar=0,location=0,status=1,scrollbars=1,resizable=1');
 }
+<script>
+// Hamburger menu logic for mobile
+document.addEventListener('DOMContentLoaded', function() {
+  var hamburgerBtn = document.getElementById('hamburgerBtn');
+  var mobileNav = document.getElementById('mobileNav');
+  var closeMobileNav = document.getElementById('closeMobileNav');
+  if (hamburgerBtn && mobileNav && closeMobileNav) {
+    hamburgerBtn.style.display = window.innerWidth <= 600 ? 'block' : 'none';
+    window.addEventListener('resize', function() {
+      hamburgerBtn.style.display = window.innerWidth <= 600 ? 'block' : 'none';
+    });
+    hamburgerBtn.addEventListener('click', function() {
+      mobileNav.style.display = 'block';
+    });
+    closeMobileNav.addEventListener('click', function() {
+      mobileNav.style.display = 'none';
+    });
+    mobileNav.addEventListener('click', function(e) {
+      if (e.target === mobileNav) mobileNav.style.display = 'none';
+    });
+  }
+});
 </script>
 <script>
 const bgImages = [
