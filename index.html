@@ -137,14 +137,21 @@
         max-width: 48%;
         box-sizing: border-box;
       }
-      /* Move Accessible up next to Faith-Driven, Professional below */
-      .welcome-feature:nth-child(1),
+      /* Faith-Driven and Accessible side by side, Professional below */
+      .welcome-feature:nth-child(1) {
+        order: 1;
+        flex-basis: 48%;
+        max-width: 48%;
+        margin: 0;
+      }
       .welcome-feature:nth-child(3) {
+        order: 2;
         flex-basis: 48%;
         max-width: 48%;
         margin: 0;
       }
       .welcome-feature:nth-child(2) {
+        order: 3;
         flex-basis: 100%;
         max-width: 100%;
         margin: 0 auto;
