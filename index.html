@@ -19,12 +19,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-    padding: 0 8px;
+      padding: 4px 12px;
       background: #fff;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       position: relative;
-    min-height: 32px;
-    height: 44px;
+      min-height: 44px;
     }
     .logo-text {
       display: flex;
@@ -35,10 +34,10 @@
       text-decoration: none;
     }
     .logo-text img {
-    width: 28px;
-    height: 28px;
+      width: 38px;
+      height: 38px;
       border-radius: 8px;
-    margin-right: 8px;
+      margin-right: 10px;
       max-width: 100%;
       height: auto;
       display: block;
@@ -51,7 +50,20 @@
       padding: 0;
       align-items: center;
     }
-  /* Desktop only: no mobile-specific nav hiding */
+    /* Hide nav links in header on mobile, show hamburger */
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      .hamburger { display: block !important; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 2; }
+      .logo-text { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0 auto; font-size: 1.1rem; }
+      .header-icons { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: 2; }
+      .header-bar { padding: 8px 4px; min-height: 36px; }
+      .welcome-section, .services-section, #about, #contact { padding: 10px 2px; margin: 0 0 8px 0; border-radius: 0; }
+      .welcome-content h1 { font-size: 1.1rem; }
+      .service-card, .welcome-feature { font-size: 0.95rem; }
+      .about-photo { width: 70px; height: 70px; }
+      .whatsapp-btn { width: 44px; height: 44px; font-size: 1.3rem; bottom: 12px; right: 12px; }
+      .mobile-nav { display: none; }
+    }
     nav ul li a {
       color: #222;
       text-decoration: none;
@@ -67,8 +79,53 @@
       color: #007bff;
     }
     .account-item { min-width: 80px; }
-  /* Desktop only: no hamburger menu */
-  /* Desktop only: no mobile nav overlay or mobile nav content */
+    /* Hamburger for mobile */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #007bff;
+      cursor: pointer;
+      margin-left: 8px;
+      min-width: 44px;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Mobile nav overlay */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+    }
+    .mobile-nav.active { display: block !important; }
+    .mobile-nav-content {
+      background: #fff;
+      width: 80vw;
+      max-width: 320px;
+      height: 100vh;
+      position: absolute;
+      left: 0; top: 0;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+      padding: 32px 18px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      font-size: 1.1rem;
+      z-index: 10000;
+    }
+    .mobile-nav-close {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #007bff;
+      cursor: pointer;
+      align-self: flex-end;
+      margin-bottom: 18px;
+    }
     .welcome-feature i { font-size: 2.2rem; color: #007bff; margin-bottom: 8px; }
     .services-grid { display: flex; gap: 32px; }
     .service-card { flex: 1; background: #f8f9fa; border-radius: 12px; padding: 24px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
@@ -82,9 +139,33 @@
     footer { text-align: center; padding: 32px 0 16px 0; background: #fff; margin-top: 32px; font-size: 1rem; color: #666; }
     .whatsapp-btn { position: fixed; bottom: 24px; right: 24px; background: #25d366; color: #fff; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 10000; }
     .whatsapp-btn:hover { background: #128c7e; }
-  /* Desktop only: no mobile styles */
+    /* Mobile Styles */
+    @media (max-width: 800px) {
+      .header-bar { padding: 10px 12px; }
+      .welcome-section, .services-section, #about, #contact { padding: 18px 6px; border-radius: 0; }
+      .about-flex { flex-direction: column; gap: 12px; }
+      .services-grid, .welcome-features { flex-direction: column; gap: 18px; }
+      .service-card, .welcome-feature { padding: 16px 8px; }
+      .about-photo { width: 100px; height: 100px; }
+    }
+    @media (max-width: 600px) {
+      .header-bar { padding: 8px 4px; }
+      nav ul { display: none; }
+      .hamburger { display: block !important; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 2; }
+      .logo-text { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0 auto; display: flex; align-items: center; font-size: 1.3rem; }
+      .header-icons { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 18px; z-index: 2; }
+      .welcome-section, .services-section, #about, #contact { padding: 10px 2px; margin: 0 0 8px 0; border-radius: 0; }
+      .welcome-content h1 { font-size: 1.2rem; }
+      .service-card, .welcome-feature { font-size: 0.98rem; }
+      .about-photo { width: 70px; height: 70px; }
+      .whatsapp-btn { width: 44px; height: 44px; font-size: 1.3rem; bottom: 12px; right: 12px; }
+      .mobile-nav { display: none; }
+    }
     /* Reduce welcome section vertical space for desktop */
-  /* .welcome-section { padding: 1px 2px !important; margin-top: 0 !important; } */
+    .welcome-section {
+      padding: 32px 12px;
+      margin-top: 0;
+    }
 /* --- Responsive & Accessibility Improvements --- */
 nav ul li a {
   color: #222;
@@ -159,19 +240,29 @@ nav ul li a {
 </head>
 <body>
   <header>
+    <!-- Mobile nav overlay -->
+    <div class="mobile-nav" id="mobileNav" style="display:none;">
+      <div class="mobile-nav-content">
+        <button class="mobile-nav-close" id="closeMobileNav" aria-label="Close menu">&times;</button>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
     <div class="header-bar">
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); z-index:2;"><i class="fas fa-bars"></i></button>
       <a href="index.html" class="logo-text">
         <img src="images/logo.jpg" alt="EV1Media Logo">
         EV1Media
       </a>
-      <div class="header-icons">
+      <div class="header-icons" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); z-index:2;">
         <a href="login.html" aria-label="Account" style="color:#222;"><i class="fas fa-user" style="font-size:1.5rem;"></i></a>
       </div>
       <nav>
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li class="hide-mobile"><a href="#about">About</a></li>
+          <li class="hide-mobile"><a href="#services">Services</a></li>
+          <li class="hide-mobile"><a href="#contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -240,7 +331,7 @@ nav ul li a {
       <h2>About Us</h2>
       <div class="about-flex">
         <div class="about-photo-block">
-          <img src="images/evens1.jpg" alt="Evens Dossou" class="about-photo">
+          <img src="images/evens.jpg" alt="Evens Dossou" class="about-photo">
           <div class="about-team-info">
             <strong>Evens Dossou</strong><br>
             CEO&nbsp;|&nbsp;EV1Media<br>
@@ -297,7 +388,31 @@ function zforms_open_window(url, height, width){
   var topPos = (screen.height - height) / 2;
   window.open(url, null, 'width='+width+',height='+height+',left='+leftPos+',top='+topPos+',toolbar=0,location=0,status=1,scrollbars=1,resizable=1');
 }
-// ...existing code...
+// Hamburger menu logic for mobile
+document.addEventListener('DOMContentLoaded', function() {
+  var hamburgerBtn = document.getElementById('hamburgerBtn');
+  var mobileNav = document.getElementById('mobileNav');
+  var closeMobileNav = document.getElementById('closeMobileNav');
+  if (hamburgerBtn && mobileNav && closeMobileNav) {
+    function showMenu() {
+      mobileNav.style.display = 'block';
+      setTimeout(function() { mobileNav.classList.add('active'); }, 10);
+    }
+    function hideMenu() {
+      mobileNav.classList.remove('active');
+      setTimeout(function() { mobileNav.style.display = 'none'; }, 200);
+    }
+    hamburgerBtn.style.display = window.innerWidth <= 600 ? 'block' : 'none';
+    window.addEventListener('resize', function() {
+      hamburgerBtn.style.display = window.innerWidth <= 600 ? 'block' : 'none';
+    });
+    hamburgerBtn.addEventListener('click', showMenu);
+    closeMobileNav.addEventListener('click', hideMenu);
+    mobileNav.addEventListener('click', function(e) {
+      if (e.target === mobileNav) hideMenu();
+    });
+  }
+});
 </script>
 <script>
 const bgImages = [
