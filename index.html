@@ -227,7 +227,6 @@
           <li class="hide-mobile"><a href="#about">About</a></li>
           <li class="hide-mobile"><a href="#services">Services</a></li>
           <li class="hide-mobile"><a href="#contact">Contact</a></li>
-          <!-- Account widget removed from here for mobile, only icon on right remains -->
         </ul>
       </nav>
     </div>
@@ -403,12 +402,7 @@ setInterval(() => {
   slides[bgIndex].classList.add('active');
 }, 6000);
 
-// Initialize account widget only on desktop
-document.addEventListener('DOMContentLoaded', function() {
-  if (window.innerWidth > 600) {
-    AccountWidget.init();
-  }
-});
+// Remove AccountWidget.init() entirely to prevent any login widget injection
 </script>
 </body>
 </html>
