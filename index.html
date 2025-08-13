@@ -51,7 +51,6 @@
     @media (max-width: 600px) {
       nav ul li.hide-mobile { display: none !important; }
     }
-    }
     nav ul li a {
       color: #222;
       text-decoration: none;
@@ -127,7 +126,7 @@
         .service-card, .welcome-feature { font-size: 0.95rem; }
         .about-photo { width: 70px; height: 70px; }
         .whatsapp-btn { width: 44px; height: 44px; font-size: 1.3rem; bottom: 12px; right: 12px; }
-        .mobile-nav { display: none; }
+  .mobile-nav { display: none; }
       }
     .welcome-features { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
     .welcome-feature { flex: 1; text-align: center; min-width: 180px; }
@@ -189,10 +188,10 @@
     @media (max-width: 600px) {
       .header-bar { padding: 8px 4px; }
       nav ul { display: none; }
-      .hamburger { display: block; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 2; }
+      .hamburger { display: block !important; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 2; }
       .logo-text { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0 auto; display: flex; align-items: center; font-size: 1.3rem; }
       .header-icons { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 18px; z-index: 2; }
-      .welcome-section, .services-section, #about, #contact { padding: 10px 2px; margin: 0 0 18px 0; border-radius: 0; }
+      .welcome-section, .services-section, #about, #contact { padding: 10px 2px; margin: 0 0 8px 0; border-radius: 0; }
       .welcome-content h1 { font-size: 1.2rem; }
       .service-card, .welcome-feature { font-size: 0.98rem; }
       .about-photo { width: 70px; height: 70px; }
