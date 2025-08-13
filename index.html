@@ -83,45 +83,51 @@
     .mobile-nav-content {
       background: #fff;
       width: 80vw;
-      max-width: 320px;
-      height: 100vh;
-      padding: 40px 20px 20px 20px;
-      box-shadow: 2px 0 20px rgba(0,0,0,0.15);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    .mobile-nav-content a {
-      display: block;
-      padding: 18px 0;
-      color: #333;
-      font-size: 1.1rem;
-      text-decoration: none;
-      border-bottom: 1px solid #eee;
-    }
-    .mobile-nav-content a:last-child { border-bottom: none; }
-    .mobile-nav-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 2rem;
-      color: #007bff;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    /* Responsive Section Styles */
-    .welcome-section, .services-section, #about, #contact {
-      max-width: 1100px;
-      margin: 0 auto 32px auto;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-      padding: 32px 40px;
-    }
-    .welcome-section { margin-top: 32px; }
-    .welcome-content h1 { font-size: 2.2rem; margin-bottom: 12px; }
+      @media (max-width: 600px) {
+        .welcome-section {
+          padding: 6px 2px;
+          margin: 0 0 12px 0;
+          border-radius: 0;
+          max-width: 98vw;
+        }
+        .welcome-features {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          justify-content: center;
+          align-items: flex-start;
+        }
+        .welcome-feature {
+          box-sizing: border-box;
+          font-size: 0.95rem;
+        }
+        .welcome-feature:nth-child(1) {
+          order: 1;
+          flex: 1 1 48%;
+          max-width: 48%;
+          margin: 0;
+          text-align: right;
+        }
+        .welcome-feature:nth-child(3) {
+          order: 2;
+          flex: 1 1 48%;
+          max-width: 48%;
+          margin: 0;
+          text-align: left;
+        }
+        .welcome-feature:nth-child(2) {
+          order: 3;
+          flex-basis: 100%;
+          max-width: 100%;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .welcome-content h1 { font-size: 1.1rem; }
+        .service-card, .welcome-feature { font-size: 0.95rem; }
+        .about-photo { width: 70px; height: 70px; }
+        .whatsapp-btn { width: 44px; height: 44px; font-size: 1.3rem; bottom: 12px; right: 12px; }
+        .mobile-nav { display: none; }
+      }
     .welcome-features { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
     .welcome-feature { flex: 1; text-align: center; min-width: 180px; }
     @media (max-width: 600px) {
