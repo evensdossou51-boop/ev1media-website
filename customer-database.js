@@ -117,8 +117,10 @@ class CustomerDatabase {
 
     // Authentication
     authenticateCustomer(email, password) {
-        const customer = this.getCustomerByEmail(email);
-        if (customer && customer.password === password) {
+        // Compare emails case-insensitively
+        const allCustomers = this.customers;
+        const customer = allCustomers.find(c => c.email && c.email.toLowerCase() === email.trim().toLowerCase() && c.password === password);
+        if (customer) {
             customer.lastLogin = new Date().toISOString();
             this.updateCustomer(customer.id, customer);
             return customer;

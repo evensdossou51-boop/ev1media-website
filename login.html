@@ -347,13 +347,10 @@
             // Form submissions
             document.getElementById('signinForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                const email = document.getElementById('signinEmail').value.trim().toLowerCase();
+                const email = document.getElementById('signinEmail').value;
                 const password = document.getElementById('signinPassword').value;
-                let customer = null;
                 try {
-                    // Try to login with case-insensitive email
-                    const allCustomers = JSON.parse(localStorage.getItem('customers') || '[]');
-                    customer = allCustomers.find(c => c.email && c.email.toLowerCase() === email && c.password === password);
+                    const customer = CustomerAPI.login(email, password);
                     if (customer) {
                         customerDB.setCurrentUser(customer);
                         alert('Welcome back!');
