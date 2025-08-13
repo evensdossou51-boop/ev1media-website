@@ -116,8 +116,27 @@
     }
     .welcome-section { margin-top: 32px; }
     .welcome-content h1 { font-size: 2.2rem; margin-bottom: 12px; }
-    .welcome-features { display: flex; gap: 32px; margin-top: 24px; }
-    .welcome-feature { flex: 1; text-align: center; }
+    .welcome-features { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
+    .welcome-feature { flex: 1; text-align: center; min-width: 180px; }
+    @media (max-width: 600px) {
+      .welcome-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+      .welcome-feature {
+        flex: 0 0 48%;
+        min-width: 140px;
+        max-width: 48%;
+        box-sizing: border-box;
+      }
+      .welcome-feature:nth-child(3) {
+        flex-basis: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+    }
     .welcome-feature i { font-size: 2.2rem; color: #007bff; margin-bottom: 8px; }
     .services-grid { display: flex; gap: 32px; }
     .service-card { flex: 1; background: #f8f9fa; border-radius: 12px; padding: 24px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
@@ -195,7 +214,7 @@
       </a>
       <nav>
         <ul>
-          <li><a href="#about">About</a></li>
+          <li class="hide-mobile"><a href="#about">About</a></li>
           <li class="hide-mobile"><a href="#services">Services</a></li>
           <li class="hide-mobile"><a href="#contact">Contact</a></li>
           <li class="account-item">
