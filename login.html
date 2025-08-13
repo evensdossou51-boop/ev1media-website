@@ -245,34 +245,39 @@
         let customerDB, customerAPI;
 
         function switchTab(tabName) {
-            console.log('Switching to tab:', tabName);
-            
             // Remove active class from all tabs
             document.querySelectorAll('.auth-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // Hide all content sections
             document.querySelectorAll('.auth-content').forEach(content => {
                 content.classList.remove('active');
-                content.style.display = 'none';
             });
-            
+
             // Activate selected tab and content
             const selectedTab = document.getElementById(tabName + 'Tab');
             const selectedContent = document.getElementById(tabName);
-            
+
             if (selectedTab && selectedContent) {
                 selectedTab.classList.add('active');
                 selectedContent.classList.add('active');
-                selectedContent.style.display = 'block';
-                console.log('Tab switched successfully to:', tabName);
             } else {
                 console.error('Could not find tab elements for:', tabName);
             }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Fallback: Add event delegation for tab clicks in case direct listeners fail
+            document.querySelector('.auth-tabs').addEventListener('click', function(e) {
+                if (e.target.classList.contains('auth-tab')) {
+                    if (e.target.id === 'signinTab') {
+                        switchTab('signin');
+                    } else if (e.target.id === 'signupTab') {
+                        switchTab('signup');
+                    }
+                }
+            });
             console.log('DOM loaded, initializing...');
             
             customerDB = new CustomerDatabase();
