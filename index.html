@@ -212,51 +212,58 @@
   <!-- Hero -->
   <main id="home" class="hero">
     <div class="container hero-inner">
-      <div>
+      <div style="flex:1;min-width:320px;">
         <span class="eyebrow">Small events • Small churches • Pro results</span>
         <h1>Sound Rental, AV Restoration, and Livestreaming — built for small budgets, run like big shows.</h1>
-  <p class="lead">From a simple speech system to restoring the sound at your church or getting your event live online, we deliver reliable gear and clean setups that stick.</p>
+        <p class="lead">From a simple speech system to restoring the sound at your church or getting your event live online, we deliver reliable gear and clean setups that stick.</p>
         <div class="hero-cta">
-          <a class="btn primary" href="#pricing">View Sound Rental Package</a>
+          <a class="btn primary" href="#services">See Our Services</a>
           <a class="btn" href="#contact">Book a Free Consult</a>
         </div>
       </div>
-      <div>
-        <div class="hero-card">
-          <div class="hero-grid">
-            <div class="tile">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 12h-6l-3 8-3-16-3 8H2"/></svg>
-              <div>
-                <strong>Sound Rental</strong>
-                <div class="muted">Speech systems that just work — mics tuned, no feedback, no stress.</div>
-              </div>
-            </div>
-            <div class="tile">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg>
-              <div>
-                <strong>AV Restoration</strong>
-                <div class="muted">Fix hums, feedback, messy wiring, and uneven mixes—especially for small churches.</div>
-              </div>
-            </div>
-            <div class="tile">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M12 13l3-3-3-3"/></svg>
-              <div>
-                <strong>Livestreaming</strong>
-                <div class="muted">Clean audio, clear video, and volunteer‑friendly workflows for small events.</div>
-              </div>
-            </div>
-            <div class="tile">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 7l-8 10L4 12"/></svg>
-              <div>
-                <strong>Fully Inspected Gear</strong>
-                <div class="muted">We bench‑test every setup before delivery and label all connections.</div>
-              </div>
-            </div>
-          </div>
+      <div style="flex:1;min-width:320px;display:flex;align-items:center;justify-content:center;">
+        <div class="slideshow-container">
+          <img class="slide-img" src="images/equipment1.png" alt="Equipment 1" style="display:block;" />
+          <img class="slide-img" src="images/equipment2.png" alt="Equipment 2" style="display:none;" />
+          <img class="slide-img" src="images/equipment3.png" alt="Equipment 3" style="display:none;" />
+          <img class="slide-img" src="images/welcome1.jpg" alt="Welcome" style="display:none;" />
         </div>
       </div>
     </div>
   </main>
+  <style>
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      height: 260px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      background: #101828;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide-img {
+      position: absolute;
+      left: 0; top: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: opacity 0.7s;
+      border-radius: 18px;
+    }
+  </style>
+  <script>
+    // Simple slideshow for hero section
+    (function() {
+      var slides = document.querySelectorAll('.slide-img');
+      var idx = 0;
+      setInterval(function() {
+        slides[idx].style.display = 'none';
+        idx = (idx + 1) % slides.length;
+        slides[idx].style.display = 'block';
+      }, 2600);
+    })();
+  </script>
 
   <!-- Services -->
   <section id="services">
