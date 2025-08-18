@@ -263,6 +263,21 @@
         slides[idx].style.display = 'block';
       }, 2600);
     })();
+
+    // Show/hide packages for Sound and Video Equipment Rental
+    document.addEventListener('DOMContentLoaded', function() {
+      var dropdown = document.getElementById('packageDropdown');
+      var audio = document.getElementById('audioPackage');
+      var av = document.getElementById('audiovideoPackage');
+      if (dropdown && audio && av) {
+        dropdown.addEventListener('change', function() {
+          audio.style.display = 'none';
+          av.style.display = 'none';
+          if (dropdown.value === 'audio') audio.style.display = 'block';
+          if (dropdown.value === 'audiovideo') av.style.display = 'block';
+        });
+      }
+    });
   </script>
 
   <!-- Services -->
@@ -273,42 +288,42 @@
 
       <div class="cards">
         <article class="card span-4">
-          <h3>1) Sound Rental — Small Events</h3>
-          <p class="muted">Perfect for speeches, small ceremonies, workshops, and pop‑up gatherings up to ~120 people.</p>
-          <ul class="grid-list">
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8 10L4 12"/></svg>
-              1 × Sennheiser <strong>EW‑D 835‑S</strong> Wireless Mic
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8 10L4 12"/></svg>
-              2 × <strong>QSC K12.2</strong> Loudspeakers
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8 10L4 12"/></svg>
-              1 × <strong>Yamaha MG10XU 10-channel Mixer</strong>
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8 10L4 12"/></svg>
-              All <strong>XLR</strong> cables & stands included
-            </li>
-          </ul>
-          <div class="divider"></div>
-          <div class="price"><span class="amount">$300</span><span class="meta">per day</span></div>
-          <div class="meta">Transportation & on‑site setup: <strong>$100</strong></div>
-          <div class="features">
-            <div class="feature">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v14H3z"/><path d="M3 17l3 4h12l3-4"/></svg>
-              We place speakers safely, tune levels, and show you how to use the mic & mixer.
-            </div>
-            <div class="feature">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22"/><path d="M5 8l7-7 7 7"/></svg>
-              Optional next‑day pickup available.
+          <h3>1) Sound and Video Equipment Rental</h3>
+          <p class="muted">Flexible packages for events, presentations, and more. Choose your setup below.</p>
+          <div class="hero-cta">
+            <select class="btn primary" id="packageDropdown" style="width:100%;max-width:260px;">
+              <option value="" selected disabled>View our packages</option>
+              <option value="audio">Audio Package</option>
+              <option value="audiovideo">Audio + Video Package</option>
+            </select>
+          </div>
+          <div id="audioPackage" class="card" style="display:none; margin-top:18px;">
+            <h4 style="margin:0 0 8px;">Audio Package</h4>
+            <ul class="grid-list">
+              <li>1 × Sennheiser <strong>EW‑D 835‑S</strong> Wireless Mic</li>
+              <li>2 × <strong>QSC K12.2</strong> Loudspeakers</li>
+              <li>1 × <strong>Yamaha MG10XU 10-channel Mixer</strong></li>
+              <li>All <strong>XLR</strong> cables & stands included</li>
+            </ul>
+            <div class="price"><span class="amount">$300</span><span class="meta">/day</span></div>
+            <div class="meta">Plus transportation and live support</div>
+            <div class="hero-cta" style="margin-top:10px;">
+              <a class="btn primary" href="booking.html?package=audio">Book this Package</a>
             </div>
           </div>
-          <div class="hero-cta">
-            <a class="btn primary" href="#contact">Book this Package</a>
-            <a class="btn" href="#faq">See FAQs</a>
+          <div id="audiovideoPackage" class="card" style="display:none; margin-top:18px;">
+            <h4 style="margin:0 0 8px;">Audio + Video Package</h4>
+            <ul class="grid-list">
+              <li>All audio equipment above</li>
+              <li>1 × Projector</li>
+              <li>1 × Projector Screen</li>
+              <li>1 × Laptop</li>
+            </ul>
+            <div class="price"><span class="amount">$500</span><span class="meta">/day</span></div>
+            <div class="meta">Plus transportation and live support</div>
+            <div class="hero-cta" style="margin-top:10px;">
+              <a class="btn primary" href="booking.html?package=audiovideo">Book this Package</a>
+            </div>
           </div>
         </article>
 
@@ -381,6 +396,7 @@
       <div class="cards">
         <div class="card span-8">
           <form id="quoteForm" action="https://formsubmit.co/info@ev1media.com" method="POST">
+            <!-- ...existing code... -->
             <div class="row">
               <div>
                 <label for="name">Your Name</label>
@@ -417,6 +433,10 @@
             <div>
               <label for="message">Message</label>
               <textarea id="message" name="message" placeholder="Share details about your venue, schedule, and any special requests…" required></textarea>
+            </div>
+            <div>
+              <label for="file">Upload specs or files (image/PDF):</label>
+              <input id="file" name="attachment" type="file" accept=".pdf,image/*" style="margin-bottom:18px;" />
             </div>
             <div class="hero-cta">
               <button class="btn primary" type="submit">Send Request</button>
