@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plan Your Livestream | EV1media</title>
+  <link href="style.css" rel="stylesheet">
+  <style>
+    .booking-container { max-width: 520px; margin: 40px auto; background: #0b132b; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); padding: 32px 24px; color: #e2e8f0; }
+    .booking-form label { font-size: 14px; color: #94a3b8; display:block; margin-bottom: 6px; }
+    .booking-form input, .booking-form select, .booking-form textarea { width: 100%; background: #0b1020; border: 1px solid #222b3a; border-radius: 10px; padding: 12px 14px; color: #e2e8f0; margin-bottom: 14px; box-sizing: border-box; max-width: 100%; }
+    .booking-form textarea { min-height: 90px; }
+    .btn.primary { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="booking-container">
+    <h2 style="margin-top:0">Plan Your Livestream</h2>
+    <form class="booking-form" id="livestreamForm" action="https://formsubmit.co/info@ev1media.com" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="service" value="Livestreaming" />
+      <label for="name">Your Name</label>
+      <input id="name" name="name" type="text" required placeholder="Full name" />
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required placeholder="name@example.com" />
+      <label for="phone">Phone Number</label>
+      <input id="phone" name="phone" type="tel" required placeholder="e.g. 239-351-6598" pattern="[0-9\-+\s]{7,}" />
+      <label for="date">Event Date</label>
+      <input id="date" name="date" type="date" required />
+      <label for="platform">Streaming Platform</label>
+      <select id="platform" name="platform" required>
+        <option value="">Select platform…</option>
+        <option>YouTube</option>
+        <option>Facebook</option>
+        <option>Both</option>
+        <option>Other</option>
+      </select>
+      <label for="cameras">Number of Cameras Needed</label>
+      <select id="cameras" name="cameras" required>
+        <option value="">Select…</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3+</option>
+      </select>
+      <label for="audio">Audio Source</label>
+      <select id="audio" name="audio" required>
+        <option value="">Select…</option>
+        <option>House Mixer</option>
+        <option>Provided Mic</option>
+        <option>Other</option>
+      </select>
+      <label for="internet">Internet Availability</label>
+      <select id="internet" name="internet" required>
+        <option value="">Select…</option>
+        <option>Yes</option>
+        <option>No</option>
+        <option>Unsure</option>
+      </select>
+      <label for="message">Event Details</label>
+      <textarea id="message" name="message" required placeholder="Venue, schedule, special requests..."></textarea>
+      <label for="file">Upload specs or files (image/PDF):</label>
+      <input id="file" name="attachment" type="file" accept=".pdf,image/*" style="margin-bottom:18px;" />
+      <button class="btn primary" type="submit">Submit Livestream Request</button>
+    </form>
+  </div>
+</body>
+</html>
