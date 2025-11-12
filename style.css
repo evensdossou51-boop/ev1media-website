@@ -107,15 +107,16 @@ a {
     display: flex;
     width: 80%;
     max-width: 1200px;
-    min-width: 320px; /* Reduced for mobile support */
+    /* Removed min-width: 320px; as it interferes with shrinking */
 }
 
 .sub-nav-placeholder {
-    width: 63%; /* Adjusted to 63% */
+    width: 50%; /* Changed from 63% to 50% for cleaner split */
     background-color: #004c8f; /* Deep Blue */
     display: flex;
     align-items: center;
     padding-left: 0%;
+    justify-content: center; /* Center content in the blue bar */
 }
 
 .blue-bar-link {
@@ -123,7 +124,7 @@ a {
     font-weight: 600;
     opacity: 1;
     padding: 5px 0;
-    padding-left: 30%;
+    /* Removed padding-left: 30%; which was causing overflow */
     text-decoration: none;
 }
 
