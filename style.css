@@ -95,6 +95,51 @@ a {
     border-bottom: 3px solid #004c8f;
 }
 
+/* Hamburger Menu Button (Hidden on Desktop) */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 3px;
+    background-color: #004c8f;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu:hover span {
+    background-color: #0060b8;
+}
+
+/* Hamburger Animation when Active */
+.hamburger-menu.active span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
 /* --- 3. Sub-Navigation Bar --- */
 
 .sub-nav-bar {
@@ -1626,21 +1671,81 @@ a {
 @media (max-width: 768px) {
     /* Header Navigation */
     .main-header {
-        flex-direction: column;
-        padding: 15px;
-        gap: 15px;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 15px 20px;
+        gap: 0;
+        position: relative;
     }
     
-    .main-nav {
+    /* Show Hamburger Menu */
+    .hamburger-menu {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
+    }
+    
+    /* Hide navigation by default on mobile */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: linear-gradient(135deg, #004c8f 0%, #0060b8 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 80px 30px 30px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        transition: right 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+    
+    /* Show navigation when active */
+    .main-nav.active {
+        right: 0;
     }
     
     .main-nav a {
-        margin: 5px 10px;
-        font-size: 14px;
+        width: 100%;
+        margin: 0;
+        padding: 15px 0;
+        font-size: 18px;
+        color: white !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .main-nav a:hover,
+    .main-nav a.active {
+        color: #79c8ff !important;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding-left: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Dark overlay when menu is open */
+    body.menu-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    /* Logo adjustments */
+    .logo {
+        flex-wrap: nowrap;
     }
     
     /* Business Statement */
