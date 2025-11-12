@@ -1682,7 +1682,13 @@ body.menu-open {
     
     /* Reverse order on mobile - Digital Marketing first, then AV Solutions */
     .sub-nav-bar-inner {
-        flex-direction: row-reverse;
+        flex-direction: row-reverse !important;
+        width: 100% !important;
+    }
+    
+    .sub-nav-placeholder,
+    .sub-nav {
+        width: 50% !important;
     }
     
     .text-side, 
@@ -1795,7 +1801,13 @@ body.menu-open {
     
     /* Reverse sub-nav order on mobile */
     .sub-nav-bar-inner {
-        flex-direction: row-reverse;
+        flex-direction: row-reverse !important;
+        width: 100% !important;
+    }
+    
+    .sub-nav-placeholder,
+    .sub-nav {
+        width: 50% !important;
     }
     
     /* Footer Toggle for Mobile */
