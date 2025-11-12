@@ -1,0 +1,192 @@
+========================================
+EMAIL NOTIFICATION SETUP GUIDE
+For Ev1media Booking System
+========================================
+
+Your booking system now sends emails automatically when someone submits a booking!
+Follow these steps to activate email notifications:
+
+========================================
+STEP 1: Create EmailJS Account (FREE)
+========================================
+
+1. Go to: https://www.emailjs.com/
+2. Click "Sign Up" (top right)
+3. Create a free account with your email
+4. Confirm your email address
+
+========================================
+STEP 2: Add Email Service
+========================================
+
+1. After logging in, go to "Email Services" (left sidebar)
+2. Click "Add New Service"
+3. Choose your email provider:
+   - Gmail (recommended if you have Gmail)
+   - Outlook
+   - Yahoo
+   - Or use "Personal Email Server"
+
+4. For Gmail:
+   - Click "Connect Account"
+   - Select your Gmail account (info@ev1media.com or your business email)
+   - Allow EmailJS to send emails on your behalf
+   
+5. Copy the "Service ID" (looks like: service_abc1234)
+   - You'll need this later!
+
+========================================
+STEP 3: Create Email Template
+========================================
+
+1. Go to "Email Templates" (left sidebar)
+2. Click "Create New Template"
+3. Use this template:
+
+Template Name: Booking Notification
+
+Subject: 
+🎉 New Booking Request - {{service_category}}
+
+Email Body (HTML):
+-----------------------------------
+<h2>New Booking Request Received!</h2>
+
+<h3>👤 Customer Information</h3>
+<p><strong>Name:</strong> {{from_name}}</p>
+<p><strong>Email:</strong> {{from_email}}</p>
+<p><strong>Phone:</strong> {{from_phone}}</p>
+<p><strong>Organization:</strong> {{organization}}</p>
+
+<h3>📋 Service Details</h3>
+<p><strong>Category:</strong> {{service_category}}</p>
+<p><strong>Specific Service:</strong> {{specific_service}}</p>
+<p><strong>Package:</strong> {{sound_package}}</p>
+
+<h3>📅 Event/Project Details</h3>
+<p><strong>Date:</strong> {{event_date}}</p>
+<p><strong>Time:</strong> {{event_time}}</p>
+<p><strong>Location:</strong> {{event_location}}</p>
+<p><strong>Duration:</strong> {{event_duration}}</p>
+<p><strong>Attendees:</strong> {{attendees}}</p>
+
+<h3>💰 Budget & Payment</h3>
+<p><strong>Budget:</strong> {{budget}}</p>
+<p><strong>Payment Method:</strong> {{payment_method}}</p>
+
+<h3>💬 Additional Information</h3>
+<p>{{additional_comments}}</p>
+
+<h3>📊 Booking Details</h3>
+<p><strong>Referral Source:</strong> {{referral}}</p>
+<p><strong>Submitted:</strong> {{submission_time}}</p>
+
+<hr>
+<p><em>This booking was automatically sent from your website.</em></p>
+-----------------------------------
+
+4. Set "To Email" field to: {{to_email}}
+5. Click "Save"
+6. Copy the "Template ID" (looks like: template_xyz5678)
+   - You'll need this!
+
+========================================
+STEP 4: Get Your Public Key
+========================================
+
+1. Go to "Account" (top right corner)
+2. Click "General" tab
+3. Find "Public Key" section
+4. Copy your Public Key (looks like: abc123XYZ456)
+
+========================================
+STEP 5: Update Your Website Files
+========================================
+
+Open this file: booking.html
+
+Find these lines:
+   emailjs.init("YOUR_PUBLIC_KEY");
+
+Replace with:
+   emailjs.init("YOUR_ACTUAL_PUBLIC_KEY_HERE");
+
+-----------------------------------
+
+Open this file: booking.js
+
+Find this line:
+   emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams)
+
+Replace with:
+   emailjs.send('service_abc1234', 'template_xyz5678', emailParams)
+   (Use your actual Service ID and Template ID)
+
+========================================
+STEP 6: Test Your Setup
+========================================
+
+1. Save all files
+2. Open your website
+3. Go to the booking page
+4. Fill out a test booking
+5. Submit the form
+
+You should receive:
+✅ Email at info@ev1media.com
+✅ WhatsApp notification at (239) 351-6598
+
+========================================
+FREE PLAN LIMITS
+========================================
+
+EmailJS Free Plan includes:
+✅ 200 emails per month
+✅ Unlimited email templates
+✅ All features included
+
+If you exceed 200 bookings/month, upgrade to:
+- Personal Plan: $15/month (1,000 emails)
+- Professional Plan: $50/month (5,000 emails)
+
+========================================
+TROUBLESHOOTING
+========================================
+
+❌ Not receiving emails?
+   - Check spam/junk folder
+   - Verify Service ID and Template ID are correct
+   - Check EmailJS dashboard for error logs
+   - Make sure Public Key is correct
+
+❌ Emails going to spam?
+   - Add noreply@emailjs.com to your contacts
+   - Check EmailJS service connection
+
+❌ Template variables not showing?
+   - Make sure variable names match exactly: {{from_name}}
+   - Check template in EmailJS dashboard
+
+========================================
+SUPPORT
+========================================
+
+EmailJS Documentation: https://www.emailjs.com/docs/
+EmailJS Support: support@emailjs.com
+
+For website issues, contact your developer.
+
+========================================
+SUMMARY
+========================================
+
+Once setup is complete, every booking will:
+1. ✅ Send email to: info@ev1media.com
+2. ✅ Send WhatsApp to: (239) 351-6598
+3. ✅ Include all customer and booking details
+4. ✅ Happen automatically (no manual work!)
+
+Total setup time: 10-15 minutes
+Cost: FREE (up to 200 bookings/month)
+
+========================================

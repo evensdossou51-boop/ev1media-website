@@ -1,0 +1,1517 @@
+/* --- 1. Global Styles and Typography --- */
+body {
+    font-family: 'Poppins', sans-serif; /* Using Poppins for a clean, modern look */
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Very light gray/off-white background */
+    color: #333;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    line-height: 1.1;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- 2. Header and Navigation --- */
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background-color: #F5E6D3; /* Richer cream color */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #004c8f; /* Deep Blue from the left header section */
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    color: #004c8f;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.logo-link:hover {
+    opacity: 0.8;
+}
+
+.logo-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.logo-icon img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.logo-tagline {
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+    margin-left: 5px;
+    align-self: flex-end;
+}
+
+.main-nav a {
+    margin-left: 30px;
+    color: #333;
+    font-weight: 600;
+    padding-bottom: 5px;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: #004c8f;
+    border-bottom: 3px solid #004c8f;
+}
+
+/* --- 3. Sub-Navigation Bar --- */
+
+.sub-nav-bar {
+    display: flex;
+    height: 60px; /* Height of the sub-navigation */
+    justify-content: center; /* Center the content */
+}
+
+.sub-nav-bar-inner {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    min-width: 960px;
+}
+
+.sub-nav-placeholder {
+    width: 63%; /* Adjusted to 63% */
+    background-color: #004c8f; /* Deep Blue */
+    display: flex;
+    align-items: center;
+    padding-left: 0%;
+}
+
+.blue-bar-link {
+    color: white !important;
+    font-weight: 600;
+    opacity: 1;
+    padding: 5px 0;
+    padding-left: 30%;
+    text-decoration: none;
+}
+
+.sub-nav {
+    flex-grow: 1;
+    background-color: #3c3c3c; /* Dark Gray */
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.nav-spacer {
+    flex-grow: 0.5;
+}
+
+.sub-nav a {
+    color: white;
+    margin-right: 40px;
+    font-weight: 400;
+    opacity: 0.8;
+    padding: 5px 0;
+    transition: opacity 0.3s;
+}
+
+.sub-nav a.sub-active {
+    opacity: 1;
+    font-weight: 600;
+    color: #79c8ff; /* Lighter/Accent Blue */
+    border-bottom: 3px solid #79c8ff;
+}
+
+/* --- 4. Hero Banner Section --- */
+
+/* Business Statement Section */
+.business-statement {
+    background: white;
+    width: 100%;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.statement-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.business-statement h2 {
+    color: #004c8f;
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.business-statement p {
+    color: #3c3c3c;
+    font-size: 1.15em;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.content-area {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.hero-banner {
+    width: 80%; /* Width of the entire banner block */
+    max-width: 1200px;
+    min-width: 960px; /* Prevent shrinking below this width */
+}
+
+.hero-content {
+    display: flex;
+    border-radius: 10px; /* Subtle rounded corners for the overall block */
+    overflow: hidden; /* Important for the background image to stay within bounds */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Prominent shadow */
+    min-height: 400px; /* Maintain minimum height */
+}
+
+/* Left Text Side (Church BG) */
+.text-side {
+    width: 60%; /* Approximate split for the text/image */
+    min-width: 576px; /* 60% of 960px minimum */
+    padding: 60px 50px;
+    color: white;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                      url('images/church-background.jpg'); /* REPLACE with actual Church BG image URL */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.text-side h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.text-side p {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    max-width: 80%;
+}
+
+/* Right Image Side (Phone Mockup) */
+.image-side {
+    width: 40%;
+    min-width: 384px; /* 40% of 960px minimum */
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.image-side video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+
+/* --- 5. CTA Buttons --- */
+
+.cta-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-primary {
+    background-color: #e6a000; /* Warm Gold/Orange for Primary CTA */
+    color: white;
+    border: 2px solid #e6a000;
+}
+
+.btn-primary:hover {
+    background-color: #ffb81c;
+    border-color: #ffb81c;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #004c8f; /* Deep Blue for Secondary CTA */
+    color: white;
+    border: 2px solid #004c8f;
+}
+
+.btn-secondary:hover {
+    background-color: #0060b8;
+    border-color: #0060b8;
+    transform: translateY(-1px);
+}
+
+/* --- Responsive Adjustments (Basic) --- */
+@media (max-width: 900px) {
+    .hero-content {
+        flex-direction: column;
+    }
+    .text-side, .image-side {
+        width: 100%;
+        padding: 40px 30px;
+    }
+    .image-side {
+        height: 300px;
+    }
+    .sub-nav-placeholder {
+        display: none;
+    }
+    .sub-nav {
+        padding-left: 20px;
+    }
+}
+
+/* --- 6. About Page Styles --- */
+
+.about-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-section h1 {
+    font-size: 36px;
+    color: #004c8f;
+    margin-bottom: 20px;
+}
+
+.about-section h2 {
+    font-size: 28px;
+    color: #004c8f;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.about-section h3 {
+    font-size: 22px;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.about-section p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.about-section ul {
+    list-style: disc;
+    margin-left: 30px;
+    margin-bottom: 15px;
+}
+
+.about-section li {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.founder-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.founder-image {
+    flex-shrink: 0;
+}
+
+.founder-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #004c8f;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.founder-info {
+    flex-grow: 1;
+}
+
+.founder-info h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.founder-info p {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .founder-section {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* --- 7. Services Page Styles --- */
+
+.services-page {
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+}
+
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.services-container h1 {
+    text-align: center;
+    color: #004c8f;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.services-intro {
+    text-align: center;
+    color: #3c3c3c;
+    font-size: 1.1em;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+}
+
+.service-category {
+    margin-bottom: 80px;
+}
+
+.service-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.service-header h2 {
+    color: #004c8f;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.service-tagline {
+    color: #666;
+    font-size: 1.15em;
+    font-style: italic;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.service-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 76, 143, 0.2);
+}
+
+.service-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.service-card h3 {
+    color: #004c8f;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.price-range {
+    background: linear-gradient(90deg, #b8860b 0%, #ffd700 30%, #ffe55c 50%, #ffd700 70%, #b8860b 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    animation: goldShine 5s linear infinite;
+    filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.3));
+}
+
+@keyframes goldShine {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.service-card p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.service-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-card li {
+    color: #666;
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.service-card li::before {
+    content: "✓";
+    color: #004c8f;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.btn-book-service {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #004c8f;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-book-service:hover {
+    background-color: #0060b8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 76, 143, 0.3);
+}
+
+.services-cta {
+    background: linear-gradient(135deg, #004c8f 0%, #0060b8 100%);
+    padding: 60px 40px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.services-cta h2 {
+    color: white;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+.services-cta p {
+    color: white;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.services-cta .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Responsive Services Page */
+@media (max-width: 900px) {
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+    
+    .services-container h1 {
+        font-size: 2em;
+    }
+    
+    .service-header h2 {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 600px) {
+    .services-page {
+        padding: 40px 15px;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-card {
+        padding: 25px;
+    }
+    
+    .services-cta {
+        padding: 40px 25px;
+    }
+    
+    .services-cta .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* --- 9. Booking Page Styles --- */
+
+.booking-section {
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+    min-height: calc(100vh - 200px);
+}
+
+.booking-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.booking-container h1 {
+    text-align: center;
+    color: #004c8f;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.booking-intro {
+    text-align: center;
+    color: #3c3c3c;
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    line-height: 1.8;
+}
+
+.booking-form {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+.form-section h2 {
+    color: #004c8f;
+    font-size: 1.5em;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #79c8ff;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #3c3c3c;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+.form-group small {
+    display: block;
+    color: #666;
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #004c8f;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 0.95em;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-submit {
+    padding: 15px 40px;
+    font-size: 1.1em;
+    min-width: 250px;
+}
+
+.form-note {
+    margin-top: 15px;
+    color: #666;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+/* Responsive Booking Page */
+@media (max-width: 768px) {
+    .booking-form {
+        padding: 25px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .booking-container h1 {
+        font-size: 2em;
+    }
+    
+    .btn-submit {
+        min-width: 100%;
+    }
+}
+
+/* --- 10. Contact Page Styles --- */
+
+.contact-section {
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    min-height: calc(100vh - 200px);
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-container h1 {
+    text-align: center;
+    color: #004c8f;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.contact-intro {
+    text-align: center;
+    color: #3c3c3c;
+    font-size: 1.1em;
+    margin-bottom: 50px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+/* Contact Form Styles */
+.contact-form-wrapper {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form-wrapper h2 {
+    color: #004c8f;
+    font-size: 1.8em;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #3c3c3c;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #004c8f;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .btn-primary {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    margin-top: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+/* Contact Info Styles */
+.contact-info-wrapper {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info-wrapper h2 {
+    color: #004c8f;
+    font-size: 1.8em;
+    margin-bottom: 25px;
+}
+
+.contact-info-item {
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.contact-info-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.contact-info-item h3 {
+    color: #3c3c3c;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.contact-info-item p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.contact-info-item a {
+    color: #004c8f;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info-item a:hover {
+    color: #79c8ff;
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    display: inline-block;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+}
+
+.social-links a:hover::before {
+    left: 0;
+}
+
+/* Facebook - Blue and White */
+.social-facebook {
+    background: linear-gradient(135deg, #1877f2 0%, #0c63d4 100%);
+    border: 2px solid white;
+}
+
+.social-facebook:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(24, 119, 242, 0.4);
+}
+
+/* Instagram - Purple and White with trace design */
+.social-instagram {
+    background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+    border: 2px solid white;
+    position: relative;
+}
+
+.social-instagram::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.social-instagram:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(131, 58, 180, 0.4);
+}
+
+/* TikTok - Black and White */
+.social-tiktok {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    border: 2px solid white;
+}
+
+.social-tiktok:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Contact Page */
+@media (max-width: 900px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-form-wrapper,
+    .contact-info-wrapper {
+        padding: 30px;
+    }
+    
+    .contact-container h1 {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 40px 15px;
+    }
+    
+    .contact-form-wrapper,
+    .contact-info-wrapper {
+        padding: 25px;
+    }
+    
+    .contact-container h1 {
+        font-size: 1.8em;
+    }
+    
+    .contact-intro {
+        font-size: 1em;
+    }
+}
+
+/* --- 8. Footer Styles --- */
+
+.main-footer {
+    background-color: #F5E6D3;
+    padding: 40px 20px 20px;
+    margin-top: 60px;
+    border-top: 3px solid #004c8f;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3 {
+    color: #004c8f;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #3c3c3c;
+    font-size: 0.95em;
+    line-height: 1.8;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #004c8f;
+    text-decoration: underline;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.footer-social a {
+    display: inline-block;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #d4c5b0;
+    color: #3c3c3c;
+    font-size: 0.9em;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+}
+
+/* Responsive Footer */
+@media (max-width: 900px) {
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .main-footer {
+        padding: 30px 15px 15px;
+    }
+}
+/* --- 11. AI Chatbot Styles --- */
+
+#chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    background: transparent;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+#chat-button:hover {
+    transform: scale(1.1);
+    box-shadow: none;
+}
+
+#chat-button.hidden {
+    transform: scale(0);
+    opacity: 0;
+}
+
+.chat-notification {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4444;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+#chat-window {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 380px;
+    height: 600px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    transform: scale(0);
+    transform-origin: bottom right;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    overflow: hidden;
+}
+
+#chat-window.open {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #004c8f 0%, #0060b8 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-status-dot {
+    width: 10px;
+    height: 10px;
+    background: #4CAF50;
+    border-radius: 50%;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.chat-title {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.chat-status {
+    font-size: 0.85em;
+    opacity: 0.9;
+}
+
+.chat-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.chat-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.chat-message {
+    margin-bottom: 15px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chat-message.user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.chat-message.bot {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.message-content {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    max-width: 80%;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chat-message.user .message-content {
+    background: linear-gradient(135deg, #004c8f 0%, #0060b8 100%);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-message.bot .message-content {
+    border-bottom-left-radius: 4px;
+}
+
+.message-content a {
+    color: #004c8f;
+    text-decoration: underline;
+}
+
+.chat-message.user .message-content a {
+    color: #79c8ff;
+}
+
+.message-time {
+    font-size: 0.75em;
+    color: #999;
+    margin-top: 4px;
+}
+
+.typing-indicator .message-content {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #999;
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-8px); }
+}
+
+.chat-input-container {
+    padding: 15px;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+#chat-input {
+    flex: 1;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95em;
+    resize: none;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: #004c8f;
+}
+
+#chat-send {
+    background: linear-gradient(135deg, #004c8f 0%, #0060b8 100%);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#chat-send:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 76, 143, 0.3);
+}
+
+/* Mobile Responsive Chatbot */
+@media (max-width: 768px) {
+    #chat-window {
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        bottom: 10px;
+        right: 10px;
+        border-radius: 8px;
+    }
+    
+    #chat-button {
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+/* DJ Avatar Animation */
+.dj-avatar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.dj-emoji {
+    font-size: 28px;
+    animation: djBounce 2s ease-in-out infinite;
+}
+
+.wave-hand {
+    position: absolute;
+    font-size: 18px;
+    top: -5px;
+    right: -5px;
+    animation: wave 1.5s ease-in-out infinite;
+    transform-origin: bottom right;
+}
+
+@keyframes djBounce {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-3px) rotate(-5deg);
+    }
+    75% {
+        transform: translateY(-3px) rotate(5deg);
+    }
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    10%, 30%, 50%, 70% {
+        transform: rotate(15deg);
+    }
+    20%, 40%, 60% {
+        transform: rotate(-10deg);
+    }
+    80% {
+        transform: rotate(0deg);
+    }
+}
+
+#chat-button:hover .dj-emoji {
+    animation: djBounce 0.5s ease-in-out infinite;
+}
+
+#chat-button:hover .wave-hand {
+    animation: wave 0.6s ease-in-out infinite;
+}
+
+/* Custom DJ Avatar Image Styles */
+.dj-avatar-img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    animation: djWave 2s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes djWave {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-4px) rotate(-3deg);
+    }
+    50% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    75% {
+        transform: translateY(-4px) rotate(3deg);
+    }
+}
+
+#chat-button:hover .dj-avatar-img {
+    animation: djWaveHover 0.8s ease-in-out infinite;
+    transform: scale(1.05);
+}
+
+@keyframes djWaveHover {
+    0%, 100% {
+        transform: scale(1.05) translateY(0px) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.05) translateY(-6px) rotate(-5deg);
+    }
+    50% {
+        transform: scale(1.05) translateY(0px) rotate(0deg);
+    }
+    75% {
+        transform: scale(1.05) translateY(-6px) rotate(5deg);
+    }
+}
