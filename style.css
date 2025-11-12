@@ -348,11 +348,14 @@ body.menu-open {
     .image-side {
         height: 300px;
     }
-    .sub-nav-placeholder {
-        display: none;
+    /* Removed display: none from sub-nav-placeholder to show blue bar on mobile */
+    .sub-nav-bar-inner {
+        width: 100%;
     }
+    .sub-nav-placeholder,
     .sub-nav {
-        padding-left: 20px;
+        width: 50%;
+        display: flex !important;
     }
 }
 
@@ -1684,11 +1687,13 @@ body.menu-open {
     .sub-nav-bar-inner {
         flex-direction: row-reverse !important;
         width: 100% !important;
+        display: flex !important;
     }
     
     .sub-nav-placeholder,
     .sub-nav {
         width: 50% !important;
+        display: flex !important;
     }
     
     .text-side, 
@@ -1803,11 +1808,13 @@ body.menu-open {
     .sub-nav-bar-inner {
         flex-direction: row-reverse !important;
         width: 100% !important;
+        display: flex !important;
     }
     
     .sub-nav-placeholder,
     .sub-nav {
         width: 50% !important;
+        display: flex !important;
     }
     
     /* Footer Toggle for Mobile */
