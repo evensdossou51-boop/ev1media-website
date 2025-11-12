@@ -218,7 +218,11 @@
     </main>
 
     <footer class="main-footer">
-        <div class="footer-content">
+        <button class="footer-toggle" id="footer-toggle" aria-label="Toggle footer">
+            <span>Quick Links & Contact</span>
+            <span class="footer-arrow">▼</span>
+        </button>
+        <div class="footer-content" id="footer-content">
             <div class="footer-section">
                 <h3>Ev1media</h3>
                 <p>Marketing & AV Solutions</p>
@@ -288,6 +292,17 @@
                 document.body.classList.remove('menu-open');
             }
         });
+        
+        // Footer Toggle Script
+        const footerToggle = document.getElementById('footer-toggle');
+        const footerContent = document.getElementById('footer-content');
+        
+        if (footerToggle && footerContent) {
+            footerToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                footerContent.classList.toggle('active');
+            });
+        }
     </script>
 
 </body>

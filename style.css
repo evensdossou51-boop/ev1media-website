@@ -1103,6 +1103,46 @@ body.menu-open {
     border-top: 2px solid #004c8f;
 }
 
+/* Footer Toggle Button - Hidden on Desktop */
+.footer-toggle {
+    display: none;
+    width: 100%;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #F5E6D3 0%, #E8D4BC 100%);
+    border: 2px solid #004c8f;
+    border-radius: 8px;
+    color: #004c8f;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.footer-toggle span:first-child {
+    display: inline-block;
+}
+
+.footer-arrow {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    font-size: 1.2em;
+}
+
+.footer-toggle.active .footer-arrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.footer-toggle:hover {
+    background: linear-gradient(135deg, #E8D4BC 0%, #D9C5AD 100%);
+    box-shadow: 0 2px 8px rgba(0, 76, 143, 0.2);
+}
+
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -1756,6 +1796,23 @@ body.menu-open {
     /* Reverse sub-nav order on mobile */
     .sub-nav-bar-inner {
         flex-direction: row-reverse;
+    }
+    
+    /* Footer Toggle for Mobile */
+    .footer-toggle {
+        display: block !important;
+    }
+    
+    .footer-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content.active {
+        max-height: 1000px;
+        margin-top: 10px;
     }
     
     /* Business Statement */
