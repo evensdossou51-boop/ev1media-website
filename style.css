@@ -1640,6 +1640,11 @@ body.menu-open {
         min-height: auto;
     }
     
+    /* Reverse order on mobile - Digital Marketing first, then AV Solutions */
+    .sub-nav-bar-inner {
+        flex-direction: row-reverse;
+    }
+    
     .text-side, 
     .image-side {
         width: 100%;
@@ -1746,6 +1751,11 @@ body.menu-open {
     /* Logo adjustments */
     .logo {
         flex-wrap: nowrap;
+    }
+    
+    /* Reverse sub-nav order on mobile */
+    .sub-nav-bar-inner {
+        flex-direction: row-reverse;
     }
     
     /* Business Statement */
