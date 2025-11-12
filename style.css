@@ -1716,35 +1716,60 @@ a {
     
     /* Footer */
     .main-footer {
-        padding: 15px 15px 8px;
-        margin-top: 20px;
+        padding: 12px 15px 6px;
+        margin-top: 15px;
     }
     
     .footer-content {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
         text-align: center;
-        gap: 10px;
-        margin-bottom: 8px;
+        gap: 8px;
+        margin-bottom: 6px;
     }
     
     .footer-section {
-        width: 100%;
-        margin-bottom: 8px;
+        width: auto;
+        flex: 1;
+        min-width: 100px;
+        margin-bottom: 0;
     }
     
     .footer-section h3 {
-        font-size: 0.85em;
-        margin-bottom: 5px;
+        font-size: 0.75em;
+        margin-bottom: 3px;
     }
     
     .footer-section p,
     .footer-section a {
-        font-size: 0.7em;
+        font-size: 0.65em;
+        line-height: 1.3;
+    }
+    
+    .footer-links {
+        gap: 3px;
+    }
+    
+    .footer-social {
+        gap: 5px;
+        margin-top: 3px;
+        justify-content: center;
+    }
+    
+    .footer-social a {
+        padding: 3px 8px;
+        font-size: 0.65em;
     }
     
     .footer-bottom {
-        padding-top: 8px;
-        font-size: 0.7em;
+        padding-top: 6px;
+        font-size: 0.65em;
+    }
+    
+    .footer-bottom p {
+        margin: 1px 0;
     }
 }
 
@@ -1937,6 +1962,32 @@ a {
     
     .form-section h2 {
         font-size: 1.1em;
+    }
+    
+    /* Extra small footer */
+    .main-footer {
+        padding: 10px 10px 5px;
+    }
+    
+    .footer-content {
+        gap: 5px;
+    }
+    
+    .footer-section {
+        min-width: 80px;
+    }
+    
+    .footer-section h3 {
+        font-size: 0.7em;
+    }
+    
+    .footer-section p,
+    .footer-section a {
+        font-size: 0.6em;
+    }
+    
+    .footer-bottom {
+        font-size: 0.6em;
     }
 }
 
