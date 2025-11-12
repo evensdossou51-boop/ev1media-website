@@ -1955,8 +1955,22 @@ body.menu-open {
     }
     
     .footer-social a {
-        padding: 3px 8px;
-        font-size: 0.65em;
+        padding: 8px;
+        font-size: 1.2em;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .footer-social .social-text {
+        display: none;
+    }
+    
+    .footer-social i {
+        font-size: 1em;
     }
     
     .footer-bottom {
