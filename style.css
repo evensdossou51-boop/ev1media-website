@@ -1,10 +1,20 @@
 /* --- 1. Global Styles and Typography --- */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
 body {
     font-family: 'Poppins', sans-serif; /* Using Poppins for a clean, modern look */
     margin: 0;
     padding: 0;
     background-color: #f0f0f0; /* Very light gray/off-white background */
     color: #333;
+    overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -26,6 +36,7 @@ a {
     padding: 10px 40px;
     background-color: #F5E6D3; /* Richer cream color */
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -34,6 +45,7 @@ a {
     color: #004c8f; /* Deep Blue from the left header section */
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .logo-link {
@@ -95,7 +107,7 @@ a {
     display: flex;
     width: 80%;
     max-width: 1200px;
-    min-width: 960px;
+    min-width: 320px; /* Reduced for mobile support */
 }
 
 .sub-nav-placeholder {
@@ -181,7 +193,7 @@ a {
 .hero-banner {
     width: 80%; /* Width of the entire banner block */
     max-width: 1200px;
-    min-width: 960px; /* Prevent shrinking below this width */
+    min-width: 320px; /* Reduced for mobile support */
 }
 
 .hero-content {
@@ -195,7 +207,7 @@ a {
 /* Left Text Side (Church BG) */
 .text-side {
     width: 60%; /* Approximate split for the text/image */
-    min-width: 576px; /* 60% of 960px minimum */
+    min-width: 280px; /* Reduced for mobile support */
     padding: 60px 50px;
     color: white;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
@@ -224,7 +236,7 @@ a {
 /* Right Image Side (Phone Mockup) */
 .image-side {
     width: 40%;
-    min-width: 384px; /* 40% of 960px minimum */
+    min-width: 200px; /* Reduced for mobile support */
     background-color: transparent;
     display: flex;
     justify-content: center;
@@ -1515,3 +1527,493 @@ a {
         transform: scale(1.05) translateY(-6px) rotate(5deg);
     }
 }
+
+/* ========================================
+   COMPREHENSIVE MOBILE RESPONSIVE STYLES
+   ======================================== */
+
+/* Tablets and Small Desktops (768px - 1024px) */
+@media (max-width: 1024px) {
+    .main-header {
+        padding: 10px 20px;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+    
+    .logo-tagline {
+        font-size: 10px;
+    }
+    
+    .main-nav a {
+        margin-left: 20px;
+        font-size: 14px;
+    }
+    
+    .hero-banner {
+        width: 90%;
+    }
+    
+    .text-side {
+        padding: 40px 30px;
+    }
+    
+    .text-side h1 {
+        font-size: 32px;
+    }
+    
+    .text-side p {
+        font-size: 16px;
+    }
+}
+
+/* Mobile Landscape & Tablets (max-width: 900px) */
+@media (max-width: 900px) {
+    .main-header {
+        padding: 10px 15px;
+    }
+    
+    .logo {
+        font-size: 18px;
+    }
+    
+    .main-nav a {
+        margin-left: 15px;
+        font-size: 13px;
+    }
+    
+    .hero-banner {
+        width: 95%;
+    }
+    
+    .hero-content {
+        flex-direction: column;
+        min-height: auto;
+    }
+    
+    .text-side, 
+    .image-side {
+        width: 100%;
+        min-width: 100%;
+        padding: 30px 20px;
+    }
+    
+    .text-side h1 {
+        font-size: 28px;
+    }
+    
+    .text-side p {
+        font-size: 15px;
+        max-width: 100%;
+    }
+    
+    .image-side {
+        min-height: 250px;
+        height: 250px;
+    }
+    
+    .btn-primary {
+        padding: 12px 28px;
+        font-size: 15px;
+    }
+}
+
+/* Mobile Portrait (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Header Navigation */
+    .main-header {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .main-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .main-nav a {
+        margin: 5px 10px;
+        font-size: 14px;
+    }
+    
+    /* Business Statement */
+    .business-statement {
+        padding: 30px 15px;
+    }
+    
+    .statement-container {
+        padding: 20px;
+    }
+    
+    .business-statement p {
+        font-size: 1em;
+    }
+    
+    /* Hero Section */
+    .hero-banner {
+        width: 100%;
+        border-radius: 0;
+    }
+    
+    .text-side {
+        padding: 25px 20px;
+        border-radius: 0;
+    }
+    
+    .text-side h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    .text-side p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    .image-side {
+        min-height: 200px;
+        height: 200px;
+    }
+    
+    /* Buttons */
+    .btn-primary {
+        padding: 10px 24px;
+        font-size: 14px;
+        min-width: 150px;
+    }
+    
+    /* Services Grid */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Booking Form */
+    .booking-form {
+        padding: 20px 15px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .form-section h2 {
+        font-size: 1.3em;
+    }
+    
+    .btn-submit {
+        padding: 12px 30px;
+        font-size: 1em;
+        min-width: 200px;
+    }
+    
+    /* Footer */
+    .site-footer {
+        padding: 30px 15px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .footer-section {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    /* Typography */
+    body {
+        font-size: 14px;
+    }
+    
+    h1 {
+        font-size: 22px !important;
+    }
+    
+    h2 {
+        font-size: 18px !important;
+    }
+    
+    h3 {
+        font-size: 16px !important;
+    }
+    
+    /* Header */
+    .logo {
+        font-size: 16px;
+    }
+    
+    .logo-icon img {
+        height: 30px;
+        width: 30px;
+    }
+    
+    .logo-tagline {
+        font-size: 9px;
+    }
+    
+    .main-nav a {
+        font-size: 12px;
+        margin: 5px 8px;
+        padding-bottom: 3px;
+    }
+    
+    /* Hero Section */
+    .text-side {
+        padding: 20px 15px;
+    }
+    
+    .text-side h1 {
+        font-size: 20px;
+    }
+    
+    .text-side p {
+        font-size: 13px;
+    }
+    
+    .image-side {
+        min-height: 180px;
+        height: 180px;
+    }
+    
+    /* Buttons */
+    .btn-primary,
+    .btn-secondary {
+        padding: 8px 20px;
+        font-size: 13px;
+        min-width: 130px;
+    }
+    
+    /* Services */
+    .services-page {
+        padding: 30px 10px;
+    }
+    
+    .service-card {
+        padding: 20px 15px;
+    }
+    
+    .service-card h3 {
+        font-size: 16px;
+    }
+    
+    .service-card p {
+        font-size: 13px;
+    }
+    
+    /* Booking */
+    .booking-section {
+        padding: 30px 10px;
+    }
+    
+    .booking-form {
+        padding: 15px 10px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .btn-submit {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    /* Contact Page */
+    .contact-section {
+        padding: 30px 10px;
+    }
+    
+    .contact-info-box {
+        padding: 20px 15px;
+    }
+    
+    /* Chatbot */
+    #chat-button {
+        bottom: 10px;
+        right: 10px;
+        width: 60px;
+        height: 60px;
+    }
+    
+    .dj-avatar-img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    #chat-window {
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+        bottom: 5px;
+        right: 5px;
+        max-height: calc(100vh - 10px);
+    }
+    
+    #chat-header {
+        padding: 12px 15px;
+    }
+    
+    #chat-messages {
+        padding: 15px 10px;
+    }
+    
+    .message {
+        max-width: 85%;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    #user-input {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    #send-button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Extra Small Mobile (max-width: 360px) */
+@media (max-width: 360px) {
+    .logo {
+        font-size: 14px;
+    }
+    
+    .logo-tagline {
+        display: none; /* Hide tagline on very small screens */
+    }
+    
+    .main-nav a {
+        font-size: 11px;
+        margin: 3px 5px;
+    }
+    
+    .text-side h1 {
+        font-size: 18px;
+    }
+    
+    .text-side p {
+        font-size: 12px;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        font-size: 12px;
+        padding: 7px 15px;
+    }
+    
+    .form-section h2 {
+        font-size: 1.1em;
+    }
+}
+
+/* Landscape Orientation Adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    #chat-window {
+        height: 90vh;
+        max-height: 90vh;
+    }
+    
+    .text-side {
+        padding: 20px 15px;
+    }
+    
+    .text-side h1 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .text-side p {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+}
+
+/* Cross-Browser Compatibility */
+/* Webkit Browsers (Chrome, Safari, Edge) */
+@supports (-webkit-appearance: none) {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+}
+
+/* Firefox */
+@-moz-document url-prefix() {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select {
+        padding: 11px 14px;
+    }
+}
+
+/* Internet Explorer / Edge Legacy */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .hero-content {
+        display: -ms-flexbox;
+    }
+    
+    .form-row {
+        display: -ms-grid;
+    }
+}
+
+/* Safari iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+    /* Fix iOS Safari input zoom */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+        font-size: 16px !important; /* Prevents zoom on focus */
+    }
+    
+    /* Fix iOS Safari 100vh issue */
+    #chat-window {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Print Styles */
+@media print {
+    #chat-button,
+    #chat-window,
+    .main-nav,
+    .btn-primary,
+    .btn-secondary {
+        display: none !important;
+    }
+    
+    body {
+        background-color: white;
+    }
+    
+    .hero-banner,
+    .service-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+
