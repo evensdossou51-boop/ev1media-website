@@ -1655,30 +1655,53 @@ a {
         font-size: 1em;
     }
     
-    /* Hero Section */
+    /* Hero Section - FIXED FOR MOBILE */
+    .content-area {
+        padding-top: 20px;
+    }
+    
     .hero-banner {
         width: 100%;
         border-radius: 0;
+        margin: 0;
+    }
+    
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
     }
     
     .text-side {
-        padding: 25px 20px;
+        width: 100% !important;
+        min-width: 100% !important;
+        padding: 30px 20px !important;
         border-radius: 0;
+        display: flex !important;
+        flex-direction: column;
+        background-color: #004c8f !important;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                          url('images/church-background.jpg') !important;
     }
     
     .text-side h1 {
         font-size: 24px;
         margin-bottom: 15px;
+        color: white;
     }
     
     .text-side p {
         font-size: 14px;
         margin-bottom: 20px;
+        color: white;
     }
     
     .image-side {
-        min-height: 200px;
-        height: 200px;
+        width: 100% !important;
+        min-width: 100% !important;
+        min-height: 250px;
+        height: 250px;
+        display: flex !important;
     }
     
     /* Buttons */
@@ -1814,20 +1837,27 @@ a {
     
     /* Hero Section */
     .text-side {
-        padding: 20px 15px;
+        padding: 20px 15px !important;
+        width: 100% !important;
+        display: flex !important;
+        background-color: #004c8f !important;
     }
     
     .text-side h1 {
         font-size: 20px;
+        color: white !important;
     }
     
     .text-side p {
         font-size: 13px;
+        color: white !important;
     }
     
     .image-side {
         min-height: 180px;
         height: 180px;
+        width: 100% !important;
+        display: flex !important;
     }
     
     /* Buttons */
