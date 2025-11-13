@@ -254,6 +254,12 @@
                     submission_time: new Date().toLocaleString()
                 };
                 
+                console.log('=== EmailJS Debug Info ===');
+                console.log('EmailJS loaded?', typeof emailjs !== 'undefined');
+                console.log('Service ID: service_vt29dhf');
+                console.log('Template ID: template_xo0vze1');
+                console.log('Template Params:', templateParams);
+                
                 // Show loading state
                 const submitButton = contactForm.querySelector('button[type="submit"]');
                 const originalText = submitButton.textContent;
