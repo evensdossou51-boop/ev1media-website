@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple EmailJS Test</title>
+</head>
+<body>
+    <h1>Simple EmailJS Test</h1>
+    <button onclick="testEmail()">Test Send Email</button>
+    <div id="result"></div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // Initialize
+        emailjs.init({
+            publicKey: "tfwfNRWUI3Wb3hCqk"
+        });
+
+        function testEmail() {
+            document.getElementById('result').innerHTML = 'Sending...';
+            
+            emailjs.send('service_vt29dhf', 'template_xo0vze1', {
+                from_name: 'Test User',
+                from_email: 'test@test.com',
+                reply_to: 'test@test.com',
+                phone_number: '1234567890',
+                service_type: 'Test Service',
+                message_html: 'This is a test message',
+                to_email: 'infoev1media@gmail.com',
+                submission_time: new Date().toLocaleString()
+            })
+            .then(function(response) {
+                document.getElementById('result').innerHTML = '✅ SUCCESS! Status: ' + response.status;
+                console.log('SUCCESS!', response);
+            })
+            .catch(function(error) {
+                document.getElementById('result').innerHTML = '❌ FAILED: ' + JSON.stringify(error);
+                console.error('FAILED!', error);
+            });
+        }
+    </script>
+</body>
+</html>
