@@ -123,11 +123,11 @@
             log('Template parameters prepared:');
             log(JSON.stringify(templateParams, null, 2));
             log('Service ID: service_vt29dhf');
-            log('Template ID: xo0vze1');
+            log('Template ID: template_xo0vze1');
             
             try {
                 log('Sending email...');
-                const response = await emailjs.send('service_vt29dhf', 'xo0vze1', templateParams);
+                const response = await emailjs.send('service_vt29dhf', 'template_xo0vze1', templateParams);
                 log('✅ SUCCESS! Email sent successfully', 'success');
                 log('Response status: ' + response.status);
                 log('Response text: ' + response.text);

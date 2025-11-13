@@ -175,8 +175,8 @@ function sendEmailNotification(data) {
     
     console.log('Sending email with params:', emailParams); // Debug log
     
-    // Send email via EmailJS (using Our Services template: 16txbzw)
-    emailjs.send('service_vt29dhf', '16txbzw', emailParams)
+    // Send email via EmailJS (using Our Services template: template_16txbzw)
+    emailjs.send('service_vt29dhf', 'template_16txbzw', emailParams)
         .then(function(response) {
             console.log('Email sent successfully!', response.status, response.text);
             alert('✅ Your booking request has been submitted successfully! We will contact you shortly.');
