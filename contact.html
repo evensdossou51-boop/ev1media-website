@@ -179,7 +179,10 @@
     <script type="text/javascript">
         // Initialize EmailJS with your public key
         (function(){
-            emailjs.init("B4tZfVS_lIlkFvDBd");
+            emailjs.init({
+                publicKey: "B4tZfVS_lIlkFvDBd"
+            });
+            console.log('EmailJS initialized successfully');
         })();
     </script>
     
@@ -259,6 +262,7 @@
                 
                 // Send email via EmailJS (using Contact Us template)
                 if (typeof emailjs !== 'undefined') {
+                    console.log('Sending email with params:', templateParams);
                     emailjs.send('service_vt29dhf', 'xo0vze1', templateParams)
                         .then(function(response) {
                             console.log('SUCCESS!', response.status, response.text);
@@ -267,13 +271,15 @@
                         })
                         .catch(function(error) {
                             console.error('EmailJS FAILED...', error);
-                            alert('❌ Sorry, there was an error sending your message. Please try again or contact us directly at infoev1media@gmail.com or call (239) 351-6598');
+                            console.error('Error details:', JSON.stringify(error, null, 2));
+                            alert('❌ Sorry, there was an error sending your message. Please try again or contact us directly at infoev1media@gmail.com or call (239) 351-6598\n\nError: ' + (error.text || error.message || 'Unknown error'));
                         })
                         .finally(function() {
                             submitButton.textContent = originalText;
                             submitButton.disabled = false;
                         });
                 } else {
+                    console.error('EmailJS library not loaded');
                     alert('❌ Email service not available. Please contact us directly at infoev1media@gmail.com or call (239) 351-6598');
                     submitButton.textContent = originalText;
                     submitButton.disabled = false;
