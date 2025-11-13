@@ -199,7 +199,7 @@ function sendEmailNotification(data) {
     };
     
     // Send email via EmailJS
-    emailjs.send('service_bdwty3g', 'eze0xqi', emailParams)
+    emailjs.send('service_vt29dhf', 'eze0xqi', emailParams)
         .then(function(response) {
             console.log('Email sent successfully!', response.status, response.text);
             alert('✅ Email notification sent successfully!');
