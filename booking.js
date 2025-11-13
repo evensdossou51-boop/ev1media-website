@@ -146,23 +146,8 @@ if (bookingForm) {
         
         console.log('Form data collected:', data); // Debug log
         
-        // Send email notification
+        // Send email notification only (WhatsApp disabled)
         sendEmailNotification(data);
-        
-        // Create WhatsApp message
-        const message = createWhatsAppMessage(data);
-        
-        // Send to WhatsApp
-        const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-        
-        // Open WhatsApp
-        window.open(whatsappURL, '_blank');
-        
-        // Show confirmation
-        alert('Your booking request has been submitted! You will receive a confirmation via WhatsApp and email.');
-        
-        // Optional: Reset form
-        // bookingForm.reset();
     });
 } else {
     console.error('Booking form not found - cannot attach submit handler!');
@@ -173,43 +158,124 @@ function sendEmailNotification(data) {
     // Check if EmailJS is loaded
     if (typeof emailjs === 'undefined') {
         console.error('EmailJS not loaded. Email notification skipped.');
+        alert('⚠️ Email service is not available. Please contact us directly at infoev1media@gmail.com');
         return;
     }
     
-    // Prepare email template parameters
+    // Prepare email template parameters - simplified to match template
     const emailParams = {
-        to_email: 'infoev1media@gmail.com', // Your email
+        to_email: 'infoev1media@gmail.com',
         from_name: data.fullName || 'Unknown',
         from_email: data.email || 'No email provided',
-        from_phone: data.phone || 'No phone provided',
-        organization: data.organization || 'Not specified',
-        service_category: getServiceCategoryLabel(data.serviceCategory),
-        specific_service: getSpecificServiceLabel(data.serviceCategory, data.specificService),
-        event_date: data.eventDate ? formatDate(data.eventDate) : 'Not specified',
-        event_time: data.eventTime || 'Not specified',
-        event_location: data.eventLocation || 'Not specified',
-        event_duration: data.eventDuration || 'Not specified',
-        event_type: data.eventType || 'Not specified',
-        attendees: data.attendees || 'Not specified',
-        sound_package: data.soundPackage ? data.soundPackage.split(' - ')[0] : 'Not applicable',
-        dj_service: data.djService || 'Not applicable',
-        budget: data.budget || 'Not specified',
-        payment_method: data.paymentMethod || 'Not specified',
-        additional_comments: data.additionalComments || 'None',
-        referral: data.referral || 'Not specified',
-        submission_time: new Date().toLocaleString(),
-        message_body: createWhatsAppMessage(data) // Full details
+        phone_number: data.phone || 'No phone provided',
+        service_type: `${getServiceCategoryLabel(data.serviceCategory)} - ${getSpecificServiceLabel(data.serviceCategory, data.specificService)}`,
+        message_html: createEmailBody(data),
+        submission_time: new Date().toLocaleString()
     };
     
-    // Send email via EmailJS (using Our Services template)
+    console.log('Sending email with params:', emailParams); // Debug log
+    
+    // Send email via EmailJS (using Our Services template: 16txbzw)
     emailjs.send('service_vt29dhf', '16txbzw', emailParams)
         .then(function(response) {
             console.log('Email sent successfully!', response.status, response.text);
-            alert('✅ Email notification sent successfully!');
-        }, function(error) {
+            alert('✅ Your booking request has been submitted successfully! We will contact you shortly.');
+            // Reset form after successful submission
+            bookingForm.reset();
+            // Hide conditional sections
+            specificServiceGroup.style.display = 'none';
+            eventDetailsSection.style.display = 'none';
+            projectDetailsSection.style.display = 'none';
+            avSpecificQuestions.style.display = 'none';
+            digitalMarketingQuestions.style.display = 'none';
+        })
+        .catch(function(error) {
             console.error('Email send failed:', error);
-            alert('⚠️ Email notification failed, but WhatsApp message will still be sent.');
+            alert('⚠️ There was an error submitting your booking. Please email us directly at infoev1media@gmail.com or call (239) 351-6598');
         });
+}
+
+function createEmailBody(data) {
+    let body = '<div style="font-family: Arial, sans-serif;">';
+    
+    // Service Information
+    body += '<h3 style="color: #1a73e8;">📋 Service Details</h3>';
+    body += `<p><strong>Category:</strong> ${getServiceCategoryLabel(data.serviceCategory)}<br>`;
+    body += `<strong>Service:</strong> ${getSpecificServiceLabel(data.serviceCategory, data.specificService)}</p>`;
+    
+    // Personal Information
+    body += '<h3 style="color: #1a73e8;">👤 Client Information</h3>';
+    body += `<p><strong>Name:</strong> ${data.fullName}<br>`;
+    body += `<strong>Email:</strong> ${data.email}<br>`;
+    body += `<strong>Phone:</strong> ${data.phone}<br>`;
+    if (data.organization) {
+        body += `<strong>Organization:</strong> ${data.organization}<br>`;
+    }
+    body += '</p>';
+    
+    // Event or Project Details
+    if (data.serviceCategory === 'av-solutions' && data.eventDate) {
+        body += '<h3 style="color: #1a73e8;">📅 Event Details</h3>';
+        body += '<p>';
+        body += `<strong>Date:</strong> ${formatDate(data.eventDate)}<br>`;
+        if (data.eventTime) body += `<strong>Time:</strong> ${data.eventTime}<br>`;
+        if (data.eventDuration) body += `<strong>Duration:</strong> ${data.eventDuration}<br>`;
+        if (data.eventLocation) body += `<strong>Location:</strong> ${data.eventLocation}<br>`;
+        if (data.eventType) body += `<strong>Event Type:</strong> ${data.eventType}<br>`;
+        if (data.attendees) body += `<strong>Attendees:</strong> ${data.attendees}<br>`;
+        body += '</p>';
+        
+        // Package information for sound rental
+        if (data.soundPackage) {
+            body += '<h3 style="color: #1a73e8;">🎵 Sound Package</h3>';
+            body += `<p><strong>Package:</strong> ${data.soundPackage}<br>`;
+            if (data.djService) {
+                body += `<strong>DJ Service:</strong> ${data.djService}<br>`;
+            }
+            body += '</p>';
+        }
+        
+        if (data.equipment && data.equipment.length > 0) {
+            body += `<p><strong>Equipment Needed:</strong> ${data.equipment.join(', ')}<br>`;
+        }
+        if (data.venueType) body += `<strong>Venue Type:</strong> ${data.venueType}<br>`;
+        if (data.setupTime) body += `<strong>Setup Service:</strong> ${data.setupTime}`;
+        body += '</p>';
+    } else if (data.serviceCategory === 'digital-marketing' && data.projectStart) {
+        body += '<h3 style="color: #1a73e8;">💼 Project Details</h3>';
+        body += '<p>';
+        body += `<strong>Start Date:</strong> ${formatDate(data.projectStart)}<br>`;
+        if (data.projectTimeline) body += `<strong>Timeline:</strong> ${data.projectTimeline}<br>`;
+        if (data.currentWebsite) body += `<strong>Current Website:</strong> ${data.currentWebsite}<br>`;
+        if (data.platforms && data.platforms.length > 0) {
+            body += `<strong>Platforms:</strong> ${data.platforms.join(', ')}<br>`;
+        }
+        if (data.marketingGoal) body += `<strong>Marketing Goal:</strong> ${data.marketingGoal}<br>`;
+        body += '</p>';
+    }
+    
+    // Budget & Payment
+    body += '<h3 style="color: #1a73e8;">💰 Budget & Payment</h3>';
+    body += '<p>';
+    body += `<strong>Budget:</strong> ${data.budget}<br>`;
+    body += `<strong>Payment Method:</strong> ${data.paymentMethod}<br>`;
+    if (data.depositPreference) {
+        body += `<strong>Deposit Preference:</strong> ${data.depositPreference}<br>`;
+    }
+    body += '</p>';
+    
+    // Additional Information
+    if (data.additionalComments) {
+        body += '<h3 style="color: #1a73e8;">💬 Additional Comments</h3>';
+        body += `<p>${data.additionalComments}</p>`;
+    }
+    
+    if (data.referral) {
+        body += `<p><strong>Referral Source:</strong> ${data.referral}</p>`;
+    }
+    
+    body += '</div>';
+    return body;
 }
 
 function createWhatsAppMessage(data) {
