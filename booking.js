@@ -1,3 +1,6 @@
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+
 // Service options for each category
 const services = {
     'av-solutions': [
@@ -315,4 +318,6 @@ function formatDate(dateString) {
         day: 'numeric' 
     });
 }
+
+}); // End of DOMContentLoaded
 
