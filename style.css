@@ -297,6 +297,27 @@ body.menu-open {
     border-radius: 0;
 }
 
+/* Remove video controls */
+video::-webkit-media-controls {
+    display: none !important;
+}
+
+video::-webkit-media-controls-enclosure {
+    display: none !important;
+}
+
+video::-webkit-media-controls-panel {
+    display: none !important;
+}
+
+video::-webkit-media-controls-play-button {
+    display: none !important;
+}
+
+video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+}
+
 
 /* --- 5. CTA Buttons --- */
 

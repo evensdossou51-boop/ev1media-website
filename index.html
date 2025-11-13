@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="image-side">
-                    <video autoplay muted loop playsinline>
+                    <video autoplay muted loop playsinline webkit-playsinline preload="auto" id="hero-video">
                         <source src="images/your-video.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -173,6 +173,25 @@
             footerToggle.addEventListener('click', function() {
                 this.classList.toggle('active');
                 footerContent.classList.toggle('active');
+            });
+        }
+        
+        // Force video autoplay on mobile
+        const heroVideo = document.getElementById('hero-video');
+        if (heroVideo) {
+            // Attempt to play the video
+            heroVideo.play().catch(function(error) {
+                console.log('Video autoplay prevented:', error);
+                // If autoplay is blocked, play on any user interaction
+                document.addEventListener('touchstart', function() {
+                    heroVideo.play();
+                }, { once: true });
+            });
+            
+            // Ensure video loops continuously
+            heroVideo.addEventListener('ended', function() {
+                this.currentTime = 0;
+                this.play();
             });
         }
     </script>
