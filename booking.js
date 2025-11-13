@@ -175,7 +175,7 @@ function sendEmailNotification(data) {
     
     // Prepare email template parameters
     const emailParams = {
-        to_email: 'info@ev1media.com', // Your email
+        to_email: 'infoev1media@gmail.com', // Your email
         from_name: data.fullName || 'Unknown',
         from_email: data.email || 'No email provided',
         from_phone: data.phone || 'No phone provided',
@@ -315,3 +315,4 @@ function formatDate(dateString) {
         day: 'numeric' 
     });
 }
+
