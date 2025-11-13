@@ -257,9 +257,9 @@
                 submitButton.textContent = 'Sending...';
                 submitButton.disabled = true;
                 
-                // Send email via EmailJS
+                // Send email via EmailJS (using same template as booking form)
                 if (typeof emailjs !== 'undefined') {
-                    emailjs.send('service_vt29dhf', 'template_contact', templateParams)
+                    emailjs.send('service_vt29dhf', 'eze0xqi', templateParams)
                         .then(function(response) {
                             console.log('SUCCESS!', response.status, response.text);
                             alert('✅ Thank you! Your message has been sent successfully. We will get back to you soon!');
