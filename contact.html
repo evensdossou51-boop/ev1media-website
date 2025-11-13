@@ -98,7 +98,7 @@
                         
                         <div class="contact-info-item">
                             <h3>📍 Location</h3>
-                            <p>Serving Churches & Businesses and Evey Events <br>in Georgia,Florida</p>
+                            <p>Serving Churches,Businesses & Evey Events <br>in Georgia,Florida</p>
                         </div>
                         
                         <div class="contact-info-item">
@@ -174,6 +174,15 @@
     <div id="chat-widget"></div>
     <script src="chatbot.js"></script>
     
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS with your public key
+        (function(){
+            emailjs.init("B4tZfVS_lIlkFvDBd");
+        })();
+    </script>
+    
     <!-- Mobile Menu Toggle Script -->
     <script>
         const hamburger = document.getElementById('hamburger');
@@ -215,8 +224,51 @@
                 footerContent.classList.toggle('active');
             });
         }
+        
+        // Contact Form Submission
+        const contactForm = document.querySelector('.contact-form');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = {
+                    from_name: document.getElementById('name').value,
+                    from_email: document.getElementById('email').value,
+                    from_phone: document.getElementById('phone').value || 'Not provided',
+                    service_interest: document.getElementById('service').value || 'Not specified',
+                    message: document.getElementById('message').value,
+                    to_email: 'info@ev1media.com',
+                    submission_time: new Date().toLocaleString()
+                };
+                
+                // Show loading state
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitButton.textContent;
+                submitButton.textContent = 'Sending...';
+                submitButton.disabled = true;
+                
+                // Send email via EmailJS
+                emailjs.send('service_bdwty3g', 'eze0xqi', formData)
+                    .then(function(response) {
+                        console.log('Email sent successfully!', response.status, response.text);
+                        alert('✅ Thank you! Your message has been sent successfully. We will get back to you soon!');
+                        contactForm.reset();
+                    })
+                    .catch(function(error) {
+                        console.error('Email send failed:', error);
+                        alert('❌ Sorry, there was an error sending your message. Please try again or contact us directly at info@ev1media.com');
+                    })
+                    .finally(function() {
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    });
+            });
+        }
     </script>
 
 </body>
 </html>
+
 
