@@ -201,8 +201,8 @@ function sendEmailNotification(data) {
         message_body: createWhatsAppMessage(data) // Full details
     };
     
-    // Send email via EmailJS
-    emailjs.send('service_vt29dhf', 'eze0xqi', emailParams)
+    // Send email via EmailJS (using Our Services template)
+    emailjs.send('service_vt29dhf', '16txbzw', emailParams)
         .then(function(response) {
             console.log('Email sent successfully!', response.status, response.text);
             alert('✅ Email notification sent successfully!');
