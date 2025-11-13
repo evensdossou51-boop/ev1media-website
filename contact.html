@@ -232,15 +232,22 @@
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Get form data
-                const formData = {
-                    from_name: document.getElementById('name').value,
-                    from_email: document.getElementById('email').value,
-                    from_phone: document.getElementById('phone').value || 'Not provided',
-                    service_interest: document.getElementById('service').value || 'Not specified',
-                    message: document.getElementById('message').value,
-                    to_email: 'info@ev1media.com',
-                    submission_time: new Date().toLocaleString()
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value || 'Not provided';
+                const service = document.getElementById('service').value || 'Not specified';
+                const message = document.getElementById('message').value;
+                
+                // Create email template parameters
+                const templateParams = {
+                    from_name: name,
+                    reply_to: email,
+                    from_email: email,
+                    phone_number: phone,
+                    service_type: service,
+                    message_html: message,
+                    to_email: 'info@ev1media.com'
                 };
                 
                 // Show loading state
@@ -249,22 +256,47 @@
                 submitButton.textContent = 'Sending...';
                 submitButton.disabled = true;
                 
-                // Send email via EmailJS
-                emailjs.send('service_bdwty3g', 'eze0xqi', formData)
-                    .then(function(response) {
-                        console.log('Email sent successfully!', response.status, response.text);
-                        alert('✅ Thank you! Your message has been sent successfully. We will get back to you soon!');
-                        contactForm.reset();
-                    })
-                    .catch(function(error) {
-                        console.error('Email send failed:', error);
-                        alert('❌ Sorry, there was an error sending your message. Please try again or contact us directly at info@ev1media.com');
-                    })
-                    .finally(function() {
-                        submitButton.textContent = originalText;
-                        submitButton.disabled = false;
-                    });
+                // Try sending with EmailJS
+                if (typeof emailjs !== 'undefined') {
+                    emailjs.send('service_bdwty3g', 'template_contact', templateParams)
+                        .then(function(response) {
+                            console.log('SUCCESS!', response.status, response.text);
+                            alert('✅ Thank you! Your message has been sent successfully. We will get back to you soon!');
+                            contactForm.reset();
+                            submitButton.textContent = originalText;
+                            submitButton.disabled = false;
+                        })
+                        .catch(function(error) {
+                            console.log('EmailJS FAILED...', error);
+                            // Fallback to mailto
+                            sendViaMailto(name, email, phone, service, message);
+                            submitButton.textContent = originalText;
+                            submitButton.disabled = false;
+                        });
+                } else {
+                    // If EmailJS not loaded, use mailto
+                    sendViaMailto(name, email, phone, service, message);
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }
             });
+        }
+        
+        // Fallback mailto function
+        function sendViaMailto(name, email, phone, service, message) {
+            const subject = encodeURIComponent('Contact Form Submission from ' + name);
+            const body = encodeURIComponent(
+                'Name: ' + name + '\n' +
+                'Email: ' + email + '\n' +
+                'Phone: ' + phone + '\n' +
+                'Service Interest: ' + service + '\n\n' +
+                'Message:\n' + message
+            );
+            
+            const mailtoLink = 'mailto:info@ev1media.com?subject=' + subject + '&body=' + body;
+            window.location.href = mailtoLink;
+            
+            alert('📧 Your default email client will open. Please send the email to complete your inquiry.');
         }
     </script>
 
