@@ -290,6 +290,96 @@ body.menu-open {
     padding: 0;
 }
 
+/* Floating Service Text - Positioned on grey background areas */
+.content-area {
+    position: relative; /* Make content-area the positioning context */
+}
+
+.floating-service-text {
+    position: absolute;
+    font-size: 0.9em;
+    font-weight: 700;
+    color: #004c8f;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    z-index: 5;
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 120px;
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.floating-service-text.left {
+    left: 10px;
+    animation: bounceLeftFade 8s infinite;
+}
+
+.floating-service-text.right {
+    right: 10px;
+    animation: bounceRightFade 8s infinite;
+    animation-delay: 4s;
+}
+
+@keyframes bounceLeftFade {
+    0%, 100% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-20px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+    15%, 35% {
+        transform: translateY(-50%) translateX(0) scale(1);
+    }
+    20%, 30% {
+        transform: translateY(-50%) translateX(0) scale(1.05);
+    }
+    25% {
+        transform: translateY(-50%) translateX(0) scale(1.1);
+    }
+    45% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+    50% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-20px);
+    }
+}
+
+@keyframes bounceRightFade {
+    0%, 100% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(20px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+    15%, 35% {
+        transform: translateY(-50%) translateX(0) scale(1);
+    }
+    20%, 30% {
+        transform: translateY(-50%) translateX(0) scale(1.05);
+    }
+    25% {
+        transform: translateY(-50%) translateX(0) scale(1.1);
+    }
+    45% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+    50% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(20px);
+    }
+}
+
 .image-side video {
     width: 100%;
     height: 100%;
@@ -1853,6 +1943,11 @@ video::-webkit-media-controls-start-playback-button {
     .footer-content.active {
         max-height: 1000px;
         margin-top: 10px;
+    }
+    
+    /* Hide floating service text on mobile */
+    .floating-service-text {
+        display: none !important;
     }
     
     /* Business Statement */

@@ -71,6 +71,12 @@
     </div>
 
     <main class="content-area">
+        <!-- Floating Service Text Left (on grey area) -->
+        <div class="floating-service-text left" id="serviceTextLeft"></div>
+        
+        <!-- Floating Service Text Right (on grey area) -->
+        <div class="floating-service-text right" id="serviceTextRight"></div>
+        
         <section class="hero-banner">
             <div class="hero-content">
                 <div class="text-side">
@@ -206,6 +212,36 @@
                 this.play();
             });
         }
+        
+        // Floating Service Text Animation
+        const services = [
+            'Website Design and Development',
+            'Social Media Management'
+        ];
+        let currentServiceIndex = 0;
+        
+        function updateServiceText() {
+            const leftText = document.getElementById('serviceTextLeft');
+            const rightText = document.getElementById('serviceTextRight');
+            
+            // Update left side text (shows first, then alternates)
+            if (leftText) {
+                leftText.textContent = services[currentServiceIndex % 2];
+            }
+            
+            // Update right side text (shows second, then alternates)
+            if (rightText) {
+                rightText.textContent = services[(currentServiceIndex + 1) % 2];
+            }
+            
+            currentServiceIndex++;
+        }
+        
+        // Initialize text
+        updateServiceText();
+        
+        // Update every 8 seconds (matching animation duration)
+        setInterval(updateServiceText, 8000);
     </script>
 
 </body>
