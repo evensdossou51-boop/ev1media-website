@@ -288,6 +288,7 @@ body.menu-open {
     justify-content: center;
     align-items: center;
     padding: 0;
+    position: relative;
 }
 
 /* Floating Service Text - Positioned on grey background areas */
@@ -385,6 +386,30 @@ body.menu-open {
     height: 100%;
     object-fit: cover;
     border-radius: 0;
+}
+
+/* Marketing Services Button */
+.btn-marketing-services {
+    padding: 8px 16px;
+    background-color: #e6a000;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85em;
+    border-radius: 5px;
+    border: 2px solid #e6a000;
+    transition: background-color 0.3s, transform 0.1s;
+    text-align: center;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.btn-marketing-services:hover {
+    background-color: #ffb81c;
+    border-color: #ffb81c;
+    transform: translateX(-50%) translateY(-1px);
 }
 
 /* Remove video controls */
@@ -2120,6 +2145,27 @@ video::-webkit-media-controls-start-playback-button {
     /* Hide floating service text on mobile */
     .floating-service-text {
         display: none !important;
+    }
+    
+    /* Marketing Services Button - Mobile */
+    .btn-marketing-services {
+        position: relative;
+        left: 0;
+        transform: none;
+        bottom: auto;
+        margin-top: 15px;
+        padding: 12px 20px;
+        font-size: 0.95em;
+        width: 90%;
+        max-width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .btn-marketing-services:hover {
+        transform: translateY(-2px);
     }
     
     /* Business Statement */
