@@ -160,6 +160,7 @@
                                 <li>SEO optimization</li>
                                 <li>Content management systems</li>
                             </ul>
+                            <button class="btn-view-templates" id="toggleTemplatesBtn" onclick="toggleTemplates()">View Template Examples</button>
                             <a href="booking.html" class="btn-book-service">Book This Service</a>
                         </div>
 
@@ -280,6 +281,46 @@
         </div>
     </footer>
 
+    <!-- Template Overlay Modal -->
+    <div class="template-overlay" id="templateOverlay" style="display: none;">
+        <div class="template-modal">
+            <h3>Website Design Templates</h3>
+            <div class="templates-grid">
+                <div class="template-item">
+                    <img src="images/Professional Business.png" alt="Professional Business Template">
+                    <h4>Professional Business</h4>
+                    <p>Clean and modern design perfect for service businesses</p>
+                </div>
+                <div class="template-item">
+                    <img src="images/Church & Ministry.png" alt="Church & Ministry Template">
+                    <h4>Church & Ministry</h4>
+                    <p>Welcoming design with event management features</p>
+                </div>
+                <div class="template-item">
+                    <img src="images/E-commerce Store.png" alt="E-commerce Template">
+                    <h4>E-commerce Store</h4>
+                    <p>Full-featured online store with shopping cart</p>
+                </div>
+                <div class="template-item">
+                    <img src="images/Portfolio.png" alt="Portfolio Template">
+                    <h4>Creative Portfolio</h4>
+                    <p>Showcase your work with stunning galleries</p>
+                </div>
+                <div class="template-item">
+                    <img src="images/Restaurant.png" alt="Restaurant Template">
+                    <h4>Restaurant & Catering</h4>
+                    <p>Appetizing design with menu and reservation system</p>
+                </div>
+                <div class="template-item">
+                    <img src="images/Blog.png" alt="Blog Template">
+                    <h4>Blog & News</h4>
+                    <p>Content-focused design for articles and stories</p>
+                </div>
+            </div>
+            <button class="btn-close-templates" onclick="toggleTemplates()">Hide Templates</button>
+        </div>
+    </div>
+
     <!-- AI Chatbot Widget -->
     <div id="chat-widget"></div>
     <script src="chatbot.js"></script>
@@ -325,6 +366,30 @@
                 footerContent.classList.toggle('active');
             });
         }
+        
+        // Template Gallery Toggle
+        function toggleTemplates() {
+            const overlay = document.getElementById('templateOverlay');
+            const btn = document.getElementById('toggleTemplatesBtn');
+            
+            if (overlay.style.display === 'none' || overlay.style.display === '') {
+                overlay.style.display = 'flex';
+                btn.textContent = 'Hide Templates';
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            } else {
+                overlay.style.display = 'none';
+                btn.textContent = 'View Template Examples';
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        }
+        
+        // Close overlay when clicking outside the modal
+        document.addEventListener('click', function(event) {
+            const overlay = document.getElementById('templateOverlay');
+            if (event.target === overlay) {
+                toggleTemplates();
+            }
+        });
     </script>
 
 </body>
