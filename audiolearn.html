@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3B3WVMY63M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-3B3WVMY63M');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AudioLearn - Free Audio & AV Learning Resources | Ev1media</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free audio engineering and AV production learning resources. Learn about sound systems, mixing, live sound, church audio, and professional event production techniques.">
+    <meta name="keywords" content="audio learning, sound engineering, live sound training, church audio tips, PA system setup, audio mixing, AV production tutorials">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ev1media.com/audiolearn.html">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ev1media.com/audiolearn.html">
+    <meta property="og:title" content="AudioLearn - Free Audio Learning Resources">
+    <meta property="og:description" content="Learn audio engineering, sound system setup, and live production techniques from industry professionals.">
+    <meta property="og:image" content="https://ev1media.com/images/logo.png">
+    <meta property="og:site_name" content="Ev1media">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ev1media.com/audiolearn.html">
+    <meta name="twitter:title" content="AudioLearn - Free Audio Learning Resources">
+    <meta name="twitter:description" content="Learn audio engineering, sound system setup, and live production techniques from industry professionals.">
+    <meta name="twitter:image" content="https://ev1media.com/images/logo.png">
+    
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .audiolearn-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        
+        .audiolearn-hero {
+            background: linear-gradient(135deg, #004c8f 0%, #0066b3 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .audiolearn-hero h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .audiolearn-hero p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+        
+        .learning-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .category-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .category-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .category-card h2 {
+            color: #004c8f;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .category-card p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .category-card .topics-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .category-card .topics-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+        }
+        
+        .category-card .topics-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .category-card .topics-list li::before {
+            content: "▸ ";
+            color: #ff6b35;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .coming-soon-badge {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .learn-cta {
+            background: #f9f9f9;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .learn-cta h2 {
+            color: #004c8f;
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+        
+        .learn-cta p {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 25px;
+        }
+        
+        .learn-cta .btn {
+            display: inline-block;
+            background: #004c8f;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 5px;
+            font-weight: 600;
+            margin: 5px;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+        
+        .learn-cta .btn:hover {
+            background: #003a6b;
+        }
+        
+        @media (max-width: 768px) {
+            .audiolearn-hero h1 {
+                font-size: 2em;
+            }
+            
+            .audiolearn-hero p {
+                font-size: 1.1em;
+            }
+            
+            .learning-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .audiolearn-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">
+            <a href="index.html" class="logo-link">
+                <span class="logo-icon">
+                    <img src="images/logo.png" alt="Ev1media Logo">
+                </span>
+                Ev1media
+            </a>
+            <span class="logo-tagline">Marketing & AV Solutions</span>
+        </div>
+        
+        <!-- Hamburger Menu Button (Mobile Only) -->
+        <button class="hamburger-menu" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav class="main-nav" id="main-nav">
+            <a href="index.html">Home Page</a>
+            <a href="services.html">Our Services</a>
+            <a href="about.html">About</a>
+            <a href="audiolearn.html" class="active">AudioLearn</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="content-area">
+        <div class="audiolearn-container">
+            <div class="audiolearn-hero">
+                <h1>🎧 AudioLearn</h1>
+                <p>Your Free Resource Center for Audio Engineering & Live Sound Production</p>
+            </div>
+
+            <div class="learning-categories">
+                <!-- Sound System Basics -->
+                <div class="category-card">
+                    <div class="icon">🔊</div>
+                    <h2>Sound System Basics</h2>
+                    <span class="coming-soon-badge">Content Coming Soon</span>
+                    <p>Learn the fundamentals of professional sound systems and how they work.</p>
+                    <ul class="topics-list">
+                        <li>Understanding PA Systems</li>
+                        <li>Speaker Types & Placement</li>
+                        <li>Power & Impedance Basics</li>
+                        <li>Signal Flow Fundamentals</li>
+                        <li>Choosing the Right Equipment</li>
+                    </ul>
+                </div>
+
+                <!-- Live Sound Mixing -->
+                <div class="category-card">
+                    <div class="icon">🎚️</div>
+                    <h2>Live Sound Mixing</h2>
+                    <span class="coming-soon-badge">Content Coming Soon</span>
+                    <p>Master the art of mixing live sound for events, churches, and concerts.</p>
+                    <ul class="topics-list">
+                        <li>Mixer Controls & Functions</li>
+                        <li>EQ Techniques for Live Sound</li>
+                        <li>Compression & Dynamics</li>
+                        <li>Effects & Reverb</li>
+                        <li>Gain Structure & Levels</li>
+                    </ul>
+                </div>
+
+                <!-- Church Audio -->
+                <div class="category-card">
+                    <div class="icon">⛪</div>
+                    <h2>Church Audio</h2>
+                    <span class="coming-soon-badge">Content Coming Soon</span>
+                    <p>Specialized training for church sound systems and worship services.</p>
+                    <ul class="topics-list">
+                        <li>Worship Sound Mixing</li>
+                        <li>Managing Monitor Mixes</li>
+                        <li>Microphone Techniques for Pastors</li>
+                        <li>Dealing with Feedback</li>
+                        <li>Budget-Friendly Church Systems</li>
+                    </ul>
+                </div>
+
+                <!-- Microphone Techniques -->
+                <div class="category-card">
+                    <div class="icon">🎤</div>
+                    <h2>Microphone Techniques</h2>
+                    <span class="coming-soon-badge">Content Coming Soon</span>
+                    <p>Everything you need to know about microphones and proper mic techniques.</p>
+                    <ul class="topics-list">
+                        <li>Microphone Types & Uses</li>
+                        <li>Polar Patterns Explained</li>
+                        <li>Mic Placement for Vocals</li>
+                        <li>Instrument Miking Techniques</li>
+                        <li>Wireless vs Wired Mics</li>
+                    </ul>
+                </div>
+
+                <!-- Event Production -->
+                <div class="category-card">
+                    <div class="icon">🎬</div>
+                    <h2>Event Production</h2>
+                    <span class="coming-soon-badge">Content Coming Soon</span>
+                    <p>Learn how to plan and execute professional live events.</p>
+                    <ul class="topics-list">
+                        <li>Event Planning Checklist</li>
+                        <li>Stage Setup & Design</li>
+                        <li>Load-In & Sound Check</li>
+                        <li>Troubleshooting Common Issues</li>
+                        <li>Working with Performers</li>
+                    </ul>
+                </div>
+
+                <!-- Troubleshooting -->
+                <div class="category-card">
+                    <div class="icon">🔧</div>
+                    <h2>Troubleshooting</h2>
+                    <span class="coming-soon-badge">Content Coming Soon</span>
+                    <p>Solve common audio problems quickly and effectively.</p>
+                    <ul class="topics-list">
+                        <li>Eliminating Feedback</li>
+                        <li>Fixing Ground Loops & Hum</li>
+                        <li>No Sound Issues</li>
+                        <li>Distortion & Clipping</li>
+                        <li>Emergency Problem Solving</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="learn-cta">
+                <h2>Ready to Take Your Audio Skills Further?</h2>
+                <p>Work with professional audio engineers and get hands-on experience with our AV services.</p>
+                <a href="services.html" class="btn">Explore Our Services</a>
+                <a href="contact.html" class="btn">Get Professional Training</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <!-- Mobile Footer Toggle Button -->
+        <button class="footer-toggle" id="footer-toggle" aria-label="Toggle footer">
+            <span>Quick Links & Contact</span>
+            <span class="footer-arrow">▼</span>
+        </button>
+        
+        <div class="footer-content" id="footer-content">
+            <div class="footer-section">
+                <h3>Ev1media</h3>
+                <p>Marketing & AV Solutions</p>
+                <p>Amplifying your message and elevating your presence for churches and businesses.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="index.html">Home Page</a>
+                    <a href="services.html">Our Services</a>
+                    <a href="about.html">About</a>
+                    <a href="audiolearn.html">AudioLearn</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>📧 <a href="mailto:infoev1media@gmail.com">infoev1media@gmail.com</a></p>
+                <p>📞 <a href="tel:+2393516598">(239) 351-6598</a></p>
+                <p>📍 Georgia & Florida</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/evsoundrental" target="_blank" class="social-facebook" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span class="social-text">Facebook</span>
+                    </a>
+                    <a href="https://www.instagram.com/ev1media_/" target="_blank" class="social-instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span class="social-text">Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Ev1media. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot Widget -->
+    <div id="chat-widget"></div>
+    <script src="chatbot.js"></script>
+    
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mainNav = document.getElementById('main-nav');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+        
+        // Close menu when clicking on a link
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = mainNav.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickOnHamburger && mainNav.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+        
+        // Footer Toggle Script
+        const footerToggle = document.getElementById('footer-toggle');
+        const footerContent = document.getElementById('footer-content');
+        
+        if (footerToggle && footerContent) {
+            footerToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                footerContent.classList.toggle('active');
+            });
+        }
+    </script>
+
+</body>
+</html>
