@@ -40,126 +40,219 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        .audiolearn-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
+        .audiolearn-wrapper {
+            display: flex;
+            min-height: calc(100vh - 200px);
+            background: #f5f5f5;
         }
         
-        .audiolearn-hero {
-            background: linear-gradient(135deg, #004c8f 0%, #0066b3 100%);
+        /* Sidebar Navigation */
+        .audiolearn-sidebar {
+            width: 320px;
+            background: #1a2332;
             color: white;
-            padding: 60px 40px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 40px;
+            padding: 30px 0;
+            position: sticky;
+            top: 0;
+            height: fit-content;
+            max-height: 100vh;
+            overflow-y: auto;
         }
         
-        .audiolearn-hero h1 {
-            font-size: 3em;
+        .sidebar-header {
+            padding: 0 25px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h1 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sidebar-header p {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin: 0;
+        }
+        
+        .course-syllabus {
+            padding: 20px 0;
+        }
+        
+        .syllabus-title {
+            padding: 0 25px;
+            font-size: 1.1em;
+            font-weight: 600;
             margin-bottom: 15px;
+            opacity: 0.9;
         }
         
-        .audiolearn-hero p {
-            font-size: 1.3em;
-            opacity: 0.95;
+        .course-level {
+            margin-bottom: 5px;
         }
         
-        .learning-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
+        .level-header {
+            padding: 15px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+            user-select: none;
         }
         
-        .category-card {
+        .level-header:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .level-title {
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        
+        .level-arrow {
+            transition: transform 0.3s;
+            opacity: 0.6;
+        }
+        
+        .course-level.expanded .level-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .level-lessons {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .course-level.expanded .level-lessons {
+            max-height: 500px;
+        }
+        
+        .lesson-item {
+            padding: 12px 25px 12px 50px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+        
+        .lesson-item:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .lesson-item.active {
+            background: rgba(0,76,143,0.3);
+            border-left: 3px solid #ff6b35;
+        }
+        
+        .lesson-item.completed::before {
+            content: "✓";
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        /* Main Content Area */
+        .audiolearn-content {
+            flex: 1;
+            padding: 40px;
             background: white;
-            padding: 30px;
+            margin: 20px;
             border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        .lesson-header {
+            margin-bottom: 30px;
         }
         
-        .category-card .icon {
-            font-size: 3em;
+        .lesson-header h2 {
+            color: #1a2332;
+            font-size: 2.2em;
             margin-bottom: 15px;
         }
         
-        .category-card h2 {
-            color: #004c8f;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-        }
-        
-        .category-card p {
+        .lesson-meta {
+            display: flex;
+            gap: 20px;
             color: #666;
-            line-height: 1.7;
-            margin-bottom: 20px;
+            font-size: 0.9em;
         }
         
-        .category-card .topics-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .category-card .topics-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
+        .lesson-body {
+            line-height: 1.8;
             color: #333;
         }
         
-        .category-card .topics-list li:last-child {
-            border-bottom: none;
+        .lesson-body p {
+            margin-bottom: 20px;
         }
         
-        .category-card .topics-list li::before {
-            content: "▸ ";
-            color: #ff6b35;
-            font-weight: bold;
-            margin-right: 8px;
+        .coming-soon-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid #ff6b35;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
         }
         
-        .coming-soon-badge {
-            display: inline-block;
-            background: #ff6b35;
+        .coming-soon-section h3 {
+            color: #004c8f;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .topic-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .topic-item::before {
+            content: "📚";
+            font-size: 1.3em;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, #004c8f 0%, #0066b3 100%);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .learn-cta {
-            background: #f9f9f9;
-            padding: 40px;
+            padding: 35px;
             border-radius: 10px;
             text-align: center;
             margin-top: 40px;
         }
         
-        .learn-cta h2 {
-            color: #004c8f;
+        .cta-box h3 {
             margin-bottom: 15px;
-            font-size: 2em;
+            font-size: 1.8em;
         }
         
-        .learn-cta p {
-            color: #666;
-            font-size: 1.1em;
+        .cta-box p {
             margin-bottom: 25px;
+            opacity: 0.95;
         }
         
-        .learn-cta .btn {
+        .cta-box .btn {
             display: inline-block;
-            background: #004c8f;
+            background: #ff6b35;
             color: white;
-            padding: 15px 35px;
+            padding: 12px 30px;
             border-radius: 5px;
             font-weight: 600;
             margin: 5px;
@@ -167,25 +260,55 @@
             text-decoration: none;
         }
         
-        .learn-cta .btn:hover {
-            background: #003a6b;
+        .cta-box .btn:hover {
+            background: #e55a25;
         }
         
-        @media (max-width: 768px) {
-            .audiolearn-hero h1 {
-                font-size: 2em;
+        /* Mobile Menu Toggle */
+        .mobile-sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1a2332;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 968px) {
+            .audiolearn-wrapper {
+                flex-direction: column;
             }
             
-            .audiolearn-hero p {
-                font-size: 1.1em;
+            .audiolearn-sidebar {
+                position: fixed;
+                left: -320px;
+                top: 0;
+                height: 100vh;
+                z-index: 999;
+                transition: left 0.3s;
             }
             
-            .learning-categories {
-                grid-template-columns: 1fr;
+            .audiolearn-sidebar.mobile-open {
+                left: 0;
             }
             
-            .audiolearn-container {
-                padding: 15px;
+            .audiolearn-content {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .mobile-sidebar-toggle {
+                display: block;
+            }
+            
+            .lesson-header h2 {
+                font-size: 1.6em;
             }
         }
     </style>
@@ -221,111 +344,159 @@
     </header>
 
     <main class="content-area">
-        <div class="audiolearn-container">
-            <div class="audiolearn-hero">
-                <h1>🎧 AudioLearn</h1>
-                <p>Your Free Resource Center for Audio Engineering & Live Sound Production</p>
+        <div class="audiolearn-wrapper">
+            <!-- Sidebar Navigation -->
+            <aside class="audiolearn-sidebar" id="audiolearn-sidebar">
+                <div class="sidebar-header">
+                    <h1>🎧 AudioLearn</h1>
+                    <p>From Waves to Mixing</p>
+                </div>
+                
+                <div class="course-syllabus">
+                    <div class="syllabus-title">Course Syllabus</div>
+                    
+                    <!-- Level 1: Physics of Sound -->
+                    <div class="course-level expanded">
+                        <div class="level-header" onclick="toggleLevel(this)">
+                            <span class="level-title">Level 1: The Physics of Sound (Fundamentals)</span>
+                            <span class="level-arrow">▼</span>
+                        </div>
+                        <div class="level-lessons">
+                            <div class="lesson-item active">Lesson 1.1: What is Sound?</div>
+                            <div class="lesson-item">Lesson 1.2: Frequency & Pitch (Hz)</div>
+                            <div class="lesson-item">Lesson 1.3: Amplitude & Volume (dB)</div>
+                            <div class="lesson-item">Lesson 1.4: Sound Waves & Wavelength</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Level 2: Digital Audio Basics -->
+                    <div class="course-level">
+                        <div class="level-header" onclick="toggleLevel(this)">
+                            <span class="level-title">Level 2: Digital Audio Basics</span>
+                            <span class="level-arrow">▼</span>
+                        </div>
+                        <div class="level-lessons">
+                            <div class="lesson-item">Lesson 2.1: Analog vs Digital</div>
+                            <div class="lesson-item">Lesson 2.2: Sample Rate & Bit Depth</div>
+                            <div class="lesson-item">Lesson 2.3: Audio Interfaces</div>
+                            <div class="lesson-item">Lesson 2.4: Signal Flow</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Level 3: Microphones -->
+                    <div class="course-level">
+                        <div class="level-header" onclick="toggleLevel(this)">
+                            <span class="level-title">Level 3: Microphones</span>
+                            <span class="level-arrow">▼</span>
+                        </div>
+                        <div class="level-lessons">
+                            <div class="lesson-item">Lesson 3.1: Microphone Types</div>
+                            <div class="lesson-item">Lesson 3.2: Polar Patterns</div>
+                            <div class="lesson-item">Lesson 3.3: Mic Placement</div>
+                            <div class="lesson-item">Lesson 3.4: Wireless Systems</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Level 4: Mixing Basics -->
+                    <div class="course-level">
+                        <div class="level-header" onclick="toggleLevel(this)">
+                            <span class="level-title">Level 4: Mixing Basics</span>
+                            <span class="level-arrow">▼</span>
+                        </div>
+                        <div class="level-lessons">
+                            <div class="lesson-item">Lesson 4.1: Understanding Mixers</div>
+                            <div class="lesson-item">Lesson 4.2: Gain Structure</div>
+                            <div class="lesson-item">Lesson 4.3: EQ Fundamentals</div>
+                            <div class="lesson-item">Lesson 4.4: Compression</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Level 5: Live Sound -->
+                    <div class="course-level">
+                        <div class="level-header" onclick="toggleLevel(this)">
+                            <span class="level-title">Level 5: Live Sound Production</span>
+                            <span class="level-arrow">▼</span>
+                        </div>
+                        <div class="level-lessons">
+                            <div class="lesson-item">Lesson 5.1: PA System Setup</div>
+                            <div class="lesson-item">Lesson 5.2: Monitor Systems</div>
+                            <div class="lesson-item">Lesson 5.3: Feedback Management</div>
+                            <div class="lesson-item">Lesson 5.4: Sound Check Process</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Level 6: Church Audio -->
+                    <div class="course-level">
+                        <div class="level-header" onclick="toggleLevel(this)">
+                            <span class="level-title">Level 6: Church Audio Specialist</span>
+                            <span class="level-arrow">▼</span>
+                        </div>
+                        <div class="level-lessons">
+                            <div class="lesson-item">Lesson 6.1: Worship Sound Mixing</div>
+                            <div class="lesson-item">Lesson 6.2: Pastor Mic Techniques</div>
+                            <div class="lesson-item">Lesson 6.3: Live Stream Audio</div>
+                            <div class="lesson-item">Lesson 6.4: Volunteer Training</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- Main Content -->
+            <div class="audiolearn-content">
+                <div class="lesson-header">
+                    <h2>Welcome to AudioLearn</h2>
+                    <div class="lesson-meta">
+                        <span>📚 6 Levels</span>
+                        <span>🎓 Free Course</span>
+                        <span>⏱️ Self-Paced</span>
+                    </div>
+                </div>
+                
+                <div class="lesson-body">
+                    <p>Welcome to <strong>AudioLearn</strong> - your comprehensive, free resource for mastering audio engineering and live sound production. Whether you're a beginner looking to understand the basics or an experienced sound engineer wanting to refine your skills, this learning center has something for you.</p>
+                    
+                    <p>Our curriculum is designed to take you from fundamental physics of sound all the way through to professional live sound production and specialized church audio techniques. Each level builds upon the previous one, creating a solid foundation for your audio journey.</p>
+                    
+                    <div class="coming-soon-section">
+                        <h3>🚀 Content Coming Soon</h3>
+                        <p>We're currently developing comprehensive lessons, interactive exercises, and real-world examples for each topic. Check back soon for updates!</p>
+                        
+                        <div class="topic-grid">
+                            <div class="topic-item">Sound Physics Fundamentals</div>
+                            <div class="topic-item">Digital Audio Concepts</div>
+                            <div class="topic-item">Microphone Mastery</div>
+                            <div class="topic-item">Mixing Techniques</div>
+                            <div class="topic-item">Live Sound Production</div>
+                            <div class="topic-item">Church Audio Specialist</div>
+                        </div>
+                    </div>
+                    
+                    <h3>What You'll Learn</h3>
+                    <p><strong>Level 1: The Physics of Sound</strong> - Start with the fundamentals. Understand what sound is, how it travels, and the basic properties that affect everything in audio production.</p>
+                    
+                    <p><strong>Level 2: Digital Audio Basics</strong> - Bridge the gap between analog and digital. Learn about sample rates, bit depth, and how modern audio systems work.</p>
+                    
+                    <p><strong>Level 3: Microphones</strong> - Master the most important tool in audio. Learn about different microphone types, polar patterns, and proper placement techniques.</p>
+                    
+                    <p><strong>Level 4: Mixing Basics</strong> - Get hands-on with mixers. Understand gain structure, EQ, compression, and the fundamentals of creating a great mix.</p>
+                    
+                    <p><strong>Level 5: Live Sound Production</strong> - Take your skills to the stage. Learn PA system setup, monitor management, feedback elimination, and running a smooth show.</p>
+                    
+                    <p><strong>Level 6: Church Audio Specialist</strong> - Specialized training for worship environments. Learn worship sound mixing, pastor mic techniques, live streaming audio, and volunteer training.</p>
+                    
+                    <div class="cta-box">
+                        <h3>Ready for Professional Training?</h3>
+                        <p>Take your skills to the next level with hands-on experience and professional guidance</p>
+                        <a href="services.html" class="btn">Explore Our Services</a>
+                        <a href="contact.html" class="btn">Contact for Training</a>
+                    </div>
+                </div>
             </div>
-
-            <div class="learning-categories">
-                <!-- Sound System Basics -->
-                <div class="category-card">
-                    <div class="icon">🔊</div>
-                    <h2>Sound System Basics</h2>
-                    <span class="coming-soon-badge">Content Coming Soon</span>
-                    <p>Learn the fundamentals of professional sound systems and how they work.</p>
-                    <ul class="topics-list">
-                        <li>Understanding PA Systems</li>
-                        <li>Speaker Types & Placement</li>
-                        <li>Power & Impedance Basics</li>
-                        <li>Signal Flow Fundamentals</li>
-                        <li>Choosing the Right Equipment</li>
-                    </ul>
-                </div>
-
-                <!-- Live Sound Mixing -->
-                <div class="category-card">
-                    <div class="icon">🎚️</div>
-                    <h2>Live Sound Mixing</h2>
-                    <span class="coming-soon-badge">Content Coming Soon</span>
-                    <p>Master the art of mixing live sound for events, churches, and concerts.</p>
-                    <ul class="topics-list">
-                        <li>Mixer Controls & Functions</li>
-                        <li>EQ Techniques for Live Sound</li>
-                        <li>Compression & Dynamics</li>
-                        <li>Effects & Reverb</li>
-                        <li>Gain Structure & Levels</li>
-                    </ul>
-                </div>
-
-                <!-- Church Audio -->
-                <div class="category-card">
-                    <div class="icon">⛪</div>
-                    <h2>Church Audio</h2>
-                    <span class="coming-soon-badge">Content Coming Soon</span>
-                    <p>Specialized training for church sound systems and worship services.</p>
-                    <ul class="topics-list">
-                        <li>Worship Sound Mixing</li>
-                        <li>Managing Monitor Mixes</li>
-                        <li>Microphone Techniques for Pastors</li>
-                        <li>Dealing with Feedback</li>
-                        <li>Budget-Friendly Church Systems</li>
-                    </ul>
-                </div>
-
-                <!-- Microphone Techniques -->
-                <div class="category-card">
-                    <div class="icon">🎤</div>
-                    <h2>Microphone Techniques</h2>
-                    <span class="coming-soon-badge">Content Coming Soon</span>
-                    <p>Everything you need to know about microphones and proper mic techniques.</p>
-                    <ul class="topics-list">
-                        <li>Microphone Types & Uses</li>
-                        <li>Polar Patterns Explained</li>
-                        <li>Mic Placement for Vocals</li>
-                        <li>Instrument Miking Techniques</li>
-                        <li>Wireless vs Wired Mics</li>
-                    </ul>
-                </div>
-
-                <!-- Event Production -->
-                <div class="category-card">
-                    <div class="icon">🎬</div>
-                    <h2>Event Production</h2>
-                    <span class="coming-soon-badge">Content Coming Soon</span>
-                    <p>Learn how to plan and execute professional live events.</p>
-                    <ul class="topics-list">
-                        <li>Event Planning Checklist</li>
-                        <li>Stage Setup & Design</li>
-                        <li>Load-In & Sound Check</li>
-                        <li>Troubleshooting Common Issues</li>
-                        <li>Working with Performers</li>
-                    </ul>
-                </div>
-
-                <!-- Troubleshooting -->
-                <div class="category-card">
-                    <div class="icon">🔧</div>
-                    <h2>Troubleshooting</h2>
-                    <span class="coming-soon-badge">Content Coming Soon</span>
-                    <p>Solve common audio problems quickly and effectively.</p>
-                    <ul class="topics-list">
-                        <li>Eliminating Feedback</li>
-                        <li>Fixing Ground Loops & Hum</li>
-                        <li>No Sound Issues</li>
-                        <li>Distortion & Clipping</li>
-                        <li>Emergency Problem Solving</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Call to Action -->
-            <div class="learn-cta">
-                <h2>Ready to Take Your Audio Skills Further?</h2>
-                <p>Work with professional audio engineers and get hands-on experience with our AV services.</p>
-                <a href="services.html" class="btn">Explore Our Services</a>
-                <a href="contact.html" class="btn">Get Professional Training</a>
-            </div>
+        </div>
+        
+        <!-- Mobile Sidebar Toggle -->
+        <div class="mobile-sidebar-toggle" onclick="toggleMobileSidebar()">
+            📚 Course Menu
         </div>
     </main>
 
@@ -425,6 +596,30 @@
                 footerContent.classList.toggle('active');
             });
         }
+        
+        // AudioLearn Sidebar Functions
+        function toggleLevel(header) {
+            const level = header.parentElement;
+            level.classList.toggle('expanded');
+        }
+        
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('audiolearn-sidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+        
+        // Close mobile sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('audiolearn-sidebar');
+            const toggle = document.querySelector('.mobile-sidebar-toggle');
+            
+            if (sidebar && toggle && 
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target) &&
+                sidebar.classList.contains('mobile-open')) {
+                sidebar.classList.remove('mobile-open');
+            }
+        });
     </script>
 
 </body>
