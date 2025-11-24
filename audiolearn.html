@@ -135,20 +135,27 @@
         .lesson-item {
             padding: 12px 25px 12px 50px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 10px;
             font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+            border-left: 3px solid transparent;
         }
         
         .lesson-item:hover {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border-left-color: #00d9ff;
+            padding-left: 55px;
         }
         
         .lesson-item.active {
-            background: rgba(0,76,143,0.3);
-            border-left: 3px solid #ff6b35;
+            background: rgba(0, 217, 255, 0.15);
+            border-left: 3px solid #00d9ff;
+            color: #00d9ff;
+            font-weight: 600;
         }
         
         .lesson-item.completed::before {
@@ -516,14 +523,14 @@
                             <span class="level-arrow">▼</span>
                         </div>
                         <div class="level-lessons">
-                            <div class="lesson-item active">1. What is sound?</div>
-                            <div class="lesson-item">2. How is sound created?</div>
-                            <div class="lesson-item">3. What is frequency?</div>
-                            <div class="lesson-item">4. What is pitch?</div>
-                            <div class="lesson-item">5. What is amplitude?</div>
-                            <div class="lesson-item">6. What is volume?</div>
-                            <div class="lesson-item">7. What is decibel (dB)?</div>
-                            <div class="lesson-item">8. What is a waveform?</div>
+                            <div class="lesson-item active" onclick="scrollToLesson('q1')">1. What is sound?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q2')">2. How is sound created?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q3')">3. What is frequency?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q4')">4. What is pitch?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q5')">5. What is amplitude?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q6')">6. What is volume?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q7')">7. What is decibel (dB)?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q8')">8. What is a waveform?</div>
                         </div>
                     </div>
                     
@@ -534,9 +541,9 @@
                             <span class="level-arrow">▼</span>
                         </div>
                         <div class="level-lessons">
-                            <div class="lesson-item">9. What is a microphone?</div>
-                            <div class="lesson-item">10. What does a microphone do?</div>
-                            <div class="lesson-item">11. What is an audio interface?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q9')">9. What does a microphone do?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q10')">10. What types of microphones are there?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q11')">11. What is an audio interface?</div>
                         </div>
                     </div>
                     
@@ -547,11 +554,11 @@
                             <span class="level-arrow">▼</span>
                         </div>
                         <div class="level-lessons">
-                            <div class="lesson-item">12. What is sampling?</div>
-                            <div class="lesson-item">13. What is sample rate?</div>
-                            <div class="lesson-item">14. What is bit depth?</div>
-                            <div class="lesson-item">15. What is mono audio?</div>
-                            <div class="lesson-item">16. What is stereo audio?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q12')">12. What is sampling?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q13')">13. What is sample rate?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q14')">14. What is bit depth?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q15')">15. What is mono audio?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q16')">16. What is stereo audio?</div>
                         </div>
                     </div>
                     
@@ -562,10 +569,10 @@
                             <span class="level-arrow">▼</span>
                         </div>
                         <div class="level-lessons">
-                            <div class="lesson-item">17. What is mixing?</div>
-                            <div class="lesson-item">18. What is equalization (EQ)?</div>
-                            <div class="lesson-item">19. What is compression?</div>
-                            <div class="lesson-item">20. What is mastering?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q17')">17. What is mixing?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q18')">18. What is equalization (EQ)?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q19')">19. What is compression?</div>
+                            <div class="lesson-item" onclick="scrollToLesson('q20')">20. What is mastering?</div>
                         </div>
                     </div>
                 </div>
@@ -589,7 +596,7 @@
                     <div class="coming-soon-section" style="border-left-color: #004c8f;">
                         <h3>Level 1: Understanding Sound</h3>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q1">
                             <strong>1. What is sound?</strong>
                             <p class="qa-answer">Sound is vibrations that travel through air and reach our ears.</p>
                             <div class="visual-example">
@@ -598,7 +605,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q2">
                             <strong>2. How is sound created?</strong>
                             <p class="qa-answer">Sound is created when something moves back and forth quickly.</p>
                             <div class="visual-example">
@@ -607,7 +614,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q3">
                             <strong>3. What is frequency?</strong>
                             <p class="qa-answer">Frequency is how fast something vibrates. It decides how high or low a sound is.</p>
                             <div class="visual-example">
@@ -634,7 +641,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q4">
                             <strong>4. What is pitch?</strong>
                             <p class="qa-answer">Pitch is how high or low a sound feels to us.<br>High frequency = high pitch.<br>Low frequency = low pitch.</p>
                             <div class="visual-example">
@@ -653,7 +660,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q5">
                             <strong>5. What is amplitude?</strong>
                             <p class="qa-answer">Amplitude is the strength of the vibration. It decides how loud a sound is.</p>
                             <div class="visual-example">
@@ -674,7 +681,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q6">
                             <strong>6. What is volume?</strong>
                             <p class="qa-answer">Volume is how loud or soft a sound is.</p>
                             <div class="visual-example">
@@ -687,7 +694,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q7">
                             <strong>7. What is decibel (dB)?</strong>
                             <p class="qa-answer">Decibel is the unit we use to measure loudness.</p>
                             <div class="visual-example">
@@ -711,7 +718,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q8">
                             <strong>8. What is a waveform?</strong>
                             <p class="qa-answer">A waveform is a visual picture of how sound moves over time.</p>
                             <div class="visual-example">
@@ -733,7 +740,7 @@
                     <div class="coming-soon-section" style="border-left-color: #0066b3;">
                         <h3>Level 2: Audio Equipment</h3>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q9">
                             <strong>9. What does a microphone do?</strong>
                             <p class="qa-answer">A microphone turns sound waves into electrical signals.</p>
                             <div class="visual-example">
@@ -748,7 +755,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q10">
                             <strong>10. What types of microphones are there?</strong>
                             <p class="qa-answer">Dynamic: Good for loud sounds (drums, guitar amps).<br>Condenser: Sensitive, great for vocals and quiet sounds.</p>
                             <div class="visual-example">
@@ -769,7 +776,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q11">
                             <strong>11. What is an audio interface?</strong>
                             <p class="qa-answer">An audio interface is a device that connects microphones and instruments to a computer.</p>
                             <div class="visual-example">
@@ -803,7 +810,7 @@
                     <div class="coming-soon-section" style="border-left-color: #ff6b35;">
                         <h3>Level 3: Digital Audio</h3>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q12">
                             <strong>12. What is sampling?</strong>
                             <p class="qa-answer">Sampling is taking small "snapshots" of sound so a computer can record it.</p>
                             <div class="visual-example">
@@ -837,7 +844,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q13">
                             <strong>13. What is sample rate?</strong>
                             <p class="qa-answer">Sample rate is how many "snapshots" are taken per second.<br>44.1kHz = 44,100 samples per second (CD quality).</p>
                             <div class="visual-example">
@@ -866,7 +873,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q14">
                             <strong>14. What is bit depth?</strong>
                             <p class="qa-answer">Bit depth controls how detailed and clear the sound recording is.<br>16-bit = 65,536 levels | 24-bit = 16.7 million levels.</p>
                             <div class="visual-example">
@@ -888,7 +895,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q15">
                             <strong>15. What is mono audio?</strong>
                             <p class="qa-answer">Mono audio uses one channel of sound.</p>
                             <div class="visual-example">
@@ -903,7 +910,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q16">
                             <strong>16. What is stereo audio?</strong>
                             <p class="qa-answer">Stereo audio uses two channels: left and right.<br>This creates a wider, more immersive sound.</p>
                             <div class="visual-example">
@@ -928,7 +935,7 @@
                     <div class="coming-soon-section" style="border-left-color: #4CAF50;">
                         <h3>Level 4: Audio Production</h3>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q17">
                             <strong>17. What is mixing?</strong>
                             <p class="qa-answer">Mixing is adjusting sounds so they fit well together.<br>Balance volumes, panning, and effects.</p>
                             <div class="visual-example">
@@ -970,7 +977,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q18">
                             <strong>18. What is equalization (EQ)?</strong>
                             <p class="qa-answer">EQ changes how much bass, mid, or treble a sound has.<br>Removes unwanted frequencies and enhances others.</p>
                             <div class="visual-example">
@@ -1010,7 +1017,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q19">
                             <strong>19. What is compression?</strong>
                             <p class="qa-answer">Compression controls the loud and soft parts of a sound to make it more even.<br>Prevents clipping and improves clarity.</p>
                             <div class="visual-example">
@@ -1046,7 +1053,7 @@
                             </div>
                         </div>
                         
-                        <div class="qa-item">
+                        <div class="qa-item" id="q20">
                             <strong>20. What is mastering?</strong>
                             <p class="qa-answer">Mastering gives the final polish to a finished audio project.<br>Makes it ready for distribution (streaming, CDs, etc.).</p>
                             <div class="visual-example">
@@ -1202,6 +1209,32 @@
         function toggleLevel(header) {
             const level = header.parentElement;
             level.classList.toggle('expanded');
+        }
+        
+        function scrollToLesson(lessonId) {
+            const element = document.getElementById(lessonId);
+            if (element) {
+                // Scroll to the element with offset for header
+                const yOffset = -20;
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({top: y, behavior: 'smooth'});
+                
+                // Update active state in sidebar
+                const allLessons = document.querySelectorAll('.lesson-item');
+                allLessons.forEach(item => item.classList.remove('active'));
+                
+                // Find and activate the clicked lesson
+                const clickedLesson = event.target;
+                if (clickedLesson) {
+                    clickedLesson.classList.add('active');
+                }
+                
+                // Close mobile sidebar after click
+                const sidebar = document.getElementById('audiolearn-sidebar');
+                if (sidebar && sidebar.classList.contains('mobile-open')) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
         }
         
         function toggleMobileSidebar() {
