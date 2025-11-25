@@ -85,7 +85,7 @@ class ChatWidget {
     addWelcomeMessage() {
         const welcomeMessages = [
             "👋 Hi! Welcome to Ev1media!",
-            "I'm here to help you with our AV Solutions and Digital Marketing services.",
+            "I'm here to help you with our Sound Rental and Digital Marketing services.",
             "How can I assist you today?"
         ];
         
@@ -187,7 +187,7 @@ class ChatWidget {
         
         // Service inquiries with natural language
         if (this.matchesIntent(lowerMessage, ['service', 'what do you do', 'what do you offer', 'tell me about', 'what can you do', 'help me with'])) {
-            return "We offer two main services:\n\n🎤 <strong>AV Solutions</strong> - Sound systems, lighting, video production, and live event services\n\n📱 <strong>Digital Marketing</strong> - Social media management, web design, advertising, and content creation\n\nWhich would you like to know more about?";
+            return "We offer two main services:\n\n🎤 <strong>Sound Rental</strong> - Professional sound system packages for events, churches, and businesses\n\n📱 <strong>Digital Marketing</strong> - Social media management, web design, advertising, and content creation\n\nWhich would you like to know more about?";
         }
         
         // Pricing with context awareness
@@ -195,12 +195,12 @@ class ChatWidget {
             const lastContext = this.conversationContext.slice(-3).join(' ');
             let response = "Our pricing varies based on your specific needs:\n\n";
             
-            if (lastContext.includes('sound') || lastContext.includes('av') || lastContext.includes('audio')) {
-                response += "💰 <strong>AV Solutions:</strong>\n• Speech Package: $500-$800\n• Small Event: $800-$1,200\n• Medium Event: $1,200-$1,800\n• Large Event: $1,800-$2,500+\n";
+            if (lastContext.includes('sound') || lastContext.includes('av') || lastContext.includes('audio') || lastContext.includes('rental')) {
+                response += "💰 <strong>Sound Rental Packages:</strong>\n• Speech Package (2 Top Speakers + Mic): $500-$800\n• Full System (2 Top + Subs): $800-$1,500\n• Custom Package: Contact for quote\n";
             } else if (lastContext.includes('market') || lastContext.includes('website') || lastContext.includes('social')) {
                 response += "💰 <strong>Digital Marketing:</strong>\n• Social Media: $300-$1,500/month\n• Web Design: $1,000-$5,000+\n• Advertising: $500-$3,000/month\n• Content Creation: $200-$1,000+\n";
             } else {
-                response += "💰 AV Solutions: $500 - $5,000+\n💰 Digital Marketing: $200 - $5,000+\n";
+                response += "💰 Sound Rental: $500 - $2,000+\n💰 Digital Marketing: $200 - $5,000+\n";
             }
             
             response += "\nWould you like a custom quote? I can connect you with our team!";
@@ -212,9 +212,9 @@ class ChatWidget {
             return "Great! I'd love to help you book a service. You have a few options:\n\n📅 <a href='booking.html'><strong>Fill out our booking form</strong></a>\n📞 <strong>Call us:</strong> (239) 351-6598\n💬 <strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat on WhatsApp</button>\n\nOr I can connect you with our team right now. What works best for you?";
         }
         
-        // AV Solutions with detailed understanding
-        if (this.matchesIntent(lowerMessage, ['sound', 'audio', 'speaker', 'microphone', 'mic', 'av', 'equipment', 'system', 'lighting', 'video', 'camera', 'event', 'concert', 'church'])) {
-            return "Our AV Solutions include:\n\n🎤 <strong>Sound System Rental</strong> (multiple packages available)\n📹 <strong>Video & Lighting</strong>\n🎬 <strong>Live Event Production</strong>\n⚙️ <strong>Installation & Setup</strong>\n\nAll sound packages include 1 mixer and 2 microphones. We also offer DJ services!\n\nWould you like to <a href='services.html'>view details</a>, <a href='booking.html'>book now</a>, or chat with our team on <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">WhatsApp</button>?";
+        // Sound Rental with detailed understanding
+        if (this.matchesIntent(lowerMessage, ['sound', 'audio', 'speaker', 'microphone', 'mic', 'av', 'equipment', 'system', 'rental', 'event', 'concert', 'church'])) {
+            return "Our Sound Rental packages include:\n\n🎤 <strong>Speech Package</strong> - 2 Top Speakers + Mic\n🔊 <strong>Full System</strong> - 2 Top + Subs\n⚙️ <strong>Custom Package</strong> - Tell us what you need!\n\nAll packages include 1 mixer and 2 microphones. We also offer DJ services as an add-on!\n\nWould you like to <a href='services.html'>view details</a>, <a href='booking.html'>book now</a>, or chat with our team on <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">WhatsApp</button>?";
         }
         
         // Digital Marketing with context
@@ -239,7 +239,7 @@ class ChatWidget {
         
         // Packages
         if (this.matchesIntent(lowerMessage, ['package', 'option', 'what size', 'different type'])) {
-            return "We offer several sound system packages:\n\n🎵 <strong>Speech Package:</strong> 2 speakers, 2 mics, 1 mixer ($500-$800)\n🎵 <strong>Small Event:</strong> 4 speakers, 4 mics, 1 mixer ($800-$1,200)\n🎵 <strong>Medium Event:</strong> 6 speakers, 6 mics, 1 mixer ($1,200-$1,800)\n🎵 <strong>Large Event:</strong> 8+ speakers, multiple mics ($1,800-$2,500+)\n🎵 <strong>Custom Package:</strong> Let's discuss your specific needs!\n\nAll packages include professional setup! Ready to <a href='booking.html'>book</a> or <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">discuss on WhatsApp</button>?";
+            return "We offer sound system packages:\n\n🎵 <strong>Speech Package:</strong> 2 top speakers + mic + mixer ($500-$800)\n🎵 <strong>Full System:</strong> 2 top speakers + subs + mic + mixer ($800-$1,500)\n🎵 <strong>Custom Package:</strong> Tell us exactly what you need!\n\nAll packages include professional setup and 1 mixer with 2 microphones! Ready to <a href='booking.html'>book</a> or <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">discuss on WhatsApp</button>?";
         }
         
         // DJ Services
