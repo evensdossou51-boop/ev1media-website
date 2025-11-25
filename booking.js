@@ -98,13 +98,28 @@ if (specificServiceSelect) {
         // Show package selection for sound system rental
         const packageGroup = document.getElementById('packageSelectionGroup');
         const djGroup = document.getElementById('djServiceGroup');
+        const customEquipmentGroup = document.getElementById('customEquipmentGroup');
         
         if (service === 'speech-package' || service === 'full-system' || service === 'custom') {
             if (packageGroup) packageGroup.style.display = 'block';
             if (djGroup) djGroup.style.display = 'block';
+            
+            // Show custom equipment field only for custom package
+            if (service === 'custom') {
+                if (customEquipmentGroup) {
+                    customEquipmentGroup.style.display = 'block';
+                    document.getElementById('customEquipment').setAttribute('required', 'required');
+                }
+            } else {
+                if (customEquipmentGroup) {
+                    customEquipmentGroup.style.display = 'none';
+                    document.getElementById('customEquipment').removeAttribute('required');
+                }
+            }
         } else {
             if (packageGroup) packageGroup.style.display = 'none';
             if (djGroup) djGroup.style.display = 'none';
+            if (customEquipmentGroup) customEquipmentGroup.style.display = 'none';
         }
     } else if (category === 'digital-marketing') {
         digitalMarketingQuestions.style.display = 'block';
