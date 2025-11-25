@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Service options for each category
 const services = {
     'av-solutions': [
-        { value: 'sound-rental', label: 'Sound System Rental' }
+        { value: 'speech-package', label: 'Speech Package (2 Top Speakers + Mic)' },
+        { value: 'full-system', label: 'Full System (2 Top + Subs)' },
+        { value: 'custom', label: 'Custom Package' }
     ],
     'digital-marketing': [
         { value: 'social-media', label: 'Social Media Management' },
