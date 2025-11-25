@@ -67,13 +67,11 @@ if (serviceCategorySelect) {
         if (category === 'av-solutions') {
             eventDetailsSection.style.display = 'block';
             projectDetailsSection.style.display = 'none';
-            document.getElementById('budgetTitle').textContent = '4. Budget & Payment';
-            document.getElementById('additionalTitle').textContent = '5. Additional Information';
+            document.getElementById('additionalTitle').textContent = '4. Additional Information';
         } else if (category === 'digital-marketing') {
             eventDetailsSection.style.display = 'none';
             projectDetailsSection.style.display = 'block';
-            document.getElementById('budgetTitle').textContent = '4. Budget & Payment';
-            document.getElementById('additionalTitle').textContent = '5. Additional Information';
+            document.getElementById('additionalTitle').textContent = '4. Additional Information';
         }
     } else {
         specificServiceGroup.style.display = 'none';
