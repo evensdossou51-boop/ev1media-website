@@ -99,12 +99,12 @@ if (specificServiceSelect) {
         const packageGroup = document.getElementById('packageSelectionGroup');
         const djGroup = document.getElementById('djServiceGroup');
         
-        if (service === 'sound-rental') {
-            packageGroup.style.display = 'block';
-            djGroup.style.display = 'block';
+        if (service === 'speech-package' || service === 'full-system' || service === 'custom') {
+            if (packageGroup) packageGroup.style.display = 'block';
+            if (djGroup) djGroup.style.display = 'block';
         } else {
-            packageGroup.style.display = 'none';
-            djGroup.style.display = 'none';
+            if (packageGroup) packageGroup.style.display = 'none';
+            if (djGroup) djGroup.style.display = 'none';
         }
     } else if (category === 'digital-marketing') {
         digitalMarketingQuestions.style.display = 'block';
