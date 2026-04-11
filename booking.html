@@ -14,11 +14,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Our Services - Ev1media</title>
     
-    <!-- Open Graph / Social Media Meta Tags -->
+    <!-- Open Graph / Sharing Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ev1media.com/booking.html">
     <meta property="og:title" content="Book Services - Ev1media">
-    <meta property="og:description" content="Book professional AV solutions or digital marketing services with Ev1media. Sound rentals, event production, web design, social media management, and more.">
+    <meta property="og:description" content="Book professional audio, networking, and IT services with Ev1media. Sound rentals, network setup, rack builds, and technical support in Florida.">
     <meta property="og:image" content="https://ev1media.com/images/logo.png">
     <meta property="og:site_name" content="Ev1media">
     
@@ -26,10 +26,10 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://ev1media.com/booking.html">
     <meta name="twitter:title" content="Book Services - Ev1media">
-    <meta name="twitter:description" content="Book professional AV solutions or digital marketing services with Ev1media. Sound rentals, event production, web design, social media management, and more.">
+    <meta name="twitter:description" content="Book professional audio, networking, and IT services with Ev1media. Sound rentals, network setup, rack builds, and technical support in Florida.">
     <meta name="twitter:image" content="https://ev1media.com/images/logo.png">
     
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css?v=13">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -43,7 +43,7 @@
                 </span>
                 Ev1media
             </a>
-            <span class="logo-tagline">Marketing & AV Solutions</span>
+            <span class="logo-tagline">Audio and Networking Solutions</span>
         </div>
         
         <!-- Hamburger Menu Button (Mobile Only) -->
@@ -55,7 +55,6 @@
         
         <nav class="main-nav" id="main-nav">
             <a href="index.html">Home Page</a>
-            <a href="services.html">Our Services</a>
             <a href="about.html">About</a>
             <a href="faq.html">FAQ</a>
             <a href="contact.html">Contact</a>
@@ -78,7 +77,7 @@
                             <select id="serviceCategory" name="serviceCategory" required>
                                 <option value="">-- Select Category --</option>
                                 <option value="av-solutions">Sound Rental</option>
-                                <option value="digital-marketing">Digital Marketing</option>
+                                <option value="networking-it">Networking and IT Services</option>
                             </select>
                         </div>
 
@@ -242,7 +241,7 @@
                         </div>
                     </div>
 
-                    <!-- Step 4: Project Details (for Digital Marketing) -->
+                    <!-- Step 3: Project Details (for Networking and IT) -->
                     <div class="form-section" id="projectDetailsSection" style="display: none;">
                         <h2>3. Project Details</h2>
                         
@@ -263,40 +262,39 @@
                             </select>
                         </div>
 
-                        <!-- Digital Marketing Specific Questions -->
-                        <div id="digitalMarketingQuestions" style="display: none;">
+                        <!-- Networking + IT Specific Questions -->
+                        <div id="networkingItQuestions" style="display: none;">
                             <div class="form-group">
-                                <label for="currentWebsite">Do you have an existing website?</label>
-                                <select id="currentWebsite" name="currentWebsite">
+                                <label for="currentInfrastructure">Do you already have network/IT infrastructure in place?</label>
+                                <select id="currentInfrastructure" name="currentInfrastructure">
                                     <option value="">-- Select Option --</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                    <option value="redesign">Yes, but need redesign</option>
+                                    <option value="yes-stable">Yes, and it's mostly stable</option>
+                                    <option value="yes-needs-improvement">Yes, but it needs improvement</option>
+                                    <option value="no-new-install">No, this is a new setup</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Which platforms are you interested in? (Check all that apply)</label>
+                                <label>What do you need help with? (Check all that apply)</label>
                                 <div class="checkbox-group">
-                                    <label><input type="checkbox" name="platforms" value="facebook"> Facebook</label>
-                                    <label><input type="checkbox" name="platforms" value="instagram"> Instagram</label>
-                                    <label><input type="checkbox" name="platforms" value="tiktok"> TikTok</label>
-                                    <label><input type="checkbox" name="platforms" value="youtube"> YouTube</label>
-                                    <label><input type="checkbox" name="platforms" value="linkedin"> LinkedIn</label>
-                                    <label><input type="checkbox" name="platforms" value="google-ads"> Google Ads</label>
-                                    <label><input type="checkbox" name="platforms" value="email"> Email Marketing</label>
+                                    <label><input type="checkbox" name="itNeeds" value="structured-cabling"> Structured Cabling</label>
+                                    <label><input type="checkbox" name="itNeeds" value="rack-build-cleanup"> Rack Build / Cleanup</label>
+                                    <label><input type="checkbox" name="itNeeds" value="managed-network-setup"> Managed Network Setup</label>
+                                    <label><input type="checkbox" name="itNeeds" value="wifi-optimization"> Wi-Fi Optimization</label>
+                                    <label><input type="checkbox" name="itNeeds" value="livestream-support"> Live Streaming Support</label>
+                                    <label><input type="checkbox" name="itNeeds" value="general-it-support"> General IT Support</label>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="marketingGoal">Primary Marketing Goal *</label>
-                                <select id="marketingGoal" name="marketingGoal">
+                                <label for="serviceGoal">Primary Service Goal *</label>
+                                <select id="serviceGoal" name="serviceGoal">
                                     <option value="">-- Select Goal --</option>
-                                    <option value="brand-awareness">Brand Awareness</option>
-                                    <option value="lead-generation">Lead Generation</option>
-                                    <option value="sales">Increase Sales</option>
-                                    <option value="engagement">Community Engagement</option>
-                                    <option value="website-traffic">Website Traffic</option>
+                                    <option value="stability">Improve System Stability</option>
+                                    <option value="performance">Improve Network Performance</option>
+                                    <option value="streaming-reliability">Fix Streaming Reliability Issues</option>
+                                    <option value="system-upgrade">Upgrade Existing Infrastructure</option>
+                                    <option value="ongoing-support">Set Up Ongoing IT Support</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
@@ -340,20 +338,19 @@
     <footer class="main-footer">
         <button class="footer-toggle" id="footer-toggle" aria-label="Toggle footer">
             <span>Quick Links & Contact</span>
-            <span class="footer-arrow">▼</span>
+            <span class="footer-arrow">&#9662;</span>
         </button>
         <div class="footer-content" id="footer-content">
             <div class="footer-section">
                 <h3>Ev1media</h3>
-                <p>Marketing & AV Solutions</p>
-                <p>Amplifying your message and elevating your presence for churches and businesses.</p>
+                <p>Audio and Networking Solutions</p>
+                <p>Reliable audio, networking, and IT support for churches, businesses, and events in Florida.</p>
             </div>
             
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <div class="footer-links">
                     <a href="index.html">Home Page</a>
-                    <a href="services.html">Our Services</a>
                     <a href="about.html">About</a>
                     <a href="faq.html">FAQ</a>
                     <a href="contact.html">Contact</a>
@@ -362,9 +359,9 @@
             
             <div class="footer-section">
                 <h3>Contact</h3>
-                <p>📧 <a href="mailto:infoev1media@gmail.com">infoev1media@gmail.com</a></p>
-                <p>📞 <a href="tel:+2393516598">(239) 351-6598</a></p>
-                <p>📍 Georgia & Florida</p>
+                <p>Email: <a href="mailto:infoev1media@gmail.com">infoev1media@gmail.com</a></p>
+                <p>Phone: <a href="tel:+2393516598">(239) 351-6598</a></p>
+                <p>Service Area: Florida</p>
                 <div class="footer-social">
                     <a href="https://www.facebook.com/evsoundrental" target="_blank" class="social-facebook" aria-label="Facebook">
                         <i class="fab fa-facebook-f"></i>
@@ -379,12 +376,14 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2025 Ev1media. All rights reserved.</p>
+            <p>&copy; 2026 Ev1media. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="chatbot.js"></script>
-    <script src="booking.js?v=2"></script>
+    <script src="chatbot.js?v=6"></script>
+    <script src="form-sheet-config.js"></script>
+    <script src="form-sheet-bridge.js"></script>
+    <script src="booking.js?v=4"></script>
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
@@ -442,5 +441,12 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
 
 

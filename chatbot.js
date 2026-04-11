@@ -1,5 +1,5 @@
-// Chat Widget Configuration
-const WHATSAPP_NUMBER = '12393516598'; // Your WhatsApp Business number
+﻿// Chat Widget Configuration
+const WHATSAPP_NUMBER = '9564970720'; // Your WhatsApp Business number
 
 class ChatWidget {
     constructor() {
@@ -39,7 +39,7 @@ class ChatWidget {
                         <div class="chat-status">Typically replies instantly</div>
                     </div>
                 </div>
-                <button class="chat-close" id="chat-close">×</button>
+                <button class="chat-close" id="chat-close">&times;</button>
             </div>
             <div class="chat-messages" id="chat-messages"></div>
             <div class="chat-input-container">
@@ -84,8 +84,8 @@ class ChatWidget {
 
     addWelcomeMessage() {
         const welcomeMessages = [
-            "👋 Hi! Welcome to Ev1media!",
-            "I'm here to help you with our Sound Rental and Digital Marketing services.",
+            "Hi! Welcome to Ev1media!",
+            "I'm here to help you with our Audio and Networking services.",
             "How can I assist you today?"
         ];
         
@@ -175,19 +175,19 @@ class ChatWidget {
             const nameMatch = message.match(/(?:my name is|i'm|i am)\s+([a-zA-Z]+)/i);
             if (nameMatch) {
                 this.userInfo.name = nameMatch[1];
-                return `Nice to meet you, ${this.userInfo.name}! 😊 How can I help you today?`;
+                return `Nice to meet you, ${this.userInfo.name}! How can I help you today?`;
             }
         }
         
         // Greetings (check first to be friendly)
         if (lowerMessage.match(/^(hello|hi|hey|good morning|good afternoon|good evening|yo|sup|greetings)/)) {
             const greeting = this.userInfo.name ? `Hello again, ${this.userInfo.name}!` : "Hello!";
-            return `${greeting} 👋 Thanks for reaching out to Ev1media!\n\nI can help you with:\n• AV Solutions & Sound Systems\n• Digital Marketing Services\n• Booking & Pricing\n• General Questions\n\nWhat would you like to know?`;
+            return `${greeting} Thanks for reaching out to Ev1media.\n\nI can help you with:\n- Audio Services\n- Networking Services\n- Booking and Pricing\n- General Questions\n\nWhat would you like to know?`;
         }
         
         // Service inquiries with natural language
         if (this.matchesIntent(lowerMessage, ['service', 'what do you do', 'what do you offer', 'tell me about', 'what can you do', 'help me with'])) {
-            return "We offer two main services:\n\n🎤 <strong>Sound Rental</strong> - Professional sound system packages for events, churches, and businesses\n\n📱 <strong>Digital Marketing</strong> - Social media management, web design, advertising, and content creation\n\nWhich would you like to know more about?";
+            return "We offer two main services:\n\n<strong>Audio Services</strong> - Sound rental, live audio engineering, and church sound restoration\n\n<strong>Networking Services</strong> - Structured cabling, rack builds, and managed network setup\n\nWhich would you like to know more about?";
         }
         
         // Pricing with context awareness
@@ -196,11 +196,11 @@ class ChatWidget {
             let response = "Our pricing varies based on your specific needs:\n\n";
             
             if (lastContext.includes('sound') || lastContext.includes('av') || lastContext.includes('audio') || lastContext.includes('rental')) {
-                response += "💰 <strong>Sound Rental Packages:</strong>\n• Speech Package (2 Top Speakers + Mic): $500-$800\n• Full System (2 Top + Subs): $800-$1,500\n• Custom Package: Contact for quote\n";
-            } else if (lastContext.includes('market') || lastContext.includes('website') || lastContext.includes('social')) {
-                response += "💰 <strong>Digital Marketing:</strong>\n• Social Media: $300-$1,500/month\n• Web Design: $1,000-$5,000+\n• Advertising: $500-$3,000/month\n• Content Creation: $200-$1,000+\n";
+                response += "<strong>Audio Packages:</strong>\n- Speech Package (2 top speakers + mic): $500-$800\n- Full System (2 tops + subs): $800-$1,500\n- Custom Package: Contact for quote\n";
+            } else if (lastContext.includes('network') || lastContext.includes('wifi') || lastContext.includes('cable') || lastContext.includes('rack')) {
+                response += "<strong>Networking Services:</strong>\n- Structured cabling and rack build: $700-$4,000+\n- Managed network setup: $500-$3,000+\n- Custom network remediation: Contact for quote\n";
             } else {
-                response += "💰 Sound Rental: $500 - $2,000+\n💰 Digital Marketing: $200 - $5,000+\n";
+                response += "Audio services: $350 - $4,500+\nNetworking services: $500 - $4,000+\n";
             }
             
             response += "\nWould you like a custom quote? I can connect you with our team!";
@@ -209,52 +209,52 @@ class ChatWidget {
         
         // Booking with urgency detection
         if (this.matchesIntent(lowerMessage, ['book', 'schedule', 'appointment', 'reserve', 'hire', 'rent', 'need', 'want to book', 'interested in'])) {
-            return "Great! I'd love to help you book a service. You have a few options:\n\n📅 <a href='booking.html'><strong>Fill out our booking form</strong></a>\n📞 <strong>Call us:</strong> (239) 351-6598\n💬 <strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat on WhatsApp</button>\n\nOr I can connect you with our team right now. What works best for you?";
+            return "Great! I'd love to help you book a service. You have a few options:\n\n<a href='booking.html'><strong>Fill out our booking form</strong></a>\n<strong>Call us:</strong> (239) 351-6598\n<strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat on WhatsApp</button>\n\nOr I can connect you with our team right now. What works best for you?";
         }
         
         // Sound Rental with detailed understanding
         if (this.matchesIntent(lowerMessage, ['sound', 'audio', 'speaker', 'microphone', 'mic', 'av', 'equipment', 'system', 'rental', 'event', 'concert', 'church'])) {
-            return "Our Sound Rental packages include:\n\n🎤 <strong>Speech Package</strong> - 2 Top Speakers + Mic\n🔊 <strong>Full System</strong> - 2 Top + Subs\n⚙️ <strong>Custom Package</strong> - Tell us what you need!\n\nAll packages include 1 mixer and 2 microphones. We also offer DJ services as an add-on!\n\nWould you like to <a href='services.html'>view details</a>, <a href='booking.html'>book now</a>, or chat with our team on <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">WhatsApp</button>?";
+            return "Our audio services include:\n\n<strong>Speech Package</strong> - 2 top speakers + mic\n<strong>Full System</strong> - 2 tops + subs\n<strong>Custom Package</strong> - Tell us what you need\n<strong>Church Sound Restoration</strong> - System restructuring, upgrades, cable management, streaming fixes, and volunteer training\n\nAll packages include 1 mixer and 2 microphones. We also offer DJ services as an add-on.\n\nWould you like to <a href='index.html#audio-services'>view details</a>, <a href='booking.html'>book now</a>, or chat with our team on <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">WhatsApp</button>?";
         }
         
-        // Digital Marketing with context
-        if (this.matchesIntent(lowerMessage, ['market', 'social media', 'website', 'digital', 'facebook', 'instagram', 'online', 'web design', 'seo', 'advertising', 'content', 'brand'])) {
-            return "Our Digital Marketing services include:\n\n📱 <strong>Social Media Management</strong>\n🌐 <strong>Web Design & Development</strong>\n📊 <strong>Digital Advertising</strong>\n✍️ <strong>Content Creation</strong>\n📧 <strong>Email Marketing</strong>\n🎯 <strong>Brand Strategy</strong>\n\nWould you like to <a href='services.html'>learn more</a>, <a href='booking.html'>start a project</a>, or discuss via <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">WhatsApp</button>?";
+        // Networking with context
+        if (this.matchesIntent(lowerMessage, ['network', 'networking', 'wifi', 'wi-fi', 'cabling', 'rack', 'switch', 'vlan', 'internet', 'streaming'])) {
+            return "Our Networking services include:\n\n<strong>Structured Cabling and Rack Build</strong>\n<strong>Managed Network Setup</strong>\n<strong>Network cleanup and optimization</strong>\n\nWould you like to <a href='index.html#networking-services'>learn more</a>, <a href='booking.html'>start a project</a>, or discuss via <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">WhatsApp</button>?";
         }
         
         // Contact information
         if (this.matchesIntent(lowerMessage, ['contact', 'phone', 'email', 'reach', 'call', 'message', 'talk to', 'speak with'])) {
-            return "You can reach us:\n\n📞 <strong>Phone:</strong> <a href='tel:+12393516598'>(239) 351-6598</a>\n📧 <strong>Email:</strong> <a href='mailto:infoev1media@gmail.com'>infoev1media@gmail.com</a>\n💬 <strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Message on WhatsApp</button>\n📍 <strong>Location:</strong> Serving Georgia & Florida\n\nWe're available 24/7! You can also <a href='contact.html'>visit our contact page</a>.";
+            return "You can reach us:\n\n<strong>Phone:</strong> <a href='tel:+12393516598'>(239) 351-6598</a>\n<strong>Email:</strong> <a href='mailto:infoev1media@gmail.com'>infoev1media@gmail.com</a>\n<strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Message on WhatsApp</button>\n<strong>Location:</strong> Serving Florida\n\nWe're available 24/7. You can also <a href='contact.html'>visit our contact page</a>.";
         }
         
         // Hours/Availability
         if (this.matchesIntent(lowerMessage, ['hour', 'open', 'available', 'when', 'time', 'business hour'])) {
-            return "We're available <strong>24/7</strong> to serve you! 🌟\n\nFor immediate assistance:\n📞 <strong>Call:</strong> (239) 351-6598\n💬 <strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat Now</button>\n\nHow can I help you today?";
+            return "We're available <strong>24/7</strong> to serve you.\n\nFor immediate assistance:\n<strong>Call:</strong> (239) 351-6598\n<strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat Now</button>\n\nHow can I help you today?";
         }
         
         // Location
         if (this.matchesIntent(lowerMessage, ['location', 'where', 'area', 'serve', 'travel', 'come to'])) {
-            return "We serve churches and businesses in:\n\n📍 <strong>Georgia</strong>\n📍 <strong>Florida</strong>\n\nWe travel for events and can discuss your specific location. Where is your event or business located?";
+            return "We serve churches and businesses across Florida. We can travel for larger events and can discuss your specific location. Where is your event or business located?";
         }
         
         // Packages
         if (this.matchesIntent(lowerMessage, ['package', 'option', 'what size', 'different type'])) {
-            return "We offer sound system packages:\n\n🎵 <strong>Speech Package:</strong> 2 top speakers + mic + mixer ($500-$800)\n🎵 <strong>Full System:</strong> 2 top speakers + subs + mic + mixer ($800-$1,500)\n🎵 <strong>Custom Package:</strong> Tell us exactly what you need!\n\nAll packages include professional setup and 1 mixer with 2 microphones! Ready to <a href='booking.html'>book</a> or <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">discuss on WhatsApp</button>?";
+            return "We offer sound system packages:\n\n<strong>Speech Package:</strong> 2 top speakers + mic + mixer ($500-$800)\n<strong>Full System:</strong> 2 top speakers + subs + mic + mixer ($800-$1,500)\n<strong>Custom Package:</strong> Tell us exactly what you need.\n\nAll packages include professional setup and 1 mixer with 2 microphones. Ready to <a href='booking.html'>book</a> or <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">discuss on WhatsApp</button>?";
         }
         
         // DJ Services
         if (this.matchesIntent(lowerMessage, ['dj', 'music', 'entertainment', 'party'])) {
-            return "Yes! We offer DJ services as an add-on to our sound packages! 🎧\n\n💰 <strong>DJ Service:</strong> $300-$800 (depending on event duration)\n\nOur DJs can provide music for:\n• Weddings\n• Parties\n• Corporate Events\n• Church Events\n• And more!\n\nWant to discuss your event? <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat on WhatsApp</button>";
+            return "Yes. We offer DJ services as an add-on to our sound packages.\n\n<strong>DJ Service:</strong> $300-$800 (depending on event duration)\n\nOur DJs can provide music for:\n- Weddings\n- Parties\n- Corporate events\n- Church events\n- And more\n\nWant to discuss your event? <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat on WhatsApp</button>";
         }
         
         // Thanks/Appreciation
         if (this.matchesIntent(lowerMessage, ['thank', 'thanks', 'appreciate', 'awesome', 'great', 'perfect'])) {
-            return "You're very welcome! � Is there anything else I can help you with today?";
+            return "You're very welcome! Is there anything else I can help you with today?";
         }
         
         // Yes/No responses (contextual)
         if (lowerMessage.match(/^(yes|yeah|yep|sure|ok|okay|y)$/)) {
-            return "Great! How can I assist you further? Would you like to:\n\n📅 <a href='booking.html'>Book a service</a>\n💬 <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat with our team</button>\n📞 Call us at (239) 351-6598";
+            return "Great! How can I assist you further? Would you like to:\n\n<a href='booking.html'>Book a service</a>\n<button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat with our team</button>\nCall us at (239) 351-6598";
         }
         
         if (lowerMessage.match(/^(no|nope|nah|not really|n)$/)) {
@@ -263,7 +263,7 @@ class ChatWidget {
         
         // Goodbye
         if (this.matchesIntent(lowerMessage, ['bye', 'goodbye', 'see you', 'later', 'have a good'])) {
-            return "Thank you for chatting with Ev1media! Have a great day! 👋\n\nFeel free to reach out anytime:\n📞 (239) 351-6598\n💬 <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;\">WhatsApp</button>";
+            return "Thank you for chatting with Ev1media. Have a great day!\n\nFeel free to reach out anytime:\n(239) 351-6598\n<button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;\">WhatsApp</button>";
         }
         
         // Unknown/Complex query - offer human assistance
@@ -286,7 +286,7 @@ class ChatWidget {
         // Send notification to WhatsApp with user's question
         this.notifyTeamOnWhatsApp(userMessage);
         
-        return `${randomResponse}\n\n💬 <strong>Chat with our team now:</strong>\n<button onclick=\"chatWidget.connectToWhatsApp('${encodeURIComponent(userMessage)}')\" style=\"background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1em; margin-top: 10px; box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);\">💬 Continue on WhatsApp</button>\n\n<em>You can also:</em>\n📞 Call: <a href='tel:+12393516598'>(239) 351-6598</a>\n📧 Email: <a href='mailto:infoev1media@gmail.com'>infoev1media@gmail.com</a>`;
+        return `${randomResponse}\n\n<strong>Chat with our team now:</strong>\n<button onclick=\"chatWidget.connectToWhatsApp('${encodeURIComponent(userMessage)}')\" style=\"background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1em; margin-top: 10px; box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);\">Continue on WhatsApp</button>\n\n<em>You can also:</em>\nCall: <a href='tel:+12393516598'>(239) 351-6598</a>\nEmail: <a href='mailto:infoev1media@gmail.com'>infoev1media@gmail.com</a>`;
     }
     
     connectToWhatsApp(customMessage = '') {
@@ -299,7 +299,7 @@ class ChatWidget {
     
     notifyTeamOnWhatsApp(userMessage) {
         // This creates a notification link that can be auto-sent
-        const notificationMessage = `🔔 New Website Chat Inquiry!\n\nVisitor Question: "${userMessage}"\n\n${this.userInfo.name ? `Visitor Name: ${this.userInfo.name}\n` : ''}Time: ${new Date().toLocaleString()}\n\nConversation History:\n${this.conversationContext.slice(-5).join('\n')}`;
+        const notificationMessage = `New Website Chat Inquiry\n\nVisitor Question: "${userMessage}"\n\n${this.userInfo.name ? `Visitor Name: ${this.userInfo.name}\n` : ''}Time: ${new Date().toLocaleString()}\n\nConversation History:\n${this.conversationContext.slice(-5).join('\n')}`;
         
         // Log for debugging (in production, this could trigger an actual notification)
         console.log('Team Notification:', notificationMessage);
@@ -311,4 +311,8 @@ let chatWidget;
 document.addEventListener('DOMContentLoaded', () => {
     chatWidget = new ChatWidget();
 });
+
+
+
+
 

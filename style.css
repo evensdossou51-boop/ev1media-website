@@ -1,4 +1,4 @@
-/* --- 1. Global Styles and Typography --- */
+﻿/* --- 1. Global Styles and Typography --- */
 * {
     box-sizing: border-box;
 }
@@ -13,7 +13,14 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f0f0f0; /* Very light gray/off-white background */
-    color: #333;
+    /* Real speaker-grille texture (faded) */
+    background-image:
+        linear-gradient(rgba(210, 214, 220, 0.76), rgba(210, 214, 220, 0.76)),
+        url('images/speaker-grille-tile.png');
+    background-repeat: repeat, repeat;
+    background-size: auto, 140px 140px;
+    background-attachment: fixed, fixed;
+    color: #111827;
     overflow-x: hidden;
 }
 
@@ -34,7 +41,8 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 10px 40px;
-    background-color: #F5E6D3; /* Richer cream color */
+    /* Keep a tinted header while letting the single body grille align through it */
+    background-color: rgba(224, 229, 236, 0.82);
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     flex-wrap: wrap;
 }
@@ -76,14 +84,14 @@ a {
 .logo-tagline {
     font-size: 12px;
     font-weight: 500;
-    color: #333;
+    color: #1f2937;
     margin-left: 5px;
     align-self: flex-end;
 }
 
 .main-nav a {
     margin-left: 30px;
-    color: #333;
+    color: #111827;
     font-weight: 600;
     padding-bottom: 5px;
     transition: color 0.3s;
@@ -224,7 +232,7 @@ body.menu-open {
 }
 
 .business-statement p {
-    color: #3c3c3c;
+    color: #1f2937;
     font-size: 1.15em;
     line-height: 1.8;
     margin: 0;
@@ -388,8 +396,8 @@ body.menu-open {
     border-radius: 0;
 }
 
-/* Marketing Services Button */
-.btn-marketing-services {
+/* Service Explore Button */
+.btn-service-explore {
     padding: 8px 16px;
     background-color: #e6a000;
     color: white;
@@ -406,7 +414,7 @@ body.menu-open {
     z-index: 10;
 }
 
-.btn-marketing-services:hover {
+.btn-service-explore:hover {
     background-color: #ffb81c;
     border-color: #ffb81c;
     transform: translateX(-50%) translateY(-1px);
@@ -521,7 +529,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .about-section h3 {
     font-size: 22px;
-    color: #333;
+    color: #10213a;
     margin-top: 20px;
     margin-bottom: 10px;
 }
@@ -529,7 +537,7 @@ video::-webkit-media-controls-start-playback-button {
 .about-section p {
     font-size: 16px;
     line-height: 1.8;
-    color: #555;
+    color: #1f2937;
     margin-bottom: 15px;
 }
 
@@ -542,7 +550,7 @@ video::-webkit-media-controls-start-playback-button {
 .about-section li {
     font-size: 16px;
     line-height: 1.8;
-    color: #555;
+    color: #1f2937;
     margin-bottom: 8px;
 }
 
@@ -610,7 +618,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .services-intro {
     text-align: center;
-    color: #3c3c3c;
+    color: #1f2937;
     font-size: 1.1em;
     margin-bottom: 60px;
     max-width: 800px;
@@ -635,7 +643,7 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 .service-tagline {
-    color: #666;
+    color: #22324a;
     font-size: 1.15em;
     font-style: italic;
 }
@@ -694,7 +702,7 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 .service-card p {
-    color: #555;
+    color: #1f2937;
     line-height: 1.7;
     margin-bottom: 15px;
 }
@@ -706,7 +714,7 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 .service-card li {
-    color: #666;
+    color: #223148;
     padding: 8px 0;
     padding-left: 25px;
     position: relative;
@@ -888,7 +896,7 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 .template-item p {
-    color: #666;
+    color: #223148;
     margin: 0 15px 15px;
     font-size: 0.95em;
     line-height: 1.5;
@@ -1001,7 +1009,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .booking-intro {
     text-align: center;
-    color: #3c3c3c;
+    color: #1f2937;
     font-size: 1.1em;
     margin-bottom: 40px;
     line-height: 1.8;
@@ -1044,7 +1052,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .form-group label {
     display: block;
-    color: #3c3c3c;
+    color: #17253d;
     font-weight: 600;
     margin-bottom: 8px;
     font-size: 0.95em;
@@ -1052,7 +1060,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .form-group small {
     display: block;
-    color: #666;
+    color: #223148;
     font-size: 0.85em;
     margin-top: 5px;
 }
@@ -1116,7 +1124,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .form-note {
     margin-top: 15px;
-    color: #666;
+    color: #223148;
     font-size: 0.9em;
     font-style: italic;
 }
@@ -1166,7 +1174,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .contact-intro {
     text-align: center;
-    color: #3c3c3c;
+    color: #1f2937;
     font-size: 1.1em;
     margin-bottom: 50px;
     max-width: 700px;
@@ -1201,7 +1209,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .form-group label {
     display: block;
-    color: #3c3c3c;
+    color: #17253d;
     font-weight: 600;
     margin-bottom: 8px;
     font-size: 0.95em;
@@ -1268,13 +1276,13 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 .contact-info-item h3 {
-    color: #3c3c3c;
+    color: #17253d;
     font-size: 1.1em;
     margin-bottom: 10px;
 }
 
 .contact-info-item p {
-    color: #666;
+    color: #223148;
     line-height: 1.6;
     margin: 0;
 }
@@ -1471,7 +1479,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .footer-section p,
 .footer-section a {
-    color: #3c3c3c;
+    color: #1f2937;
     font-size: 0.75em;
     line-height: 1.4;
     text-decoration: none;
@@ -1509,7 +1517,7 @@ video::-webkit-media-controls-start-playback-button {
     text-align: center;
     padding-top: 10px;
     border-top: 1px solid #d4c5b0;
-    color: #3c3c3c;
+    color: #1f2937;
     font-size: 0.75em;
 }
 
@@ -1991,7 +1999,7 @@ video::-webkit-media-controls-start-playback-button {
         min-height: auto;
     }
     
-    /* Reverse order on mobile - Digital Marketing first, then AV Solutions */
+    /* Reverse order on mobile legacy sub-nav */
     .sub-nav-bar-inner {
         flex-direction: row-reverse !important;
         width: 100% !important;
@@ -2147,8 +2155,8 @@ video::-webkit-media-controls-start-playback-button {
         display: none !important;
     }
     
-    /* Marketing Services Button - Mobile */
-    .btn-marketing-services {
+    /* Service Explore Button - Mobile */
+    .btn-service-explore {
         position: relative;
         left: 0;
         transform: none;
@@ -2164,7 +2172,7 @@ video::-webkit-media-controls-start-playback-button {
         justify-content: center;
     }
     
-    .btn-marketing-services:hover {
+    .btn-service-explore:hover {
         transform: translateY(-2px);
     }
     
@@ -2654,6 +2662,359 @@ video::-webkit-media-controls-start-playback-button {
     .service-card {
         box-shadow: none;
         border: 1px solid #ddd;
+    }
+}
+
+
+/* ========================================
+   AUDIO + NETWORKING FOCUS UPDATE
+   ======================================== */
+:root {
+    --ev-focus-dark: #0f1725;
+    --ev-focus-panel: #121f35;
+    --ev-focus-accent: #f0b429;
+    --ev-focus-blue: #1e6fd9;
+    --ev-focus-gray: #d7deea;
+}
+
+main.content-area.audio-networking-home {
+    display: block;
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+.sub-nav-bar-inner--focused .sub-nav-placeholder,
+.sub-nav-bar-inner--focused .sub-nav {
+    width: 50%;
+}
+
+.sub-nav-bar-inner--focused .sub-nav {
+    justify-content: center;
+    padding-left: 0;
+}
+
+.hero-banner--focused {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+}
+
+.hero-banner--focused .hero-content {
+    border-radius: 18px;
+    background: linear-gradient(145deg, #0d1320, #1a2740);
+    box-shadow: 0 14px 30px rgba(7, 11, 20, 0.45);
+    min-height: 420px;
+}
+
+.audio-focus-text {
+    background-image: linear-gradient(160deg, rgba(5, 10, 20, 0.86), rgba(10, 32, 64, 0.78)), url('images/audio-rental-poster.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.audio-focus-text h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.audio-focus-text p {
+    max-width: 100%;
+    font-size: 1.05rem;
+}
+
+.focus-pillars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 26px;
+}
+
+.focus-pillars span {
+    background: rgba(240, 180, 41, 0.18);
+    border: 1px solid rgba(240, 180, 41, 0.5);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.hero-image-side {
+    padding: 0;
+    background: #0b111f;
+}
+
+.hero-image-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.focus-services {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px;
+    margin-top: 30px;
+}
+
+.focus-card {
+    background: linear-gradient(160deg, #f9fafc, #edf2f9);
+    border: 1px solid #d6e0ef;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(16, 28, 46, 0.12);
+}
+
+.focus-card-media img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.focus-card-content {
+    padding: 24px;
+}
+
+.focus-card-content h3 {
+    color: #102646;
+    font-size: 1.65rem;
+    margin-bottom: 10px;
+}
+
+.focus-card-content p {
+    color: #334155;
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+.focus-card-content ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.focus-card-content li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    color: #34445a;
+    line-height: 1.5;
+}
+
+.focus-card-content li::before {
+    content: '>';
+    color: var(--ev-focus-blue);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    top: 8px;
+}
+
+.focus-card .btn-book-service {
+    margin-top: 20px;
+}
+
+.service-combo-callout {
+    margin-top: 28px;
+    background: linear-gradient(140deg, #101b2f 0%, #1b3154 55%, #274676 100%);
+    border-radius: 16px;
+    padding: 42px;
+    color: #fff;
+}
+
+.service-combo-callout h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 12px;
+}
+
+.service-combo-callout p {
+    color: #dbe7f8;
+    margin-bottom: 24px;
+    line-height: 1.7;
+}
+
+.services-page--focused {
+    background: transparent;
+}
+
+.service-header--with-image {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
+    gap: 24px;
+    align-items: stretch;
+    background: #0f1f38;
+    color: #fff;
+    padding: 26px;
+    border-radius: 16px;
+}
+
+.service-header--with-image h2,
+.service-header--with-image .service-tagline {
+    color: #fff;
+}
+
+.service-header-copy {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.service-header-image {
+    width: 100%;
+    height: auto;
+    min-height: 220px;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.audio-slideshow {
+    width: 100%;
+    height: auto;
+    min-height: 220px;
+    aspect-ratio: 16 / 10;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    background-image:
+        linear-gradient(rgba(210, 214, 220, 0.76), rgba(210, 214, 220, 0.76)),
+        url('images/speaker-grille-tile.png');
+    background-repeat: repeat, repeat;
+    background-size: auto, 140px 140px;
+    background-attachment: fixed, fixed;
+}
+
+.audio-slide-single {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+    z-index: 1;
+}
+
+/* For slides that include a hard image background, blend into the grille texture */
+/* Backward-compatible support for older cached markup with multiple .audio-slide images */
+.audio-slideshow .audio-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    display: block;
+}
+
+.audio-slideshow .audio-slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.audio-slideshow-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 4;
+}
+
+.audio-dot {
+    width: 8px;
+    height: 8px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.audio-dot.active {
+    background: #ffffff;
+}
+
+.services-grid--focused {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.services-grid--focused .service-card {
+    background: rgba(236, 242, 250, 0.48);
+    border: 1px solid #d6dfec;
+    box-shadow: 0 6px 14px rgba(10, 26, 48, 0.10);
+}
+
+.services-grid--focused .service-icon {
+    font-size: 2rem;
+    color: var(--ev-focus-blue);
+    margin-bottom: 12px;
+}
+
+.services-grid--focused .service-icon i {
+    color: var(--ev-focus-blue);
+}
+
+@media (max-width: 1024px) {
+    main.content-area.audio-networking-home {
+        width: 92%;
+    }
+
+    .focus-services,
+    .services-grid--focused {
+        grid-template-columns: 1fr;
+    }
+
+    .service-header--with-image {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    main.content-area.audio-networking-home {
+        width: 100%;
+        padding: 20px 12px 0;
+    }
+
+    .hero-banner--focused .hero-content {
+        border-radius: 12px;
+    }
+
+    .audio-focus-text {
+        padding: 28px 18px !important;
+    }
+
+    .focus-card-media img {
+        height: 210px;
+    }
+
+    .service-header--with-image {
+        padding: 20px;
+    }
+
+    .service-header-image {
+        height: auto;
+        min-height: 180px;
+    }
+
+    .audio-slideshow {
+        height: auto;
+        min-height: 180px;
+    }
+
+    .service-combo-callout {
+        padding: 32px 22px;
     }
 }
 

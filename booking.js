@@ -1,4 +1,4 @@
-// Wait for DOM to be fully loaded
+﻿// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
 
 // Service options for each category
@@ -8,18 +8,17 @@ const services = {
         { value: 'full-system', label: 'Full System (2 Top + Subs)' },
         { value: 'custom', label: 'Custom Package' }
     ],
-    'digital-marketing': [
-        { value: 'social-media', label: 'Social Media Management' },
-        { value: 'web-design', label: 'Web Design & Development' },
-        { value: 'digital-ads', label: 'Digital Advertising' },
-        { value: 'content-creation', label: 'Content Creation' },
-        { value: 'email-marketing', label: 'Email Marketing' },
-        { value: 'brand-strategy', label: 'Brand Strategy' }
+    'networking-it': [
+        { value: 'structured-cabling', label: 'Structured Cabling and Rack Build' },
+        { value: 'managed-network', label: 'Managed Network Setup' },
+        { value: 'network-remediation', label: 'Network Cleanup and Optimization' },
+        { value: 'streaming-support', label: 'Live Streaming Support' },
+        { value: 'it-support', label: 'General IT Support and Troubleshooting' }
     ]
 };
 
 // Your WhatsApp number (use international format without + or spaces)
-const WHATSAPP_NUMBER = '12393516598'; // Replace with your actual WhatsApp number
+const WHATSAPP_NUMBER = '9564970720'; // Replace with your actual WhatsApp number
 
 // DOM Elements
 const serviceCategorySelect = document.getElementById('serviceCategory');
@@ -28,7 +27,7 @@ const specificServiceSelect = document.getElementById('specificService');
 const eventDetailsSection = document.getElementById('eventDetailsSection');
 const projectDetailsSection = document.getElementById('projectDetailsSection');
 const avSpecificQuestions = document.getElementById('avSpecificQuestions');
-const digitalMarketingQuestions = document.getElementById('digitalMarketingQuestions');
+const networkingItQuestions = document.getElementById('networkingItQuestions');
 const bookingForm = document.getElementById('bookingForm');
 
 // Check if elements exist
@@ -52,6 +51,8 @@ if (serviceCategorySelect) {
         // Show specific service dropdown
         specificServiceGroup.style.display = 'block';
         specificServiceSelect.setAttribute('required', 'required');
+        avSpecificQuestions.style.display = 'none';
+        networkingItQuestions.style.display = 'none';
         
         // Populate specific services
         console.log('Available services:', services[category]); // Debug log
@@ -68,7 +69,7 @@ if (serviceCategorySelect) {
             eventDetailsSection.style.display = 'block';
             projectDetailsSection.style.display = 'none';
             document.getElementById('additionalTitle').textContent = '4. Additional Information';
-        } else if (category === 'digital-marketing') {
+        } else if (category === 'networking-it') {
             eventDetailsSection.style.display = 'none';
             projectDetailsSection.style.display = 'block';
             document.getElementById('additionalTitle').textContent = '4. Additional Information';
@@ -78,6 +79,8 @@ if (serviceCategorySelect) {
         specificServiceSelect.removeAttribute('required');
         eventDetailsSection.style.display = 'none';
         projectDetailsSection.style.display = 'none';
+        avSpecificQuestions.style.display = 'none';
+        networkingItQuestions.style.display = 'none';
     }
 });
 } else {
@@ -119,8 +122,8 @@ if (specificServiceSelect) {
             if (djGroup) djGroup.style.display = 'none';
             if (customEquipmentGroup) customEquipmentGroup.style.display = 'none';
         }
-    } else if (category === 'digital-marketing') {
-        digitalMarketingQuestions.style.display = 'block';
+    } else if (category === 'networking-it') {
+        networkingItQuestions.style.display = 'block';
     }
 });
 } else {
@@ -138,7 +141,7 @@ if (document.getElementById('projectStart')) {
 
 // Form submission handler
 if (bookingForm) {
-    bookingForm.addEventListener('submit', function(e) {
+    bookingForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         console.log('Form submitted!'); // Debug log
@@ -148,7 +151,7 @@ if (bookingForm) {
         const data = {};
         
         formData.forEach((value, key) => {
-            if (key === 'equipment' || key === 'platforms') {
+            if (key === 'equipment' || key === 'itNeeds') {
                 if (!data[key]) data[key] = [];
                 data[key].push(value);
             } else {
@@ -158,8 +161,7 @@ if (bookingForm) {
         
         console.log('Form data collected:', data); // Debug log
         
-        // Send email notification only (WhatsApp disabled)
-        sendEmailNotification(data);
+        await handleBookingSubmission(data);
     });
 } else {
     console.error('Booking form not found - cannot attach submit handler!');
@@ -169,9 +171,7 @@ if (bookingForm) {
 function sendEmailNotification(data) {
     // Check if EmailJS is loaded
     if (typeof emailjs === 'undefined') {
-        console.error('EmailJS not loaded. Email notification skipped.');
-        alert('⚠️ Email service is not available. Please contact us directly at infoev1media@gmail.com');
-        return;
+        throw new Error('EmailJS not loaded. Email notification skipped.');
     }
     
     // Prepare email template parameters - simplified to match template
@@ -188,23 +188,63 @@ function sendEmailNotification(data) {
     console.log('Sending email with params:', emailParams); // Debug log
     
     // Send email via EmailJS (using Our Services template: template_16txbzw)
-    emailjs.send('service_vt29dhf', 'template_16txbzw', emailParams)
-        .then(function(response) {
-            console.log('Email sent successfully!', response.status, response.text);
-            alert('✅ Your booking request has been submitted successfully! We will contact you shortly.');
-            // Reset form after successful submission
-            bookingForm.reset();
-            // Hide conditional sections
-            specificServiceGroup.style.display = 'none';
-            eventDetailsSection.style.display = 'none';
-            projectDetailsSection.style.display = 'none';
-            avSpecificQuestions.style.display = 'none';
-            digitalMarketingQuestions.style.display = 'none';
-        })
-        .catch(function(error) {
-            console.error('Email send failed:', error);
-            alert('⚠️ There was an error submitting your booking. Please email us directly at infoev1media@gmail.com or call (239) 351-6598');
-        });
+    return emailjs.send('service_vt29dhf', 'template_16txbzw', emailParams);
+}
+
+async function handleBookingSubmission(data) {
+    try {
+        const [emailResult, sheetResult] = await Promise.allSettled([
+            sendEmailNotification(data),
+            sendBookingToSheet(data)
+        ]);
+
+        const emailFailed = emailResult.status === 'rejected';
+        const sheetSkipped = sheetResult.status === 'fulfilled' && sheetResult.value && sheetResult.value.skipped;
+        const sheetFailed = sheetResult.status === 'rejected';
+
+        if (!emailFailed) {
+            console.log('Email sent successfully!', emailResult.value && emailResult.value.status, emailResult.value && emailResult.value.text);
+            resetBookingFormState();
+
+            if (sheetSkipped) {
+                alert('Your booking request was submitted successfully. Google Sheet sync is not active yet. Add your Apps Script /exec URL in form-sheet-config.js.');
+            } else if (sheetFailed) {
+                console.error('Sheet sync failed:', sheetResult.reason);
+                alert('Your booking request was submitted successfully, but Google Sheet sync failed. Please check your Apps Script deployment.');
+            } else {
+                alert('Your booking request has been submitted successfully and logged to Google Sheets. We will contact you shortly.');
+            }
+            return;
+        }
+
+        if (!sheetSkipped && !sheetFailed) {
+            alert('Email notification failed, but your booking was still saved to Google Sheets. Please contact us directly at infoev1media@gmail.com or call (239) 351-6598.');
+            return;
+        }
+
+        console.error('Email send failed:', emailResult.reason);
+        alert('There was an error submitting your booking. Please email us directly at infoev1media@gmail.com or call (239) 351-6598.');
+    } catch (error) {
+        console.error('Unexpected booking submission error:', error);
+        alert('There was an unexpected error while submitting your booking. Please try again.');
+    }
+}
+
+function resetBookingFormState() {
+    bookingForm.reset();
+    specificServiceGroup.style.display = 'none';
+    eventDetailsSection.style.display = 'none';
+    projectDetailsSection.style.display = 'none';
+    avSpecificQuestions.style.display = 'none';
+    networkingItQuestions.style.display = 'none';
+}
+
+function sendBookingToSheet(data) {
+    if (!window.EV1MediaSheetBridge || typeof window.EV1MediaSheetBridge.submit !== 'function') {
+        return Promise.resolve({ ok: false, skipped: true, reason: 'sheet-bridge-missing' });
+    }
+
+    return window.EV1MediaSheetBridge.submit('booking', data);
 }
 
 function createEmailBody(data) {
@@ -253,16 +293,16 @@ function createEmailBody(data) {
         if (data.venueType) body += `<strong>Venue Type:</strong> ${data.venueType}<br>`;
         if (data.setupTime) body += `<strong>Setup Service:</strong> ${data.setupTime}`;
         body += '</p>';
-    } else if (data.serviceCategory === 'digital-marketing' && data.projectStart) {
+    } else if (data.serviceCategory === 'networking-it' && data.projectStart) {
         body += '<h3 style="color: #1a73e8;">💼 Project Details</h3>';
         body += '<p>';
         body += `<strong>Start Date:</strong> ${formatDate(data.projectStart)}<br>`;
         if (data.projectTimeline) body += `<strong>Timeline:</strong> ${data.projectTimeline}<br>`;
-        if (data.currentWebsite) body += `<strong>Current Website:</strong> ${data.currentWebsite}<br>`;
-        if (data.platforms && data.platforms.length > 0) {
-            body += `<strong>Platforms:</strong> ${data.platforms.join(', ')}<br>`;
+        if (data.currentInfrastructure) body += `<strong>Current Infrastructure:</strong> ${data.currentInfrastructure}<br>`;
+        if (data.itNeeds && data.itNeeds.length > 0) {
+            body += `<strong>Requested Services:</strong> ${data.itNeeds.join(', ')}<br>`;
         }
-        if (data.marketingGoal) body += `<strong>Marketing Goal:</strong> ${data.marketingGoal}<br>`;
+        if (data.serviceGoal) body += `<strong>Service Goal:</strong> ${data.serviceGoal}<br>`;
         body += '</p>';
     }
     
@@ -333,16 +373,16 @@ function createWhatsAppMessage(data) {
         if (data.venueType) message += `Venue Type: ${data.venueType}\n`;
         if (data.setupTime) message += `Setup Service: ${data.setupTime}\n`;
         message += '\n';
-    } else if (data.serviceCategory === 'digital-marketing' && data.projectStart) {
+    } else if (data.serviceCategory === 'networking-it' && data.projectStart) {
         message += '💼 PROJECT DETAILS\n';
         message += `Start Date: ${formatDate(data.projectStart)}\n`;
         if (data.projectTimeline) message += `Timeline: ${data.projectTimeline}\n`;
-        if (data.currentWebsite) message += `Current Website: ${data.currentWebsite}\n`;
+        if (data.currentInfrastructure) message += `Current Infrastructure: ${data.currentInfrastructure}\n`;
         
-        if (data.platforms && data.platforms.length > 0) {
-            message += `Platforms: ${data.platforms.join(', ')}\n`;
+        if (data.itNeeds && data.itNeeds.length > 0) {
+            message += `Requested Services: ${data.itNeeds.join(', ')}\n`;
         }
-        if (data.marketingGoal) message += `Marketing Goal: ${data.marketingGoal}\n`;
+        if (data.serviceGoal) message += `Service Goal: ${data.serviceGoal}\n`;
         message += '\n';
     }
     
@@ -373,8 +413,8 @@ function createWhatsAppMessage(data) {
 
 function getServiceCategoryLabel(category) {
     const labels = {
-        'av-solutions': 'AV Solutions',
-        'digital-marketing': 'Digital Marketing'
+        'av-solutions': 'Audio Services',
+        'networking-it': 'Networking and IT Services'
     };
     return labels[category] || category;
 }
@@ -398,4 +438,6 @@ function formatDate(dateString) {
 }
 
 }); // End of DOMContentLoaded
+
+
 
