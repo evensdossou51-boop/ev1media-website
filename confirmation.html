@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3B3WVMY63M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-3B3WVMY63M');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Confirmed - Ev1media</title>
+    <meta name="robots" content="noindex, follow">
+    <meta name="description" content="Your Ev1media form submission has been received.">
+    <link rel="stylesheet" href="./style.css?v=14">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">
+            <a href="index.html" class="logo-link">
+                <span class="logo-icon">
+                    <img src="images/logo.png" alt="Ev1media Logo">
+                </span>
+                Ev1media
+            </a>
+            <span class="logo-tagline">Audio and Networking Solutions</span>
+        </div>
+        
+        <button class="hamburger-menu" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav class="main-nav" id="main-nav">
+            <a href="index.html">Home Page</a>
+            <a href="about.html">About</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="content-area">
+        <section class="confirmation-section">
+            <div class="confirmation-container">
+                <div class="confirmation-mark" aria-hidden="true">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <p class="confirmation-kicker">Submission received</p>
+                <h1 id="confirmation-title">Thank you!</h1>
+                <p id="confirmation-message" class="confirmation-message">Your message has been sent successfully. We will review it and contact you shortly.</p>
+                
+                <div class="confirmation-next">
+                    <h2>What happens next?</h2>
+                    <p id="confirmation-next-copy">Our team will review your details and follow up using the contact information you provided.</p>
+                </div>
+
+                <div class="confirmation-actions">
+                    <a href="index.html" class="btn btn-primary">Back to Home</a>
+                    <a href="booking.html" class="btn btn-secondary">Book Another Service</a>
+                </div>
+
+                <p class="confirmation-contact">
+                    Need help now? Call <a href="tel:+2393516598">(239) 351-6598</a> or email <a href="mailto:infoev1media@gmail.com">infoev1media@gmail.com</a>.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <button class="footer-toggle" id="footer-toggle" aria-label="Toggle footer">
+            <span>Quick Links & Contact</span>
+            <span class="footer-arrow">&#9662;</span>
+        </button>
+        <div class="footer-content" id="footer-content">
+            <div class="footer-section">
+                <h3>Ev1media</h3>
+                <p>Audio and Networking Solutions</p>
+                <p>Reliable audio, networking, and IT support for churches, businesses, and events in Florida.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="index.html">Home Page</a>
+                    <a href="about.html">About</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:infoev1media@gmail.com">infoev1media@gmail.com</a></p>
+                <p>Phone: <a href="tel:+2393516598">(239) 351-6598</a></p>
+                <p>Service Area: Florida</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/evsoundrental" target="_blank" class="social-facebook" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span class="social-text">Facebook</span>
+                    </a>
+                    <a href="https://www.instagram.com/ev1media_/" target="_blank" class="social-instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span class="social-text">Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Ev1media. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="chatbot.js?v=6"></script>
+    <script>
+        const confirmationCopy = {
+            booking: {
+                title: 'Your booking request is confirmed.',
+                message: 'Thanks for reaching out to EV1Media. Your consultation request has been received.',
+                next: 'After submitting, EV1Media will contact you to confirm consultation scheduling and payment.'
+            },
+            contact: {
+                title: 'Your message has been sent.',
+                message: 'Thanks for contacting Ev1media. Your inquiry has been received, and we will get back to you shortly.',
+                next: 'We will review your message and reply using the contact information you provided.'
+            },
+            faq: {
+                title: 'Your question has been submitted.',
+                message: 'Thanks for sending your question. We received it and will review it for a direct response or future FAQ update.',
+                next: 'If your question needs a personal answer, we will follow up by email.'
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const type = params.get('type');
+        const copy = confirmationCopy[type] || confirmationCopy.contact;
+
+        document.getElementById('confirmation-title').textContent = copy.title;
+        document.getElementById('confirmation-message').textContent = copy.message;
+        document.getElementById('confirmation-next-copy').textContent = copy.next;
+
+        const hamburger = document.getElementById('hamburger');
+        const mainNav = document.getElementById('main-nav');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+        
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+        
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = mainNav.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickOnHamburger && mainNav.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+        
+        const footerToggle = document.getElementById('footer-toggle');
+        const footerContent = document.getElementById('footer-content');
+        
+        if (footerToggle && footerContent) {
+            footerToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                footerContent.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>
