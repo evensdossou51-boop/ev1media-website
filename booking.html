@@ -32,6 +32,34 @@
     <link rel="stylesheet" href="./style.css?v=13">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .choice-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .choice-group label {
+            display: flex;
+            align-items: center;
+            font-weight: 400;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+
+        .choice-group input[type="radio"] {
+            width: auto;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .choice-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
