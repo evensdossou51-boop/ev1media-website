@@ -18,6 +18,130 @@
     <link rel="stylesheet" href="./style.css?v=14">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .confirmation-section {
+            padding: 70px 20px;
+            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+        }
+
+        .confirmation-container {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            padding: 48px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 76, 143, 0.12);
+        }
+
+        .confirmation-mark {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f7b4f;
+            color: white;
+            font-size: 2em;
+        }
+
+        .confirmation-kicker {
+            color: #0f7b4f;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+            font-size: 0.85em;
+        }
+
+        .confirmation-container h1 {
+            color: #004c8f;
+            font-size: 2.4em;
+            margin-bottom: 16px;
+        }
+
+        .confirmation-message,
+        .confirmation-next p,
+        .confirmation-contact {
+            color: #1f2937;
+            line-height: 1.8;
+        }
+
+        .confirmation-message {
+            font-size: 1.1em;
+            margin-bottom: 28px;
+        }
+
+        .confirmation-next {
+            padding: 24px;
+            margin: 28px 0;
+            background: #f4f8fb;
+            border-left: 4px solid #79c8ff;
+            text-align: left;
+            border-radius: 8px;
+        }
+
+        .confirmation-next h2 {
+            color: #17253d;
+            font-size: 1.25em;
+            margin-bottom: 8px;
+        }
+
+        .confirmation-next p {
+            margin: 0;
+        }
+
+        .confirmation-actions {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .confirmation-actions .btn {
+            min-width: 180px;
+        }
+
+        .confirmation-contact {
+            margin: 0;
+            font-size: 0.95em;
+        }
+
+        .confirmation-contact a {
+            color: #004c8f;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .confirmation-section {
+                padding: 45px 16px;
+                align-items: flex-start;
+            }
+
+            .confirmation-container {
+                padding: 32px 22px;
+            }
+
+            .confirmation-container h1 {
+                font-size: 1.9em;
+            }
+
+            .confirmation-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .confirmation-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
