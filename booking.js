@@ -126,8 +126,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const helpText = document.getElementById('addressHelp');
         const mapsConfig = window.EV1MEDIA_MAPS || {};
         const apiKey = mapsConfig.apiKey;
+        const isLocalPreview = ['127.0.0.1', 'localhost', '::1'].includes(window.location.hostname);
 
         if (!addressInput || !apiKey) {
+            return;
+        }
+
+        if (isLocalPreview && !mapsConfig.allowLocalhost) {
+            if (helpText) {
+                helpText.textContent = 'Enter the full service address. Google suggestions will run on the live website.';
+            }
             return;
         }
 
