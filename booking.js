@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
+    initAddressAutocomplete();
+
     bookingForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
@@ -13,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const data = {
             fullName: formData.get('fullName') || '',
             companyType: formData.get('companyType') || '',
+            serviceAddress: formData.get('serviceAddress') || '',
             serviceCategory: formData.getAll('serviceCategory'),
             projectDetails: formData.get('projectDetails') || '',
             consultationFee: '$100'
@@ -77,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
             from_email: 'infoev1media@gmail.com',
             phone_number: 'Not collected on consultation form',
             service_type: data.serviceCategory.join(', '),
+            service_address: data.serviceAddress,
             message_html: createEmailBody(data),
             submission_time: new Date().toLocaleString()
         };
@@ -99,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p><strong>Consultation Fee:</strong> ${escapeHtml(data.consultationFee)}</p>
                 <p><strong>Full Name:</strong> ${escapeHtml(data.fullName)}</p>
                 <p><strong>Company Type:</strong> ${escapeHtml(data.companyType)}</p>
+                <p><strong>Service Address:</strong> ${escapeHtml(data.serviceAddress)}</p>
                 <p><strong>Service Category:</strong> ${escapeHtml(data.serviceCategory.join(', '))}</p>
                 <h3 style="color: #1a73e8;">Project Details</h3>
                 <p>${escapeHtml(data.projectDetails).replace(/\n/g, '<br>')}</p>
@@ -114,5 +119,80 @@ document.addEventListener('DOMContentLoaded', function() {
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#039;');
+    }
+
+    function initAddressAutocomplete() {
+        const addressInput = document.getElementById('serviceAddress');
+        const helpText = document.getElementById('addressHelp');
+        const mapsConfig = window.EV1MEDIA_MAPS || {};
+        const apiKey = mapsConfig.apiKey;
+
+        if (!addressInput || !apiKey) {
+            return;
+        }
+
+        let mapsRequested = false;
+        let fallbackTimer = null;
+
+        window.initEV1MediaAddressAutocomplete = function() {
+            if (fallbackTimer) {
+                clearTimeout(fallbackTimer);
+            }
+
+            if (!window.google || !google.maps || !google.maps.places) {
+                return;
+            }
+
+            const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+                componentRestrictions: { country: 'us' },
+                fields: ['formatted_address', 'name'],
+                types: ['address']
+            });
+
+            autocomplete.addListener('place_changed', function() {
+                const place = autocomplete.getPlace();
+                if (place && place.formatted_address) {
+                    addressInput.value = place.formatted_address;
+                }
+            });
+
+            if (helpText) {
+                helpText.textContent = 'Start typing and choose the matching Google Maps address.';
+            }
+        };
+
+        function loadMapsAutocomplete() {
+            if (mapsRequested) {
+                return;
+            }
+
+            mapsRequested = true;
+
+            fallbackTimer = setTimeout(function() {
+                if (!window.google || !google.maps || !google.maps.places) {
+                    console.warn('Google Maps address autocomplete did not initialize in time. The address field will still work manually.');
+                    if (helpText) {
+                        helpText.textContent = 'Enter the full service address. Google suggestions are unavailable right now.';
+                    }
+                }
+            }, 8000);
+
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&libraries=places&callback=initEV1MediaAddressAutocomplete&loading=async`;
+            script.async = true;
+            script.defer = true;
+            script.onerror = function() {
+                if (fallbackTimer) {
+                    clearTimeout(fallbackTimer);
+                }
+                console.warn('Google Maps address autocomplete failed to load. The address field will still work manually.');
+                if (helpText) {
+                    helpText.textContent = 'Enter the full service address. Google suggestions are unavailable right now.';
+                }
+            };
+            document.head.appendChild(script);
+        }
+
+        addressInput.addEventListener('focus', loadMapsAutocomplete, { once: true });
     }
 });
