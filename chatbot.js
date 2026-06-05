@@ -1,5 +1,5 @@
-﻿// Chat Widget Configuration
-const WHATSAPP_NUMBER = '9564970720'; // Your WhatsApp Business number
+// Chat Widget Configuration
+const WHATSAPP_NUMBER = '2393516598'; // EV1Media WhatsApp Business number
 
 class ChatWidget {
     constructor() {
@@ -224,7 +224,7 @@ class ChatWidget {
         
         // Contact information
         if (this.matchesIntent(lowerMessage, ['contact', 'phone', 'email', 'reach', 'call', 'message', 'talk to', 'speak with'])) {
-            return "You can reach us:\n\n<strong>Phone:</strong> <a href='tel:+12393516598'>(239) 351-6598</a>\n<strong>Email:</strong> <a href='mailto:infoev1media@gmail.com'>infoev1media@gmail.com</a>\n<strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Message on WhatsApp</button>\n<strong>Location:</strong> Serving Florida\n\nWe're available 24/7. You can also <a href='contact.html'>visit our contact page</a>.";
+            return "You can reach us:\n\n<strong>Phone:</strong> <a href='tel:+12393516598'>(239) 351-6598</a>\n<strong>Email:</strong> <a href='mailto:info@ev1media.com'>info@ev1media.com</a>\n<strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Message on WhatsApp</button>\n<strong>Location:</strong> Serving Florida\n\nWe're available 24/7. You can also <a href='contact.html'>visit our contact page</a>.";
         }
         
         // Hours/Availability
@@ -258,7 +258,7 @@ class ChatWidget {
         }
         
         if (lowerMessage.match(/^(no|nope|nah|not really|n)$/)) {
-            return "No problem! Feel free to ask me anything else, or I can connect you with our team for more personalized assistance. 😊";
+            return "No problem! Feel free to ask me anything else, or I can connect you with our team for more personalized assistance. ??";
         }
         
         // Goodbye
@@ -286,7 +286,7 @@ class ChatWidget {
         // Send notification to WhatsApp with user's question
         this.notifyTeamOnWhatsApp(userMessage);
         
-        return `${randomResponse}\n\n<strong>Chat with our team now:</strong>\n<button onclick=\"chatWidget.connectToWhatsApp('${encodeURIComponent(userMessage)}')\" style=\"background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1em; margin-top: 10px; box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);\">Continue on WhatsApp</button>\n\n<em>You can also:</em>\nCall: <a href='tel:+12393516598'>(239) 351-6598</a>\nEmail: <a href='mailto:infoev1media@gmail.com'>infoev1media@gmail.com</a>`;
+        return `${randomResponse}\n\n<strong>Chat with our team now:</strong>\n<button onclick=\"chatWidget.connectToWhatsApp('${encodeURIComponent(userMessage)}')\" style=\"background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1em; margin-top: 10px; box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);\">Continue on WhatsApp</button>\n\n<em>You can also:</em>\nCall: <a href='tel:+12393516598'>(239) 351-6598</a>\nEmail: <a href='mailto:info@ev1media.com'>info@ev1media.com</a>`;
     }
     
     connectToWhatsApp(customMessage = '') {

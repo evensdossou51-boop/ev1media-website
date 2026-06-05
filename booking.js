@@ -12,17 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(bookingForm);
         const data = {
             fullName: formData.get('fullName') || '',
-            companyType: formData.get('companyType') || '',
+            email: formData.get('email') || '',
+            phone: formData.get('phone') || 'Not provided',
             serviceAddress: formData.get('serviceAddress') || '',
-            serviceCategory: formData.getAll('serviceCategory'),
-            projectDetails: formData.get('projectDetails') || '',
-            consultationFee: '$100'
+            service: formData.get('service') || 'Not specified',
+            message: formData.get('message') || ''
         };
-
-        if (!data.serviceCategory.length) {
-            alert('Please select at least one service category.');
-            return;
-        }
 
         await handleBookingSubmission(data);
     });
@@ -57,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             console.error('Email send failed:', emailResult.reason);
-            alert('There was an error submitting your consultation request. Please email us directly at infoev1media@gmail.com or call (239) 351-6598.');
+            alert('There was an error submitting your consultation request. Please email us directly at info@ev1media.com or call (239) 351-6598.');
         } catch (error) {
             console.error('Unexpected booking submission error:', error);
             alert('There was an unexpected error while submitting your consultation request. Please try again.');
@@ -73,11 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const emailParams = {
-            to_email: 'infoev1media@gmail.com',
+            to_email: 'info@ev1media.com',
             from_name: data.fullName || 'Unknown',
-            from_email: 'infoev1media@gmail.com',
-            phone_number: 'Not collected on consultation form',
-            service_type: data.serviceCategory.join(', '),
+            reply_to: data.email,
+            from_email: data.email,
+            phone_number: data.phone,
+            service_type: data.service,
             service_address: data.serviceAddress,
             message_html: createEmailBody(data),
             submission_time: new Date().toLocaleString()
@@ -97,15 +93,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function createEmailBody(data) {
         return `
             <div style="font-family: Arial, sans-serif;">
-                <h3 style="color: #1a73e8;">EV1Media Consultation Request</h3>
-                <p><strong>Consultation Fee:</strong> ${escapeHtml(data.consultationFee)}</p>
+                <h3 style="color: #1a73e8;">EV1Media Service Request</h3>
                 <p><strong>Full Name:</strong> ${escapeHtml(data.fullName)}</p>
-                <p><strong>Company Type:</strong> ${escapeHtml(data.companyType)}</p>
-                <p><strong>Service Address:</strong> ${escapeHtml(data.serviceAddress)}</p>
-                <p><strong>Service Category:</strong> ${escapeHtml(data.serviceCategory.join(', '))}</p>
-                <h3 style="color: #1a73e8;">Project Details</h3>
-                <p>${escapeHtml(data.projectDetails).replace(/\n/g, '<br>')}</p>
-                <p><strong>Next Step:</strong> Contact the client to confirm consultation scheduling and payment.</p>
+                <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+                <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
+                <p><strong>Service Location / Address:</strong> ${escapeHtml(data.serviceAddress)}</p>
+                <p><strong>Service Needed:</strong> ${escapeHtml(data.service)}</p>
+                <h3 style="color: #1a73e8;">Message / Project Details</h3>
+                <p>${escapeHtml(data.message).replace(/\n/g, '<br>')}</p>
+                <p><strong>Next Step:</strong> Contact the client to confirm scheduling and next steps.</p>
             </div>
         `;
     }

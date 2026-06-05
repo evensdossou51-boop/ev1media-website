@@ -15,7 +15,7 @@
     <title>Contact Ev1media - Get Free Consultation | (239) 351-6598</title>
     
     <!-- Site Meta Tags -->
-    <meta name="description" content="Contact Ev1media for professional audio, networking, and IT services. Get a free consultation. Call (239) 351-6598 or email infoev1media@gmail.com. Serving Florida.">
+    <meta name="description" content="Contact Ev1media for professional audio, networking, and IT services. Get a free consultation. Call (239) 351-6598 or email info@ev1media.com. Serving Florida.">
     <meta name="keywords" content="contact ev1media, audio services quote, networking consultation, IT support quote, event services">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ev1media.com/contact.html">
@@ -62,7 +62,6 @@
         <nav class="main-nav" id="main-nav">
             <a href="index.html">Home Page</a>
             <a href="about.html">About</a>
-            <a href="faq.html">FAQ</a>
             <a href="contact.html" class="active">Contact</a>
         </nav>
     </header>
@@ -120,7 +119,7 @@
                         
                         <div class="contact-info-item">
                             <h3>Email</h3>
-                            <p><a href="mailto:infoev1media@gmail.com">infoev1media@gmail.com</a></p>
+                            <p><a href="mailto:info@ev1media.com">info@ev1media.com</a></p>
                         </div>
                         
                         <div class="contact-info-item">
@@ -168,14 +167,13 @@
                 <div class="footer-links">
                     <a href="index.html">Home Page</a>
                     <a href="about.html">About</a>
-                    <a href="faq.html">FAQ</a>
                     <a href="contact.html">Contact</a>
                 </div>
             </div>
             
             <div class="footer-section">
                 <h3>Contact</h3>
-                <p>Email: <a href="mailto:infoev1media@gmail.com">infoev1media@gmail.com</a></p>
+                <p>Email: <a href="mailto:info@ev1media.com">info@ev1media.com</a></p>
                 <p>Phone: <a href="tel:+2393516598">(239) 351-6598</a></p>
                 <p>Service Area: Florida</p>
                 <div class="footer-social">
@@ -198,7 +196,7 @@
 
     <!-- AI Chatbot Widget -->
     <div id="chat-widget"></div>
-    <script src="chatbot.js?v=6"></script>
+    <script src="chatbot.js?v=7"></script>
     <script src="form-sheet-config.js"></script>
     <script src="form-sheet-bridge.js"></script>
     
@@ -286,7 +284,7 @@
                     phone_number: phone,
                     service_type: service,
                     message_html: message,
-                    to_email: 'infoev1media@gmail.com',
+                    to_email: 'info@ev1media.com',
                     submission_time: new Date().toLocaleString()
                 };
                 
@@ -332,16 +330,15 @@
                     contactForm.reset();
 
                     if (sheetSyncNotConfigured) {
-                        alert('Message sent successfully. Google Sheet sync is not active yet. Add your Apps Script /exec URL in form-sheet-config.js.');
+                        console.warn('Google Sheet sync is not active yet. Add your Apps Script /exec URL in form-sheet-config.js.');
                     } else if (sheetSyncFailed) {
-                        alert('Message sent successfully. Google Sheet sync failed this time. Please check your Apps Script deployment.');
-                    } else {
-                        alert('Thank you! Your message has been sent successfully and logged to Google Sheets.');
+                        console.error('Message sent, but Google Sheet sync failed this time.');
                     }
+                    window.location.href = 'confirmation.html?type=contact';
                 } catch (error) {
                     console.error('EmailJS FAILED...', error);
                     console.error('Error details:', JSON.stringify(error, null, 2));
-                    alert('Sorry, there was an error sending your message. Please try again or contact us directly at infoev1media@gmail.com or call (239) 351-6598.\n\nError: ' + (error.text || error.message || 'Unknown error'));
+                    alert('Sorry, there was an error sending your message. Please try again or contact us directly at info@ev1media.com or call (239) 351-6598.\n\nError: ' + (error.text || error.message || 'Unknown error'));
                 } finally {
                     submitButton.textContent = originalText;
                     submitButton.disabled = false;

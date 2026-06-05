@@ -39,39 +39,123 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .vision-statement {
-            max-width: 980px;
-            margin: 0 auto 70px;
-            padding: 34px 38px;
+        .simple-home {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 45px 20px 70px;
+        }
+
+        .simple-hero {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 34px;
+            align-items: center;
+            margin-bottom: 38px;
+        }
+
+        .simple-hero h1 {
+            color: #004c8f;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .simple-hero p {
+            color: #223148;
+            font-size: 1.08rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .simple-hero img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 76, 143, 0.16);
+        }
+
+        .simple-services {
             background: #ffffff;
-            border-left: 5px solid #004c8f;
             border-radius: 8px;
             box-shadow: 0 4px 14px rgba(0, 76, 143, 0.12);
+            padding: 28px;
+            margin-bottom: 30px;
         }
 
-        .vision-statement h2 {
+        .simple-services h2 {
             color: #004c8f;
-            font-size: 1.8em;
-            margin-bottom: 14px;
+            font-size: 1.7rem;
+            margin-bottom: 18px;
         }
 
-        .vision-statement p {
+        .simple-service-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .simple-service-item {
+            border: 1px solid #dbe6f3;
+            border-radius: 8px;
+            padding: 18px;
+            min-height: 130px;
+        }
+
+        .simple-service-item i {
+            color: #004c8f;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .simple-service-item h3 {
             color: #17253d;
-            font-size: 1.08em;
-            line-height: 1.8;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .simple-service-item p {
+            color: #47566d;
+            font-size: 0.92rem;
+            line-height: 1.5;
             margin: 0;
         }
 
-        @media (max-width: 600px) {
-            .vision-statement {
-                padding: 26px 22px;
-                margin-bottom: 45px;
+        .simple-cta {
+            text-align: center;
+            background: #004c8f;
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 30px 24px;
+        }
+
+        .simple-cta h2 {
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+        }
+
+        .simple-cta p {
+            margin: 0 auto 20px;
+            max-width: 620px;
+            line-height: 1.6;
+        }
+
+        .simple-cta .btn {
+            background: #ffffff;
+            color: #004c8f;
+        }
+
+        @media (max-width: 820px) {
+            .simple-hero,
+            .simple-service-grid {
+                grid-template-columns: 1fr;
             }
 
-            .vision-statement h2 {
-                font-size: 1.5em;
+            .simple-home {
+                padding-top: 28px;
             }
         }
+
     </style>
 </head>
 <body>
@@ -95,132 +179,52 @@
 
         <nav class="main-nav" id="main-nav">
             <a href="index.html" class="active">Home Page</a>
-            <a href="about.html">About</a>
-            <a href="faq.html">FAQ</a>
-            <a href="contact.html">Contact</a>
+            <a href="about.html?v=clean-header">About</a>
+            <a href="booking.html">Request Form</a>
         </nav>
     </header>
 
     <main class="content-area">
-        <section class="services-page services-page--focused">
-            <div class="services-container">
-                <h1>Church Media Renovation and Technical Integration</h1>
-                <p class="services-intro">EV1Media helps churches and organizations build reliable audio, video, livestream, projection, and networking systems with practical planning, clean execution, and faith-driven purpose.</p>
-
-                <div class="vision-statement">
-                    <h2>Our Vision</h2>
-                    <p>Our goal is to become a trusted faith-driven leader in church media renovation and technical integration across Florida and beyond, delivering reliable audio, video, livestream, projection, and networking solutions that empower churches and organizations to serve with excellence, impact, and purpose.</p>
+        <section class="simple-home">
+            <div class="simple-hero">
+                <div>
+                    <h1>Church Media and Technical Support</h1>
+                    <p>EV1Media helps churches and organizations improve audio, livestream, projection, and networking systems with clean, reliable solutions.</p>
+                    <a href="booking.html" class="btn btn-primary">Submit Consultation Form</a>
                 </div>
+                <img src="images/ev1media-hero-control-room.png" alt="EV1Media technician operating audio, media, and lighting systems">
+            </div>
 
-                <div id="media-integration-services" class="service-category">
-                    <div class="service-header service-header--with-image">
-                        <div class="service-header-copy">
-                            <h2>Media Renovation and Integration</h2>
-                            <p class="service-tagline">Reliable systems for worship, communication, and service</p>
-                        </div>
-                        <div class="audio-slideshow" aria-label="Church media service photo slideshow">
-                            <img src="images/church-background.jpg" alt="Church worship environment with projection and media systems" class="audio-slide-single" id="mediaSlideImage">
-                            <div class="audio-slideshow-dots" id="mediaSlideshowDots" aria-hidden="true">
-                            </div>
-                        </div>
+            <div id="services" class="simple-services">
+                <h2>Services</h2>
+                <div class="simple-service-grid">
+                    <div class="simple-service-item">
+                        <i class="fas fa-volume-up" aria-hidden="true"></i>
+                        <h3>Audio</h3>
+                        <p>Sound setup, upgrades, troubleshooting, and clean signal flow.</p>
                     </div>
-
-                    <div class="services-grid services-grid--focused">
-                        <div class="service-card">
-                            <div class="service-icon"><i class="fas fa-volume-up" aria-hidden="true"></i></div>
-                            <h3>Audio Systems</h3>
-                            <p class="price-range">Consultation-Based</p>
-                            <p>Sound system planning, upgrades, tuning, and restoration for churches, events, and organizations.</p>
-                            <ul>
-                                <li>Speaker, mixer, microphone, and monitor planning</li>
-                                <li>Church sound restoration and signal-flow cleanup</li>
-                                <li>Audio troubleshooting and volunteer guidance</li>
-                                <li>Event-ready setup and technical support</li>
-                            </ul>
-                            <a href="booking.html" class="btn-book-service">Request Audio Consultation</a>
-                        </div>
-
-                        <div class="service-card">
-                            <div class="service-icon"><i class="fas fa-video" aria-hidden="true"></i></div>
-                            <h3>Video and Livestream</h3>
-                            <p class="price-range">Consultation-Based</p>
-                            <p>Camera, livestream, and video workflow support that helps your message reach beyond the room.</p>
-                            <ul>
-                                <li>Livestream setup and reliability planning</li>
-                                <li>Camera, switcher, and media booth workflows</li>
-                                <li>Streaming issue diagnosis and cleanup</li>
-                                <li>Simple systems your team can operate weekly</li>
-                            </ul>
-                            <a href="booking.html" class="btn-book-service">Request Livestream Consultation</a>
-                        </div>
-
-                        <div class="service-card">
-                            <div class="service-icon"><i class="fas fa-tv" aria-hidden="true"></i></div>
-                            <h3>Projection and Display</h3>
-                            <p class="price-range">Consultation-Based</p>
-                            <p>Projection and display solutions for worship lyrics, presentations, announcements, and live media.</p>
-                            <ul>
-                                <li>Projector and screen planning</li>
-                                <li>Display routing and presentation workflows</li>
-                                <li>Media computer and control station setup</li>
-                                <li>Clean integration with audio and video systems</li>
-                            </ul>
-                            <a href="booking.html" class="btn-book-service">Request Projection Consultation</a>
-                        </div>
+                    <div class="simple-service-item">
+                        <i class="fas fa-video" aria-hidden="true"></i>
+                        <h3>Livestream</h3>
+                        <p>Camera, streaming, and media booth support for weekly service.</p>
+                    </div>
+                    <div class="simple-service-item">
+                        <i class="fas fa-tv" aria-hidden="true"></i>
+                        <h3>Projection</h3>
+                        <p>Displays, projectors, lyrics, presentations, and media routing.</p>
+                    </div>
+                    <div class="simple-service-item">
+                        <i class="fas fa-network-wired" aria-hidden="true"></i>
+                        <h3>Networking</h3>
+                        <p>Wi-Fi, cabling, rack cleanup, and stable streaming networks.</p>
                     </div>
                 </div>
+            </div>
 
-                <div id="networking-services" class="service-category">
-                    <div class="service-header service-header--with-image">
-                        <div class="service-header-copy">
-                            <h2>Networking Services</h2>
-                            <p class="service-tagline">Stable infrastructure for streaming, production, and operations</p>
-                        </div>
-                        <div class="audio-slideshow" aria-label="Networking service photo slideshow">
-                            <img src="images/network-rack.png" alt="Structured networking rack with organized cabling" class="audio-slide-single" id="networkSlideImage">
-                            <div class="audio-slideshow-dots" id="networkSlideshowDots" aria-hidden="true"></div>
-                        </div>
-                    </div>
-
-                    <div class="services-grid services-grid--focused">
-                        <div class="service-card">
-                            <div class="service-icon"><i class="fas fa-network-wired" aria-hidden="true"></i></div>
-                            <h3>Structured Cabling and Rack Build</h3>
-                            <p class="price-range">Consultation-Based</p>
-                            <p>Professional cabling and rack layout services that improve reliability, airflow, and long-term maintenance.</p>
-                            <ul>
-                                <li>Cable routing, labeling, and velcro management</li>
-                                <li>Patch panel and switch organization</li>
-                                <li>Rack cleanup and lifecycle refresh</li>
-                                <li>Documentation for easier support</li>
-                            </ul>
-                            <a href="booking.html" class="btn-book-service">Request Rack Consultation</a>
-                        </div>
-
-                        <div class="service-card">
-                            <div class="service-icon"><i class="fas fa-wifi" aria-hidden="true"></i></div>
-                            <h3>Network Setup and Support</h3>
-                            <p class="price-range">Consultation-Based</p>
-                            <p>Network design and support for churches and organizations that depend on stable internet, streaming, and control traffic.</p>
-                            <ul>
-                                <li>Wi-Fi optimization and coverage planning</li>
-                                <li>Switch, gateway, and VLAN planning</li>
-                                <li>Streaming and production network support</li>
-                                <li>Performance testing and system handoff</li>
-                            </ul>
-                            <a href="booking.html" class="btn-book-service">Request Network Consultation</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="services-cta">
-                    <h2>Ready to Renovate Your Church Media System?</h2>
-                    <p>Tell us what is not working, what you want to improve, and what your team needs to serve with excellence.</p>
-                    <div class="cta-buttons">
-                        <a href="booking.html" class="btn btn-primary">Request Consultation - $100</a>
-                        <a href="tel:+2393516598" class="btn btn-secondary">Call (239) 351-6598</a>
-                    </div>
-                </div>
+            <div class="simple-cta">
+                <h2>Need Help With Your System?</h2>
+                <p>Tell EV1Media what you need, where the service is located, and what problem you want solved.</p>
+                <a href="booking.html" class="btn">Submit the Form</a>
             </div>
         </section>
     </main>
@@ -241,15 +245,14 @@
                 <h3>Quick Links</h3>
                 <div class="footer-links">
                     <a href="index.html">Home Page</a>
-                    <a href="about.html">About</a>
-                    <a href="faq.html">FAQ</a>
-                    <a href="contact.html">Contact</a>
+                    <a href="about.html?v=clean-header">About</a>
+                    <a href="booking.html">Request Form</a>
                 </div>
             </div>
 
             <div class="footer-section">
                 <h3>Contact</h3>
-                <p>Email: <a href="mailto:infoev1media@gmail.com">infoev1media@gmail.com</a></p>
+                <p>Email: <a href="mailto:info@ev1media.com">info@ev1media.com</a></p>
                 <p>Phone: <a href="tel:+2393516598">(239) 351-6598</a></p>
                 <p>Service Area: Florida</p>
                 <div class="footer-social">
@@ -272,7 +275,7 @@
 
     <!-- AI Chatbot Widget -->
     <div id="chat-widget"></div>
-    <script src="chatbot.js?v=6"></script>
+    <script src="chatbot.js?v=7"></script>
 
     <script>
         const hamburger = document.getElementById('hamburger');
@@ -314,86 +317,6 @@
             });
         }
 
-        function initHeaderSlideshow(options) {
-            const imageEl = document.getElementById(options.imageId);
-            const dotsContainer = document.getElementById(options.dotsId);
-            const slides = options.slides || [];
-            const rotateMs = options.rotateMs || 3500;
-            const labelPrefix = options.labelPrefix || 'Show slide';
-
-            if (!imageEl || slides.length === 0) return;
-
-            let activeSlide = 0;
-            let slideTimer = null;
-            let dots = [];
-
-            function renderSlide(index) {
-                if (!slides[index]) return;
-                imageEl.src = slides[index].src;
-                imageEl.alt = slides[index].alt;
-                dots.forEach((dot, dotIndex) => {
-                    dot.classList.toggle('active', dotIndex === index);
-                });
-            }
-
-            function startSlideshow() {
-                if (slides.length < 2) return;
-                slideTimer = setInterval(() => {
-                    activeSlide = (activeSlide + 1) % slides.length;
-                    renderSlide(activeSlide);
-                }, rotateMs);
-            }
-
-            function restartSlideshow() {
-                if (slideTimer) {
-                    clearInterval(slideTimer);
-                }
-                startSlideshow();
-            }
-
-            if (dotsContainer) {
-                dotsContainer.innerHTML = '';
-                dots = slides.map((_, index) => {
-                    const dot = document.createElement('button');
-                    dot.type = 'button';
-                    dot.className = 'audio-dot';
-                    dot.setAttribute('aria-label', `${labelPrefix} ${index + 1}`);
-                    dot.addEventListener('click', () => {
-                        activeSlide = index;
-                        renderSlide(activeSlide);
-                        restartSlideshow();
-                    });
-                    dotsContainer.appendChild(dot);
-                    return dot;
-                });
-            }
-
-            renderSlide(activeSlide);
-            startSlideshow();
-        }
-
-        initHeaderSlideshow({
-            imageId: 'mediaSlideImage',
-            dotsId: 'mediaSlideshowDots',
-            labelPrefix: 'Show media integration slide',
-            slides: [
-                { src: 'images/church-background.jpg', alt: 'Church worship environment with projection and media systems' },
-                { src: 'images/equipment3.png', alt: 'Church audio and livestream control setup' },
-                { src: 'images/audio-console.png', alt: 'Digital audio mixing console' },
-                { src: 'images/equipment1.png', alt: 'Professional digital mixing console' },
-                { src: 'images/audio-rental-poster.jpeg', alt: 'Sound rental setup and speakers' }
-            ]
-        });
-
-        initHeaderSlideshow({
-            imageId: 'networkSlideImage',
-            dotsId: 'networkSlideshowDots',
-            labelPrefix: 'Show networking slide',
-            slides: [
-                { src: 'images/network-rack.png', alt: 'Structured networking rack with organized cabling' },
-                { src: 'images/network-tech-support.png', alt: 'Technician managing and testing network rack cabling' }
-            ]
-        });
     </script>
 
 </body>

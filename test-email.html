@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -90,16 +90,16 @@
             emailjs.init({
                 publicKey: "tfwfNRWUI3Wb3hCqk"
             });
-            log('✅ EmailJS initialized successfully');
+            log('? EmailJS initialized successfully');
         } catch (error) {
-            log('❌ EmailJS initialization failed: ' + error.message, 'error');
+            log('? EmailJS initialization failed: ' + error.message, 'error');
         }
         
         // Check if emailjs is available
         if (typeof emailjs === 'undefined') {
-            log('❌ EmailJS library not loaded', 'error');
+            log('? EmailJS library not loaded', 'error');
         } else {
-            log('✅ EmailJS library loaded');
+            log('? EmailJS library loaded');
         }
         
         // Form submission
@@ -118,7 +118,7 @@
                 phone_number: document.getElementById('phone').value || 'Not provided',
                 service_type: 'Test Service',
                 message_html: document.getElementById('message').value,
-                to_email: 'infoev1media@gmail.com',
+                to_email: 'info@ev1media.com',
                 submission_time: new Date().toLocaleString()
             };
             
@@ -130,15 +130,15 @@
             try {
                 log('Sending email...');
                 const response = await emailjs.send('service_vt29dhf', 'template_xo0vze1', templateParams);
-                log('✅ SUCCESS! Email sent successfully', 'success');
+                log('? SUCCESS! Email sent successfully', 'success');
                 log('Response status: ' + response.status);
                 log('Response text: ' + response.text);
-                alert('✅ Test email sent successfully! Check your inbox.');
+                alert('? Test email sent successfully! Check your inbox.');
             } catch (error) {
-                log('❌ FAILED! Error sending email', 'error');
+                log('? FAILED! Error sending email', 'error');
                 log('Error details: ' + JSON.stringify(error, null, 2));
                 log('Error message: ' + error.text || error.message);
-                alert('❌ Test failed! Check debug information below.');
+                alert('? Test failed! Check debug information below.');
             }
         });
     </script>
