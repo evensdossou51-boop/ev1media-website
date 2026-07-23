@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (window.location.pathname.endsWith("/index.html")) {
+            const cleanPath = window.location.pathname.replace(/index\.html$/, "");
+            window.history.replaceState(null, "", cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3B3WVMY63M"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -34,7 +40,7 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
         <div class="container header-inner">
-            <a class="brand" href="index.html" aria-label="EV1 Media home">
+            <a class="brand" href="/" aria-label="EV1 Media home">
                 <img class="brand-mark" src="images/logo.png" alt="">
                 <span class="brand-copy">
                     <span class="brand-name">EV1 Media</span>
@@ -45,7 +51,7 @@
                 <span></span><span></span><span></span>
             </button>
             <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-                <a class="active" href="index.html">Home</a>
+                <a class="active" href="/">Home</a>
                 <a href="#companies">Our Companies</a>
                 <a href="about.html">About</a>
                 <a href="about.html#leadership">Leadership</a>
