@@ -187,7 +187,7 @@ class ChatWidget {
         
         // Corporate and venture inquiries
         if (this.matchesIntent(lowerMessage, ['employeebase', 'employee base', 'workplace ai', 'company knowledge', 'knowledge base', 'business software', 'software'])) {
-            return "EmployeeBase IQ is an EV1 Media venture focused on trusted workplace knowledge and AI-powered answers from approved company documents.\n\nVisit https://employeebaseiq.com, or <a href='contact.html?inquiry=employeebase-iq'>contact EV1 Media</a> for a product conversation.";
+            return "EmployeeBase IQ is an EV1 Media venture focused on trusted workplace knowledge and AI-powered answers from approved company documents.\n\nVisit https://employeebaseiq.com or <a href='contact.html?inquiry=employeebase-iq'>contact EV1 Media</a> for a product conversation.";
         }
 
         if (this.matchesIntent(lowerMessage, ['partnership', 'partner', 'press', 'media inquiry', 'corporate inquiry', 'investor', 'venture'])) {
