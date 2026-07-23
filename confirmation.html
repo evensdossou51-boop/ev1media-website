@@ -1,311 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3B3WVMY63M"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-3B3WVMY63M');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag("js", new Date());
+        gtag("config", "G-3B3WVMY63M");
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submission Confirmed | EV1 Media</title>
     <meta name="robots" content="noindex, follow">
     <meta name="description" content="Your EV1 Media form submission has been received.">
-    <link rel="stylesheet" href="./style.css?v=14">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .confirmation-section {
-            padding: 70px 20px;
-            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
-            min-height: calc(100vh - 200px);
-            display: flex;
-            align-items: center;
-        }
-
-        .confirmation-container {
-            max-width: 760px;
-            margin: 0 auto;
-            text-align: center;
-            background: white;
-            padding: 48px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 76, 143, 0.12);
-        }
-
-        .confirmation-mark {
-            width: 72px;
-            height: 72px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #0f7b4f;
-            color: white;
-            font-size: 2em;
-        }
-
-        .confirmation-kicker {
-            color: #0f7b4f;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 10px;
-            font-size: 0.85em;
-        }
-
-        .confirmation-container h1 {
-            color: #004c8f;
-            font-size: 2.4em;
-            margin-bottom: 16px;
-        }
-
-        .confirmation-message,
-        .confirmation-next p,
-        .confirmation-contact {
-            color: #1f2937;
-            line-height: 1.8;
-        }
-
-        .confirmation-message {
-            font-size: 1.1em;
-            margin-bottom: 28px;
-        }
-
-        .confirmation-next {
-            padding: 24px;
-            margin: 28px 0;
-            background: #f4f8fb;
-            border-left: 4px solid #79c8ff;
-            text-align: left;
-            border-radius: 8px;
-        }
-
-        .confirmation-next h2 {
-            color: #17253d;
-            font-size: 1.25em;
-            margin-bottom: 8px;
-        }
-
-        .confirmation-next p {
-            margin: 0;
-        }
-
-        .confirmation-actions {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-
-        .confirmation-actions .btn {
-            min-width: 180px;
-        }
-
-        .confirmation-contact {
-            margin: 0;
-            font-size: 0.95em;
-        }
-
-        .confirmation-contact a {
-            color: #004c8f;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .confirmation-section {
-                padding: 45px 16px;
-                align-items: flex-start;
-            }
-
-            .confirmation-container {
-                padding: 32px 22px;
-            }
-
-            .confirmation-container h1 {
-                font-size: 1.9em;
-            }
-
-            .confirmation-actions {
-                align-items: stretch;
-                flex-direction: column;
-            }
-
-            .confirmation-actions .btn {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="corporate.css?v=2">
+    <link rel="stylesheet" href="confirmation.css?v=1">
 </head>
 <body>
-
-    <header class="main-header">
-        <div class="logo">
-            <a href="/" class="logo-link">
-                <span class="logo-icon">
-                    <img src="images/logo.png" alt="EV1 Media logo">
-                </span>
-                EV1 Media
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="/" aria-label="EV1 Media home">
+                <img class="brand-mark" src="images/logo.png" alt="">
+                <span class="brand-copy"><span class="brand-name">EV1 Media</span><span class="brand-descriptor">Building technology companies.</span></span>
             </a>
-            <span class="logo-tagline">Audio and Networking Solutions</span>
+            <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+            <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+                <a href="/">Home</a>
+                <a href="/#companies">Our Companies</a>
+                <a href="about.html">About</a>
+                <a href="about.html#leadership">Leadership</a>
+                <a href="contact.html">Contact</a>
+            </nav>
         </div>
-        
-        <button class="hamburger-menu" id="hamburger" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <nav class="main-nav" id="main-nav">
-            <a href="/">Home Page</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
     </header>
 
-    <main class="content-area">
-        <section class="confirmation-section">
-            <div class="confirmation-container">
-                <div class="confirmation-mark" aria-hidden="true">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <p class="confirmation-kicker">Submission received</p>
-                <h1 id="confirmation-title">Thank you!</h1>
-                <p id="confirmation-message" class="confirmation-message">Your message has been sent successfully. We will review it and contact you shortly.</p>
-                
-                <div class="confirmation-next">
-                    <h2>What happens next?</h2>
-                    <p id="confirmation-next-copy">Our team will review your details and follow up using the contact information you provided.</p>
-                </div>
+    <main id="main">
+        <section class="confirmation-page" aria-labelledby="confirmation-title">
+            <div class="confirmation-shell">
+                <div class="confirmation-panel">
+                    <div class="confirmation-mark" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7"/></svg>
+                    </div>
+                    <p class="confirmation-label">Submission received</p>
+                    <h1 id="confirmation-title">Your message has been sent.</h1>
+                    <p id="confirmation-message" class="confirmation-message">Thanks for contacting EV1 Media. Your inquiry has been received, and we will get back to you shortly.</p>
 
-                <div class="confirmation-actions">
-                    <a href="/" class="btn btn-primary">Back to Home</a>
-                    <a href="booking.html" class="btn btn-secondary">Book Another Service</a>
-                </div>
+                    <div class="confirmation-next">
+                        <h2>What happens next?</h2>
+                        <p id="confirmation-next-copy">We will review your message and reply using the contact information you provided.</p>
+                    </div>
 
-                <p class="confirmation-contact">
-                    Need help now? Call <a href="tel:+2393516598">(239) 351-6598</a> or email <a href="mailto:info@ev1media.com">info@ev1media.com</a>.
-                </p>
+                    <div class="button-row confirmation-actions">
+                        <a href="/" class="button button-primary">Back to Home</a>
+                        <a id="confirmation-secondary-action" href="/#companies" class="button">Explore Our Companies</a>
+                    </div>
+
+                    <p class="confirmation-contact">
+                        Need help now? Call <a href="tel:+12393516598">(239) 351-6598</a> or email <a href="mailto:info@ev1media.com">info@ev1media.com</a>.
+                    </p>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="main-footer">
-        <button class="footer-toggle" id="footer-toggle" aria-label="Toggle footer">
-            <span>Quick Links & Contact</span>
-            <span class="footer-arrow">&#9662;</span>
-        </button>
-        <div class="footer-content" id="footer-content">
-            <div class="footer-section">
-                <h3>EV1 Media</h3>
-                <p>Audio and Networking Solutions</p>
-                <p>Reliable audio, networking, and IT support for churches, businesses, and events in Florida.</p>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><strong>EV1 Media</strong><p>Building technology companies for modern organizations.</p></div>
+                <div class="footer-column"><h2>Company</h2><a href="about.html">About</a><a href="about.html#leadership">Leadership</a><a href="contact.html">Contact</a></div>
+                <div class="footer-column"><h2>Our Companies</h2><a href="https://employeebaseiq.com" target="_blank" rel="noopener">EmployeeBase IQ</a><a href="solutions.html">EV1 Media Solutions</a><a href="contact.html?inquiry=business-partnership">Future ventures</a></div>
             </div>
-            
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <div class="footer-links">
-                    <a href="/">Home Page</a>
-                    <a href="about.html">About</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>Email: <a href="mailto:info@ev1media.com">info@ev1media.com</a></p>
-                <p>Phone: <a href="tel:+2393516598">(239) 351-6598</a></p>
-                <p>Service Area: Florida</p>
-                <div class="footer-social">
-                    <a href="https://www.facebook.com/evsoundrental" target="_blank" class="social-facebook" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                        <span class="social-text">Facebook</span>
-                    </a>
-                    <a href="https://www.instagram.com/ev1media_/" target="_blank" class="social-instagram" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                        <span class="social-text">Instagram</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2026 EV1 Media LLC. All rights reserved.</p>
+            <div class="footer-legal"><p>© 2026 EV1 Media LLC. All rights reserved.</p><div><p>EV1 Media is the parent company of independently operated technology and service companies.</p><p>EmployeeBase IQ is a venture of EV1 Media LLC.</p></div></div>
         </div>
     </footer>
 
-    <script src="chatbot.js?v=7"></script>
+    <script src="corporate.js?v=2"></script>
+    <script src="chatbot.js?v=8"></script>
     <script>
         const confirmationCopy = {
             booking: {
-                title: 'Your booking request is confirmed.',
-                message: 'Thanks for reaching out to EV1 Media Solutions. Your service request has been received.',
-                next: 'EV1 Media Solutions will contact you to discuss the request and next steps.'
+                title: "Your booking request is confirmed.",
+                message: "Thanks for reaching out to EV1 Media Solutions. Your service request has been received.",
+                next: "EV1 Media Solutions will contact you to discuss the request and next steps.",
+                actionText: "Request Another Service",
+                actionHref: "booking.html"
             },
             contact: {
-                title: 'Your message has been sent.',
-                message: 'Thanks for contacting EV1 Media. Your inquiry has been received, and we will get back to you shortly.',
-                next: 'We will review your message and reply using the contact information you provided.'
+                title: "Your message has been sent.",
+                message: "Thanks for contacting EV1 Media. Your inquiry has been received, and we will get back to you shortly.",
+                next: "We will review your message and reply using the contact information you provided.",
+                actionText: "Explore Our Companies",
+                actionHref: "/#companies"
             },
             faq: {
-                title: 'Your question has been submitted.',
-                message: 'Thanks for sending your question. We received it and will review it for a direct response.',
-                next: 'If your question needs a personal answer, we will follow up by email.'
+                title: "Your question has been submitted.",
+                message: "Thanks for sending your question. We received it and will review it for a direct response.",
+                next: "If your question needs a personal answer, we will follow up by email.",
+                actionText: "Contact EV1 Media",
+                actionHref: "contact.html"
             }
         };
 
         const params = new URLSearchParams(window.location.search);
-        const type = params.get('type');
-        const copy = confirmationCopy[type] || confirmationCopy.contact;
+        const copy = confirmationCopy[params.get("type")] || confirmationCopy.contact;
+        const secondaryAction = document.getElementById("confirmation-secondary-action");
 
-        document.getElementById('confirmation-title').textContent = copy.title;
-        document.getElementById('confirmation-message').textContent = copy.message;
-        document.getElementById('confirmation-next-copy').textContent = copy.next;
-
-        const hamburger = document.getElementById('hamburger');
-        const mainNav = document.getElementById('main-nav');
-        
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
-            mainNav.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-        });
-        
-        const navLinks = mainNav.querySelectorAll('a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                hamburger.classList.remove('active');
-                mainNav.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            });
-        });
-        
-        document.addEventListener('click', function(event) {
-            const isClickInsideNav = mainNav.contains(event.target);
-            const isClickOnHamburger = hamburger.contains(event.target);
-            
-            if (!isClickInsideNav && !isClickOnHamburger && mainNav.classList.contains('active')) {
-                hamburger.classList.remove('active');
-                mainNav.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            }
-        });
-        
-        const footerToggle = document.getElementById('footer-toggle');
-        const footerContent = document.getElementById('footer-content');
-        
-        if (footerToggle && footerContent) {
-            footerToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                footerContent.classList.toggle('active');
-            });
-        }
+        document.getElementById("confirmation-title").textContent = copy.title;
+        document.getElementById("confirmation-message").textContent = copy.message;
+        document.getElementById("confirmation-next-copy").textContent = copy.next;
+        secondaryAction.textContent = copy.actionText;
+        secondaryAction.href = copy.actionHref;
     </script>
 </body>
 </html>
