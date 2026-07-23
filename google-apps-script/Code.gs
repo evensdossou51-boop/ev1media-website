@@ -6,45 +6,63 @@ const SHEET_BY_FORM_TYPE = {
 };
 
 const CONTACT_HEADERS = [
-  "Timestamp",
-  "Source",
+  "Inquiry ID",
+  "Submitted At",
+  "Form Type",
   "Name",
   "Email",
   "Phone",
-  "Service",
+  "Inquiry Category",
   "Message",
   "Page URL",
-  "User Agent",
+  "Browser / Device",
   "Raw JSON",
   "Year",
   "Month",
   "Month Number",
   "Converted to Job?",
-  "Job Status",
+  "Inquiry Status",
   "Job Value",
-  "Job Notes"
+  "Follow-Up Date",
+  "Owner",
+  "Notes"
 ];
 
 const BOOKING_HEADERS = [
-  "Timestamp",
-  "Source",
-  "Full Name",
+  "Inquiry ID",
+  "Submitted At",
+  "Form Type",
+  "Name",
   "Email",
   "Phone",
-  "Service Location / Address",
-  "Service Needed",
-  "Message / Project Details *",
+  "Service Location",
+  "Service Requested",
+  "Project Details",
   "Page URL",
-  "User Agent",
+  "Browser / Device",
   "Raw JSON",
   "Year",
   "Month",
   "Month Number",
   "Converted to Job?",
-  "Job Status",
+  "Inquiry Status",
   "Job Value",
-  "Job Notes"
+  "Follow-Up Date",
+  "Owner",
+  "Notes"
 ];
+
+const TELEGRAM_BOT_TOKEN_PROPERTY = "TELEGRAM_BOT_TOKEN";
+const TELEGRAM_CHAT_ID_PROPERTY = "TELEGRAM_CHAT_ID";
+
+function doGet() {
+  const status = getTelegramConfigStatus();
+  return json_({
+    ok: true,
+    service: "EV1 Media inquiry API",
+    telegramConfigured: status.configured
+  });
+}
 
 function doPost(e) {
   try {
@@ -59,19 +77,44 @@ function doPost(e) {
     }
 
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sheet = getOrCreateSheet_(spreadsheet, sheetName, getHeaders_(formType));
-    const row = buildRow_(formType, payload, meta);
-    sheet.appendRow(row);
-    setupMonthlyDashboard_(spreadsheet);
-    setupJobsPipeline_(spreadsheet);
+    const headers = formType === "booking" ? BOOKING_HEADERS : CONTACT_HEADERS;
+    const sheet = getOrCreateSheet_(spreadsheet, sheetName, headers);
+    const lock = LockService.getScriptLock();
+
+    lock.waitLock(30000);
+
+    let inquiryId;
+    let rowNumber;
+
+    try {
+      inquiryId = nextInquiryId_(sheet, formType === "booking" ? "BK" : "CT");
+      const row = buildRow_(formType, inquiryId, payload, meta);
+      sheet.appendRow(row);
+      rowNumber = sheet.getLastRow();
+      applyNewRowStructure_(sheet, formType, rowNumber, headers.length);
+      SpreadsheetApp.flush();
+    } finally {
+      lock.releaseLock();
+    }
+
+    let telegramSent = false;
+
+    try {
+      telegramSent = sendTelegramNotification_(formType, inquiryId, payload, meta);
+    } catch (telegramError) {
+      console.error("Telegram notification failed", telegramError);
+    }
 
     return json_({
       ok: true,
-      formType,
+      inquiryId: inquiryId,
+      formType: formType,
       sheet: sheetName,
-      rowNumber: sheet.getLastRow()
+      rowNumber: rowNumber,
+      telegramSent: telegramSent
     });
   } catch (error) {
+    console.error("Inquiry processing failed", error);
     return json_({
       ok: false,
       error: asString_(error && error.message ? error.message : error)
@@ -79,21 +122,12 @@ function doPost(e) {
   }
 }
 
-function setupMonthlyDashboard() {
-  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-  setupMonthlyDashboard_(spreadsheet);
-  setupJobsPipeline_(spreadsheet);
-}
-
 function parseBody_(e) {
   if (!e || !e.postData || !e.postData.contents) {
     throw new Error("Empty POST body.");
   }
-  return JSON.parse(e.postData.contents);
-}
 
-function getHeaders_(formType) {
-  return formType === "booking" ? BOOKING_HEADERS : CONTACT_HEADERS;
+  return JSON.parse(e.postData.contents);
 }
 
 function getOrCreateSheet_(spreadsheet, sheetName, headers) {
@@ -105,29 +139,52 @@ function getOrCreateSheet_(spreadsheet, sheetName, headers) {
 
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
   sheet.setFrozenRows(1);
+  sheet.setFrozenColumns(1);
 
   return sheet;
 }
 
-function buildRow_(formType, payload, meta) {
-  const timestamp = asString_(meta.timestamp) || new Date().toISOString();
-  const date = new Date(timestamp);
-  const year = date.getFullYear();
-  const monthNumber = date.getMonth() + 1;
-  const month = Utilities.formatDate(date, Session.getScriptTimeZone(), "MMMM");
-  const pageUrl = asString_(meta.pageUrl);
-  const userAgent = asString_(meta.userAgent);
-  const rawJson = JSON.stringify(payload);
+function nextInquiryId_(sheet, prefix) {
+  const lastRow = sheet.getLastRow();
+
+  if (lastRow < 2) {
+    return prefix + "-00001";
+  }
+
+  const ids = sheet.getRange(2, 1, lastRow - 1, 1).getDisplayValues();
+  let highest = 0;
+
+  ids.forEach(function (row) {
+    const match = asString_(row[0]).match(new RegExp("^" + prefix + "-(\\d+)$"));
+
+    if (match) {
+      highest = Math.max(highest, Number(match[1]));
+    }
+  });
+
+  return prefix + "-" + String(highest + 1).padStart(5, "0");
+}
+
+function buildRow_(formType, inquiryId, payload, meta) {
+  const submittedAt = validDate_(meta.timestamp);
+  const timeZone = SpreadsheetApp.openById(SPREADSHEET_ID).getSpreadsheetTimeZone();
+  const year = Number(Utilities.formatDate(submittedAt, timeZone, "yyyy"));
+  const month = Utilities.formatDate(submittedAt, timeZone, "MMMM");
+  const monthNumber = Number(Utilities.formatDate(submittedAt, timeZone, "M"));
+  const pageUrl = safeCellText_(meta.pageUrl);
+  const userAgent = safeCellText_(meta.userAgent);
+  const rawJson = JSON.stringify({ payload: payload, meta: meta });
 
   if (formType === "contact") {
     return [
-      timestamp,
-      "contact",
-      asString_(payload.name),
-      asString_(payload.email),
-      asString_(payload.phone),
-      asString_(payload.service),
-      asString_(payload.message),
+      inquiryId,
+      submittedAt,
+      "Contact",
+      safeCellText_(payload.name),
+      safeCellText_(payload.email),
+      safeCellText_(payload.phone),
+      safeCellText_(payload.service),
+      safeCellText_(payload.message),
       pageUrl,
       userAgent,
       rawJson,
@@ -137,160 +194,223 @@ function buildRow_(formType, payload, meta) {
       "No",
       "New Inquiry",
       "",
-      ""
-    ];
-  }
-
-  if (formType === "booking") {
-    return [
-      timestamp,
-      "booking",
-      asString_(payload.fullName),
-      asString_(payload.email),
-      asString_(payload.phone),
-      asString_(payload.serviceAddress),
-      asString_(payload.service),
-      asString_(payload.message),
-      pageUrl,
-      userAgent,
-      rawJson,
-      year,
-      month,
-      monthNumber,
-      "No",
-      "New Inquiry",
+      "",
       "",
       ""
     ];
   }
 
-  throw new Error("Unhandled formType: " + formType);
+  return [
+    inquiryId,
+    submittedAt,
+    "Service Request",
+    safeCellText_(payload.fullName),
+    safeCellText_(payload.email),
+    safeCellText_(payload.phone),
+    safeCellText_(payload.serviceAddress),
+    safeCellText_(payload.service),
+    safeCellText_(payload.message),
+    pageUrl,
+    userAgent,
+    rawJson,
+    year,
+    month,
+    monthNumber,
+    "No",
+    "New Inquiry",
+    "",
+    "",
+    "",
+    ""
+  ];
 }
 
-function setupMonthlyDashboard_(spreadsheet) {
-  const dashboardName = "Monthly Dashboard";
-  const sheet = getOrCreateDashboardSheet_(spreadsheet, dashboardName);
+function applyNewRowStructure_(sheet, formType, rowNumber, columnCount) {
+  const rowRange = sheet.getRange(rowNumber, 1, 1, columnCount);
 
-  sheet.clear();
-  sheet.getRange("A1").setValue("EV1Media Submission Dashboard");
-  sheet.getRange("A2").setValue("Year");
-  sheet.getRange("B2").setFormula("=YEAR(TODAY())");
-  sheet.getRange("A4:F4").setValues([[
-    "Total This Year",
-    "=SUM(D8:D19)",
-    "Contact",
-    "=SUM(B8:B19)",
-    "Service Requests",
-    "=SUM(C8:C19)"
-  ]]);
-  sheet.getRange("A6").setValue("Monthly Breakdown");
-  sheet.getRange("A7:D7").setValues([["Month", "Contact", "Service Request", "Total"]]);
+  if (rowNumber > 2) {
+    const exemplar = sheet.getRange(2, 1, 1, columnCount);
+    exemplar.copyTo(rowRange, SpreadsheetApp.CopyPasteType.PASTE_FORMAT, false);
+    exemplar.copyTo(rowRange, SpreadsheetApp.CopyPasteType.PASTE_DATA_VALIDATION, false);
+  }
 
-  const monthRows = [
-    ["January", 1],
-    ["February", 2],
-    ["March", 3],
-    ["April", 4],
-    ["May", 5],
-    ["June", 6],
-    ["July", 7],
-    ["August", 8],
-    ["September", 9],
-    ["October", 10],
-    ["November", 11],
-    ["December", 12]
+  sheet.getRange(rowNumber, 2).setNumberFormat("yyyy-mm-dd hh:mm");
+
+  if (formType === "contact") {
+    sheet.getRange(rowNumber, 17).setNumberFormat("$#,##0.00");
+    sheet.getRange(rowNumber, 18).setNumberFormat("yyyy-mm-dd");
+  } else {
+    sheet.getRange(rowNumber, 18).setNumberFormat("$#,##0.00");
+    sheet.getRange(rowNumber, 19).setNumberFormat("yyyy-mm-dd");
+  }
+}
+
+function sendTelegramNotification_(formType, inquiryId, payload, meta) {
+  const properties = PropertiesService.getScriptProperties();
+  const token = properties.getProperty(TELEGRAM_BOT_TOKEN_PROPERTY);
+  const chatId = properties.getProperty(TELEGRAM_CHAT_ID_PROPERTY);
+
+  if (!token || !chatId) {
+    return false;
+  }
+
+  const lines = [
+    "🔔 <b>New EV1 Media inquiry</b>",
+    "",
+    "<b>ID:</b> " + escapeTelegramHtml_(inquiryId),
+    "<b>Type:</b> " + escapeTelegramHtml_(formType === "booking" ? "Service Request" : "Corporate Inquiry"),
+    "<b>Name:</b> " + escapeTelegramHtml_(formType === "booking" ? payload.fullName : payload.name),
+    "<b>Email:</b> " + escapeTelegramHtml_(payload.email),
+    "<b>Phone:</b> " + escapeTelegramHtml_(payload.phone || "Not provided")
   ];
 
-  monthRows.forEach(function (row, index) {
-    const sheetRow = index + 8;
-    sheet.getRange(sheetRow, 1).setValue(row[0]);
-    sheet.getRange(sheetRow, 2).setFormula("=COUNTIFS('Contact Submissions'!$K:$K,$B$2,'Contact Submissions'!$M:$M," + row[1] + ")");
-    sheet.getRange(sheetRow, 3).setFormula("=COUNTIFS('Booking Submissions'!$L:$L,$B$2,'Booking Submissions'!$N:$N," + row[1] + ")");
-    sheet.getRange(sheetRow, 4).setFormula("=SUM(B" + sheetRow + ":C" + sheetRow + ")");
-  });
+  if (formType === "booking") {
+    lines.push("<b>Service:</b> " + escapeTelegramHtml_(payload.service || "Not specified"));
+    lines.push("<b>Location:</b> " + escapeTelegramHtml_(payload.serviceAddress || "Not provided"));
+    lines.push("<b>Project details:</b> " + escapeTelegramHtml_(payload.message || "Not provided"));
+  } else {
+    lines.push("<b>Inquiry category:</b> " + escapeTelegramHtml_(payload.service || "Not specified"));
+    lines.push("<b>Message:</b> " + escapeTelegramHtml_(payload.message || "Not provided"));
+  }
 
-  sheet.getRange("A22:B25").setValues([
-    ["Conversion Summary", ""],
-    ["Converted Jobs", "=COUNTIF('Contact Submissions'!N:N,\"Yes\")+COUNTIF('Booking Submissions'!O:O,\"Yes\")"],
-    ["Open Inquiries", "=MAX(0,SUM(D8:D19)-B23)"],
-    ["Total Submissions", "=SUM(D8:D19)"]
-  ]);
+  if (meta.pageUrl) {
+    lines.push("");
+    lines.push("<b>Page:</b> " + escapeTelegramHtml_(meta.pageUrl));
+  }
 
-  sheet.getRange("A1:F1").merge();
-  sheet.getRange("A1").setFontSize(18).setFontWeight("bold");
-  sheet.getRange("A7:D7").setFontWeight("bold");
-  sheet.getRange("A22:B22").setFontWeight("bold");
-  sheet.autoResizeColumns(1, 6);
-
-  sheet.getCharts().forEach(function (chart) {
-    sheet.removeChart(chart);
-  });
-
-  const monthlyChart = sheet.newChart()
-    .asColumnChart()
-    .addRange(sheet.getRange("A7:D19"))
-    .setPosition(6, 6, 0, 0)
-    .setOption("title", "Website Submissions by Month")
-    .setOption("legend", { position: "bottom" })
-    .setOption("hAxis", { title: "Month" })
-    .setOption("vAxis", { title: "Submissions", minValue: 0 })
-    .build();
-
-  const conversionChart = sheet.newChart()
-    .asPieChart()
-    .addRange(sheet.getRange("A23:B24"))
-    .setPosition(22, 6, 0, 0)
-    .setOption("title", "Submissions Converted Into Jobs")
-    .setOption("legend", { position: "right" })
-    .build();
-
-  sheet.insertChart(monthlyChart);
-  sheet.insertChart(conversionChart);
-}
-
-function setupJobsPipeline_(spreadsheet) {
-  const sheet = getOrCreateDashboardSheet_(spreadsheet, "Jobs Pipeline");
-
-  sheet.clear();
-  sheet.getRange("A1").setValue("Jobs Pipeline");
-  sheet.getRange("A2").setValue("Mark Converted to Job? = Yes on Contact Submissions or Booking Submissions. Converted inquiries will appear below.");
-  sheet.getRange("A4:K4").setValues([[
-    "Timestamp",
-    "Source",
-    "Name",
-    "Email",
-    "Phone",
-    "Service Location",
-    "Service",
-    "Message / Project Details *",
-    "Job Status",
-    "Job Value",
-    "Job Notes"
-  ]]);
-  sheet.getRange("A5").setFormula(
-    "=IFERROR(VSTACK(" +
-      "FILTER({'Contact Submissions'!A2:A,'Contact Submissions'!B2:B,'Contact Submissions'!C2:C,'Contact Submissions'!D2:D,'Contact Submissions'!E2:E,IF('Contact Submissions'!A2:A<>\"\",\"\",),'Contact Submissions'!F2:F,'Contact Submissions'!G2:G,'Contact Submissions'!O2:O,'Contact Submissions'!P2:P,'Contact Submissions'!Q2:Q},'Contact Submissions'!N2:N=\"Yes\")," +
-      "FILTER({'Booking Submissions'!A2:A,'Booking Submissions'!B2:B,'Booking Submissions'!C2:C,'Booking Submissions'!D2:D,'Booking Submissions'!E2:E,'Booking Submissions'!F2:F,'Booking Submissions'!G2:G,'Booking Submissions'!H2:H,'Booking Submissions'!P2:P,'Booking Submissions'!Q2:Q,'Booking Submissions'!R2:R},'Booking Submissions'!O2:O=\"Yes\")" +
-    "),\"No converted jobs yet\")"
+  const response = UrlFetchApp.fetch(
+    "https://api.telegram.org/bot" + token + "/sendMessage",
+    {
+      method: "post",
+      contentType: "application/json",
+      payload: JSON.stringify({
+        chat_id: chatId,
+        text: lines.join("\n"),
+        parse_mode: "HTML",
+        disable_web_page_preview: true
+      }),
+      muteHttpExceptions: true
+    }
   );
 
-  sheet.getRange("A1:K1").setFontSize(18).setFontWeight("bold");
-  sheet.getRange("A4:K4").setFontWeight("bold");
-  sheet.autoResizeColumns(1, 11);
+  const statusCode = response.getResponseCode();
+
+  if (statusCode < 200 || statusCode >= 300) {
+    throw new Error("Telegram API returned " + statusCode + ": " + response.getContentText());
+  }
+
+  return true;
 }
 
-function getOrCreateDashboardSheet_(spreadsheet, sheetName) {
-  let sheet = spreadsheet.getSheetByName(sheetName);
-  if (!sheet) {
-    sheet = spreadsheet.insertSheet(sheetName);
+function getTelegramConfigStatus() {
+  const properties = PropertiesService.getScriptProperties();
+  const token = properties.getProperty(TELEGRAM_BOT_TOKEN_PROPERTY);
+  const chatId = properties.getProperty(TELEGRAM_CHAT_ID_PROPERTY);
+
+  return {
+    configured: Boolean(token && chatId),
+    hasToken: Boolean(token),
+    hasChatId: Boolean(chatId)
+  };
+}
+
+function findTelegramChatIds() {
+  const token = PropertiesService.getScriptProperties().getProperty(TELEGRAM_BOT_TOKEN_PROPERTY);
+
+  if (!token) {
+    throw new Error("Add TELEGRAM_BOT_TOKEN in Apps Script properties first.");
   }
-  return sheet;
+
+  const response = UrlFetchApp.fetch(
+    "https://api.telegram.org/bot" + token + "/getUpdates",
+    { muteHttpExceptions: true }
+  );
+  const data = JSON.parse(response.getContentText());
+
+  if (!data.ok) {
+    throw new Error("Telegram getUpdates failed: " + response.getContentText());
+  }
+
+  const chatsById = {};
+
+  (data.result || []).forEach(function (update) {
+    const message = update.message || update.channel_post || update.edited_message;
+    const chat = message && message.chat;
+
+    if (chat) {
+      chatsById[String(chat.id)] = {
+        id: chat.id,
+        type: chat.type,
+        title: chat.title || "",
+        username: chat.username || "",
+        firstName: chat.first_name || ""
+      };
+    }
+  });
+
+  const chats = Object.keys(chatsById).map(function (key) {
+    return chatsById[key];
+  });
+
+  console.log(JSON.stringify(chats, null, 2));
+  return chats;
+}
+
+function testTelegramNotification() {
+  const sent = sendTelegramNotification_(
+    "contact",
+    "TEST-00001",
+    {
+      name: "EV1 Media Website Test",
+      email: "info@ev1media.com",
+      phone: "(239) 351-6598",
+      service: "General corporate inquiry",
+      message: "Telegram inquiry notifications are connected."
+    },
+    {
+      pageUrl: "https://ev1media.com/contact.html"
+    }
+  );
+
+  if (!sent) {
+    throw new Error("Telegram is not configured. Add the required script properties.");
+  }
+
+  return "Telegram test notification sent.";
+}
+
+function validDate_(value) {
+  const date = value ? new Date(value) : new Date();
+
+  if (isNaN(date.getTime())) {
+    return new Date();
+  }
+
+  return date;
+}
+
+function safeCellText_(value) {
+  const text = asString_(value);
+
+  if (/^[=+\\-@]/.test(text)) {
+    return "'" + text;
+  }
+
+  return text;
+}
+
+function escapeTelegramHtml_(value) {
+  return asString_(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 function asString_(value) {
   if (value === null || value === undefined) {
     return "";
   }
+
   return String(value);
 }
 
