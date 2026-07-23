@@ -20,8 +20,12 @@
             formType,
             payload,
             meta: {
+                schemaVersion: "2.0",
                 timestamp: new Date().toISOString(),
                 pageUrl: window.location.href,
+                referrer: document.referrer || "direct",
+                language: navigator.language || "",
+                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
                 userAgent: navigator.userAgent,
                 spreadsheetId
             }
