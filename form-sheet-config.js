@@ -3,7 +3,7 @@
 // 2) Paste the generated /exec URL below.
 window.EV1MEDIA_SHEETS = {
     spreadsheetId: "1PAo0gsPwsWK4BRWB3H79U5ulMAwP1Y-Pljdt20m1Wi0",
-    webAppUrl: "https://script.google.com/macros/s/AKfycbyG7CbRrs8VWIagNttYJ2i8IHjbwPEY-pn4UMFI1SEBZHNe2TOF1VPNlzzVOYMzLlVYXw/exec"
+    webAppUrl: "https://script.google.com/macros/s/AKfycbwE1jEa_6SSWJT0DGCC7Zs_mKgtoOsrprC6W2iLuth-7hgOrg-EE5FVBD5CDwfg05MVvQ/exec"
 };
 
 // Optional: add a Google Maps JavaScript API key to enable address autocomplete
