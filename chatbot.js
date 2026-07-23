@@ -35,7 +35,7 @@ class ChatWidget {
                 <div class="chat-header-info">
                     <div class="chat-status-dot"></div>
                     <div>
-                        <div class="chat-title">EV1 Media Solutions Support</div>
+                        <div class="chat-title">EV1 Media Support</div>
                         <div class="chat-status">Typically replies instantly</div>
                     </div>
                 </div>
@@ -84,8 +84,8 @@ class ChatWidget {
 
     addWelcomeMessage() {
         const welcomeMessages = [
-            "Hi! Welcome to EV1 Media Solutions!",
-            "I'm here to help you with our Audio and Networking services.",
+            "Hi! Welcome to EV1 Media!",
+            "I can help direct corporate, EmployeeBase IQ, and AV service inquiries.",
             "How can I assist you today?"
         ];
         
@@ -182,9 +182,18 @@ class ChatWidget {
         // Greetings (check first to be friendly)
         if (lowerMessage.match(/^(hello|hi|hey|good morning|good afternoon|good evening|yo|sup|greetings)/)) {
             const greeting = this.userInfo.name ? `Hello again, ${this.userInfo.name}!` : "Hello!";
-            return `${greeting} Thanks for reaching out to EV1 Media Solutions.\n\nI can help you with:\n- Audio Services\n- Networking Services\n- Booking and Pricing\n- General Questions\n\nWhat would you like to know?`;
+            return `${greeting} Thanks for reaching out to EV1 Media.\n\nI can help you with:\n- EmployeeBase IQ and workplace AI\n- AV and technical services\n- Business partnerships and corporate inquiries\n- Booking and pricing\n\nWhat would you like to know?`;
         }
         
+        // Corporate and venture inquiries
+        if (this.matchesIntent(lowerMessage, ['employeebase', 'employee base', 'workplace ai', 'company knowledge', 'knowledge base', 'business software', 'software'])) {
+            return "EmployeeBase IQ is an EV1 Media venture focused on trusted workplace knowledge and AI-powered answers from approved company documents.\n\nVisit <a href='https://employeebaseiq.com' target='_blank'>EmployeeBaseIQ.com</a>, or <a href='contact.html?inquiry=employeebase-iq'>contact EV1 Media</a> for a product conversation.";
+        }
+
+        if (this.matchesIntent(lowerMessage, ['partnership', 'partner', 'press', 'media inquiry', 'corporate inquiry', 'investor', 'venture'])) {
+            return "For partnerships, media requests, or general corporate inquiries, please use our <a href='contact.html'>corporate contact form</a> and select the matching inquiry type. You can also email <a href='mailto:info@ev1media.com'>info@ev1media.com</a>.";
+        }
+
         // Service inquiries with natural language
         if (this.matchesIntent(lowerMessage, ['service', 'what do you do', 'what do you offer', 'tell me about', 'what can you do', 'help me with'])) {
             return "We offer two main services:\n\n<strong>Audio Services</strong> - Sound rental, live audio engineering, and church sound restoration\n\n<strong>Networking Services</strong> - Structured cabling, rack builds, and managed network setup\n\nWhich would you like to know more about?";
