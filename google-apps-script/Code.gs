@@ -392,7 +392,7 @@ function validDate_(value) {
 function safeCellText_(value) {
   const text = asString_(value);
 
-  if (/^[=+\\-@]/.test(text)) {
+  if (/^[=+@-]/.test(text)) {
     return "'" + text;
   }
 
