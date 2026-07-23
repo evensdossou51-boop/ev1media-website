@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="corporate.css?v=2">\n    <link rel="stylesheet" href="chatbot-corporate.css?v=1">
+    <link rel="stylesheet" href="corporate.css?v=6">\n    <link rel="stylesheet" href="chatbot-corporate.css?v=6">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -40,14 +40,35 @@
                     <span class="brand-descriptor">Building technology companies.</span>
                 </span>
             </a>
-            <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
-            <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+            <div class="header-actions">
+                <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
                 <a href="/">Home</a>
-                <a href="/#companies">Our Companies</a>
+                <a href="/#services">Services</a>
                 <a class="active" href="about.html">About</a>
                 <a href="#leadership">Leadership</a>
                 <a href="contact.html">Contact</a>
-            </nav>
+                </nav>
+                <div class="company-launcher">
+                    <button class="company-launcher-button" type="button" aria-label="Open EV1 Media companies" aria-expanded="false" aria-controls="company-launcher-panel">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="5" cy="5" r="1.7"></circle><circle cx="12" cy="5" r="1.7"></circle><circle cx="19" cy="5" r="1.7"></circle>
+                            <circle cx="5" cy="12" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="19" cy="12" r="1.7"></circle>
+                            <circle cx="5" cy="19" r="1.7"></circle><circle cx="12" cy="19" r="1.7"></circle><circle cx="19" cy="19" r="1.7"></circle>
+                        </svg>
+                        <span class="sr-only">EV1 Media companies</span>
+                    </button>
+                    <div class="company-launcher-panel" id="company-launcher-panel" hidden>
+                        <p class="company-launcher-title">EV1 Media Companies</p>
+                        <div class="company-launcher-grid">
+                            <div class="company-launcher-item company-launcher-coming-soon" aria-label="Additional EV1 Media companies coming soon">
+                                <span class="company-launcher-question" aria-hidden="true">?</span>
+                                <span>Coming Soon</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+            </div>
         </div>
     </header>
 
@@ -124,14 +145,14 @@
             <div class="footer-grid">
                 <div class="footer-brand"><strong>EV1 Media</strong><p>Building technology companies for modern organizations.</p></div>
                 <div class="footer-column"><h2>Company</h2><a href="about.html">About</a><a href="#leadership">Leadership</a><a href="contact.html">Contact</a></div>
-                <div class="footer-column"><h2>Our Companies</h2><a href="solutions.html">EV1 Media Solutions</a><a href="contact.html?inquiry=business-partnership">Future ventures</a></div>
+                <div class="footer-column"><h2>Services</h2><a href="solutions.html">EV1 Media Services</a><a href="booking.html">Request Service</a></div>
             </div>
             <div class="footer-legal">
                 <p>© 2026 EV1 Media LLC. All rights reserved.</p>
-                <div><p>EV1 Media is the parent company of independently operated technology and service companies.</p></div>
+                <div><p>EV1 Media develops technology, media and business ventures while delivering professional technical services.</p></div>
             </div>
         </div>
     </footer>
-    <script src="corporate.js?v=2"></script>\n    <script src="chatbot.js?v=12"></script>
+    <script src="corporate.js?v=3"></script>\n    <script src="chatbot.js?v=13"></script>
 </body>
 </html>
