@@ -1,5 +1,5 @@
 // Chat Widget Configuration
-const WHATSAPP_NUMBER = '2393516598'; // EV1 Media Solutions WhatsApp Business number
+const WHATSAPP_NUMBER = '2393516598'; // EV1 Media Services WhatsApp Business number
 
 class ChatWidget {
     constructor() {
@@ -268,7 +268,7 @@ class ChatWidget {
         
         // Goodbye
         if (this.matchesIntent(lowerMessage, ['bye', 'goodbye', 'see you', 'later', 'have a good'])) {
-            return "Thank you for chatting with EV1 Media Solutions. Have a great day!\n\nFeel free to reach out anytime:\n(239) 351-6598\n<button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;\">WhatsApp</button>";
+            return "Thank you for chatting with EV1 Media Services. Have a great day!\n\nFeel free to reach out anytime:\n(239) 351-6598\n<button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;\">WhatsApp</button>";
         }
         
         // Unknown/Complex query - offer human assistance
