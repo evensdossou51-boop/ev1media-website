@@ -85,7 +85,7 @@ class ChatWidget {
     addWelcomeMessage() {
         const welcomeMessages = [
             "Hi! Welcome to EV1 Media!",
-            "I can help direct corporate, EmployeeBase IQ, and AV service inquiries.",
+            "I can help direct corporate and AV service inquiries.",
             "How can I assist you today?"
         ];
         
@@ -182,13 +182,9 @@ class ChatWidget {
         // Greetings (check first to be friendly)
         if (lowerMessage.match(/^(hello|hi|hey|good morning|good afternoon|good evening|yo|sup|greetings)/)) {
             const greeting = this.userInfo.name ? `Hello again, ${this.userInfo.name}!` : "Hello!";
-            return `${greeting} Thanks for reaching out to EV1 Media.\n\nI can help you with:\n- EmployeeBase IQ and workplace AI\n- AV and technical services\n- Business partnerships and corporate inquiries\n- Booking and pricing\n\nWhat would you like to know?`;
+            return `${greeting} Thanks for reaching out to EV1 Media.\n\nI can help you with:\n- AV and technical services\n- Business partnerships and corporate inquiries\n- Booking and pricing\n\nWhat would you like to know?`;
         }
-        
         // Corporate and venture inquiries
-        if (this.matchesIntent(lowerMessage, ['employeebase', 'employee base', 'workplace ai', 'company knowledge', 'knowledge base', 'business software', 'software'])) {
-            return "EmployeeBase IQ is an EV1 Media venture focused on trusted workplace knowledge and AI-powered answers from approved company documents.\n\nVisit https://employeebaseiq.com or <a href='contact.html?inquiry=employeebase-iq'>contact EV1 Media</a> for a product conversation.";
-        }
 
         if (this.matchesIntent(lowerMessage, ['partnership', 'partner', 'press', 'media inquiry', 'corporate inquiry', 'investor', 'venture'])) {
             return "For partnerships, media requests, or general corporate inquiries, please use our <a href='contact.html'>corporate contact form</a> and select the matching inquiry type. You can also email <a href='mailto:info@ev1media.com'>info@ev1media.com</a>.";
