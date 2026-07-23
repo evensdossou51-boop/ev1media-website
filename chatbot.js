@@ -1,5 +1,5 @@
 // Chat Widget Configuration
-const WHATSAPP_NUMBER = '2393516598'; // EV1Media WhatsApp Business number
+const WHATSAPP_NUMBER = '2393516598'; // EV1 Media Solutions WhatsApp Business number
 
 class ChatWidget {
     constructor() {
@@ -35,7 +35,7 @@ class ChatWidget {
                 <div class="chat-header-info">
                     <div class="chat-status-dot"></div>
                     <div>
-                        <div class="chat-title">Ev1media Support</div>
+                        <div class="chat-title">EV1 Media Solutions Support</div>
                         <div class="chat-status">Typically replies instantly</div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ class ChatWidget {
 
     addWelcomeMessage() {
         const welcomeMessages = [
-            "Hi! Welcome to Ev1media!",
+            "Hi! Welcome to EV1 Media Solutions!",
             "I'm here to help you with our Audio and Networking services.",
             "How can I assist you today?"
         ];
@@ -182,7 +182,7 @@ class ChatWidget {
         // Greetings (check first to be friendly)
         if (lowerMessage.match(/^(hello|hi|hey|good morning|good afternoon|good evening|yo|sup|greetings)/)) {
             const greeting = this.userInfo.name ? `Hello again, ${this.userInfo.name}!` : "Hello!";
-            return `${greeting} Thanks for reaching out to Ev1media.\n\nI can help you with:\n- Audio Services\n- Networking Services\n- Booking and Pricing\n- General Questions\n\nWhat would you like to know?`;
+            return `${greeting} Thanks for reaching out to EV1 Media Solutions.\n\nI can help you with:\n- Audio Services\n- Networking Services\n- Booking and Pricing\n- General Questions\n\nWhat would you like to know?`;
         }
         
         // Service inquiries with natural language
@@ -263,7 +263,7 @@ class ChatWidget {
         
         // Goodbye
         if (this.matchesIntent(lowerMessage, ['bye', 'goodbye', 'see you', 'later', 'have a good'])) {
-            return "Thank you for chatting with Ev1media. Have a great day!\n\nFeel free to reach out anytime:\n(239) 351-6598\n<button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;\">WhatsApp</button>";
+            return "Thank you for chatting with EV1 Media Solutions. Have a great day!\n\nFeel free to reach out anytime:\n(239) 351-6598\n<button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;\">WhatsApp</button>";
         }
         
         // Unknown/Complex query - offer human assistance
@@ -311,7 +311,6 @@ let chatWidget;
 document.addEventListener('DOMContentLoaded', () => {
     chatWidget = new ChatWidget();
 });
-
 
 
 
