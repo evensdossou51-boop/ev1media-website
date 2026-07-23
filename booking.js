@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function createEmailBody(data) {
         return `
             <div style="font-family: Arial, sans-serif;">
-                <h3 style="color: #1a73e8;">EV1Media Service Request</h3>
+                <h3 style="color: #1a73e8;">EV1 Media Solutions Service Request</h3>
                 <p><strong>Full Name:</strong> ${escapeHtml(data.fullName)}</p>
                 <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
                 <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
