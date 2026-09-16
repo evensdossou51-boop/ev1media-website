@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3B3WVMY63M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-3B3WVMY63M');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Your Project | Custom Software | EV1 Media</title>
+    <meta name="description" content="Tell EV1 Media about your organization and the custom software you need. We'll follow up to schedule a discovery call.">
+    <meta name="robots" content="noindex, follow">
+
+    <!-- Open Graph / Sharing Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ev1media.com/custom-software-intake.html">
+    <meta property="og:title" content="Start Your Custom Software Project | EV1 Media">
+    <meta property="og:description" content="Tell EV1 Media about your organization and the custom software you need.">
+    <meta property="og:image" content="https://ev1media.com/images/logo.png">
+    <meta property="og:site_name" content="EV1 Media">
+
+    <link rel="stylesheet" href="./style.css?v=13">
+<link rel="stylesheet" href="chatbot-corporate.css?v=1">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .choice-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .choice-group label {
+            display: flex;
+            align-items: center;
+            font-weight: 400;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+
+        .choice-group input[type="checkbox"],
+        .choice-group input[type="radio"] {
+            width: auto;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .choice-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">
+            <a href="/" class="logo-link">
+                <span class="logo-icon">
+                    <img src="images/logo.png" alt="EV1 Media logo">
+                </span>
+                EV1 Media
+            </a>
+            <span class="logo-tagline">Custom Software Development</span>
+        </div>
+
+        <!-- Hamburger Menu Button (Mobile Only) -->
+        <button class="hamburger-menu" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="main-nav" id="main-nav">
+            <a href="/">Home Page</a>
+            <a href="custom-software.html">Custom Software</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="content-area">
+        <section class="booking-section">
+            <div class="booking-container">
+                <h1>Start Your Custom Software Project</h1>
+                <p class="booking-intro"><strong>Have an idea or a problem you need technology to solve?</strong><br>Tell us about your organization and what you're trying to build. We'll follow up to schedule a discovery call.</p>
+
+                <form id="customSoftwareForm" class="booking-form">
+                    <div class="form-section">
+                        <h2>About You &amp; Your Organization</h2>
+
+                        <div class="form-group">
+                            <label for="csName">Full Name *</label>
+                            <input type="text" id="csName" name="csName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="csOrganization">Organization Name *</label>
+                            <input type="text" id="csOrganization" name="csOrganization" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="csEmail">Email Address *</label>
+                            <input type="email" id="csEmail" name="csEmail" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="csPhone">Phone Number</label>
+                            <input type="tel" id="csPhone" name="csPhone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="csOrgType">Organization Type *</label>
+                            <select id="csOrgType" name="csOrgType" required>
+                                <option value="">Select organization type...</option>
+                                <option value="Church">Church</option>
+                                <option value="Ministry">Ministry</option>
+                                <option value="Nonprofit">Nonprofit</option>
+                                <option value="Small Business">Small Business</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>The Project</h2>
+
+                        <div class="form-group">
+                            <label for="csProject">What do you want built? *</label>
+                            <textarea id="csProject" name="csProject" rows="5" required placeholder="Describe the software, platform, dashboard or system you have in mind."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="csProblem">What problem are you trying to solve? *</label>
+                            <textarea id="csProblem" name="csProblem" rows="5" required placeholder="What's not working today — manual processes, spreadsheets, disconnected tools, missed follow-ups..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Required Features</label>
+                            <div class="choice-group">
+                                <label><input type="checkbox" name="csFeature" value="Member/Client Management"> Member/Client Management</label>
+                                <label><input type="checkbox" name="csFeature" value="Dashboards & Reporting"> Dashboards &amp; Reporting</label>
+                                <label><input type="checkbox" name="csFeature" value="Registration/Scheduling"> Registration / Scheduling</label>
+                                <label><input type="checkbox" name="csFeature" value="Payments/Giving"> Payments / Giving</label>
+                                <label><input type="checkbox" name="csFeature" value="Client/Member Portal"> Client/Member Portal</label>
+                                <label><input type="checkbox" name="csFeature" value="Workflow Automation"> Workflow Automation</label>
+                                <label><input type="checkbox" name="csFeature" value="Third-Party Integrations"> Third-Party Integrations</label>
+                                <label><input type="checkbox" name="csFeature" value="Other"> Other (describe below)</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="csCurrentTools">Current Software / Tools You Use</label>
+                            <input type="text" id="csCurrentTools" name="csCurrentTools" placeholder="Spreadsheets, Planning Center, QuickBooks, none, etc.">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="csUsers">Expected Number of Users</label>
+                            <select id="csUsers" name="csUsers">
+                                <option value="">Select a range...</option>
+                                <option value="1-10">1–10</option>
+                                <option value="11-50">11–50</option>
+                                <option value="51-200">51–200</option>
+                                <option value="200+">200+</option>
+                                <option value="Not sure">Not sure yet</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="csLaunch">Desired Launch Date</label>
+                            <input type="text" id="csLaunch" name="csLaunch" placeholder="e.g. Within 1 month, Q2 2026, No fixed date">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="csBudget">Budget Range *</label>
+                            <select id="csBudget" name="csBudget" required>
+                                <option value="">Select a budget range...</option>
+                                <option value="$2,000-$5,000">$2,000–$5,000</option>
+                                <option value="$5,000-$10,000">$5,000–$10,000</option>
+                                <option value="$10,000-$25,000">$10,000–$25,000</option>
+                                <option value="$25,000+">$25,000+</option>
+                                <option value="Not sure yet">Not sure yet</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-submit">Submit Project Request</button>
+                        <p class="form-note">After submitting, EV1 Media will review your project and follow up to schedule a discovery call.</p>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <button class="footer-toggle" id="footer-toggle" aria-label="Toggle footer">
+            <span>Quick Links & Contact</span>
+            <span class="footer-arrow">&#9662;</span>
+        </button>
+        <div class="footer-content" id="footer-content">
+            <div class="footer-section">
+                <h3>EV1 Media</h3>
+                <p>Custom Software Development</p>
+                <p>Custom software for churches, ministries, nonprofits and small businesses.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="/">Home Page</a>
+                    <a href="custom-software.html">Custom Software</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:info@ev1media.com">info@ev1media.com</a></p>
+                <p>Phone: <a href="tel:+2393516598">(239) 351-6598</a></p>
+                <p>Service Area: Florida</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/evsoundrental" target="_blank" class="social-facebook" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span class="social-text">Facebook</span>
+                    </a>
+                    <a href="https://www.instagram.com/ev1media_/" target="_blank" class="social-instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span class="social-text">Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 EV1 Media LLC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="chatbot.js?v=13"></script>
+    <script src="form-sheet-config.js?v=4"></script>
+    <script src="form-sheet-bridge.js?v=2"></script>
+    <script src="custom-software-intake.js?v=1"></script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS with your public key
+        (function(){
+            emailjs.init({
+                publicKey: "tfwfNRWUI3Wb3hCqk"
+            });
+            console.log('EmailJS initialized successfully');
+        })();
+    </script>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mainNav = document.getElementById('main-nav');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = mainNav.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+
+            if (!isClickInsideNav && !isClickOnHamburger && mainNav.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+
+        // Footer Toggle Script
+        const footerToggle = document.getElementById('footer-toggle');
+        const footerContent = document.getElementById('footer-content');
+
+        if (footerToggle && footerContent) {
+            footerToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                footerContent.classList.toggle('active');
+            });
+        }
+    </script>
+
+</body>
+</html>

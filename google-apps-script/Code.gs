@@ -2,7 +2,8 @@ const SPREADSHEET_ID = "1PAo0gsPwsWK4BRWB3H79U5ulMAwP1Y-Pljdt20m1Wi0";
 
 const SHEET_BY_FORM_TYPE = {
   contact: "Contact Submissions",
-  booking: "Booking Submissions"
+  booking: "Booking Submissions",
+  "custom-software": "Custom Software Intake"
 };
 
 const CONTACT_HEADERS = [
@@ -52,6 +53,36 @@ const BOOKING_HEADERS = [
   "Notes"
 ];
 
+const CUSTOM_SOFTWARE_HEADERS = [
+  "Inquiry ID",
+  "Submitted At",
+  "Form Type",
+  "Name",
+  "Organization",
+  "Email",
+  "Phone",
+  "Organization Type",
+  "Project Description",
+  "Problem To Solve",
+  "Required Features",
+  "Current Tools",
+  "Expected Users",
+  "Desired Launch Date",
+  "Budget Range",
+  "Page URL",
+  "Browser / Device",
+  "Raw JSON",
+  "Year",
+  "Month",
+  "Month Number",
+  "Converted to Job?",
+  "Inquiry Status",
+  "Job Value",
+  "Follow-Up Date",
+  "Owner",
+  "Notes"
+];
+
 const TELEGRAM_BOT_TOKEN_PROPERTY = "TELEGRAM_BOT_TOKEN";
 const TELEGRAM_CHAT_ID_PROPERTY = "TELEGRAM_CHAT_ID";
 
@@ -77,7 +108,8 @@ function doPost(e) {
     }
 
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const headers = formType === "booking" ? BOOKING_HEADERS : CONTACT_HEADERS;
+    const headers = formType === "booking" ? BOOKING_HEADERS :
+      formType === "custom-software" ? CUSTOM_SOFTWARE_HEADERS : CONTACT_HEADERS;
     const sheet = getOrCreateSheet_(spreadsheet, sheetName, headers);
     const lock = LockService.getScriptLock();
 
@@ -87,7 +119,8 @@ function doPost(e) {
     let rowNumber;
 
     try {
-      inquiryId = nextInquiryId_(sheet, formType === "booking" ? "BK" : "CT");
+      const idPrefix = formType === "booking" ? "BK" : formType === "custom-software" ? "CS" : "CT";
+      inquiryId = nextInquiryId_(sheet, idPrefix);
       const row = buildRow_(formType, inquiryId, payload, meta);
       sheet.appendRow(row);
       rowNumber = sheet.getLastRow();
@@ -200,6 +233,38 @@ function buildRow_(formType, inquiryId, payload, meta) {
     ];
   }
 
+  if (formType === "custom-software") {
+    return [
+      inquiryId,
+      submittedAt,
+      "Custom Software Intake",
+      safeCellText_(payload.name),
+      safeCellText_(payload.organization),
+      safeCellText_(payload.email),
+      safeCellText_(payload.phone),
+      safeCellText_(payload.organizationType),
+      safeCellText_(payload.projectDescription),
+      safeCellText_(payload.problem),
+      safeCellText_(payload.features),
+      safeCellText_(payload.currentTools),
+      safeCellText_(payload.expectedUsers),
+      safeCellText_(payload.launchDate),
+      safeCellText_(payload.budget),
+      pageUrl,
+      userAgent,
+      rawJson,
+      year,
+      month,
+      monthNumber,
+      "No",
+      "New Inquiry",
+      "",
+      "",
+      "",
+      ""
+    ];
+  }
+
   return [
     inquiryId,
     submittedAt,
@@ -239,6 +304,9 @@ function applyNewRowStructure_(sheet, formType, rowNumber, columnCount) {
   if (formType === "contact") {
     sheet.getRange(rowNumber, 17).setNumberFormat("$#,##0.00");
     sheet.getRange(rowNumber, 18).setNumberFormat("yyyy-mm-dd");
+  } else if (formType === "custom-software") {
+    sheet.getRange(rowNumber, 24).setNumberFormat("$#,##0.00");
+    sheet.getRange(rowNumber, 25).setNumberFormat("yyyy-mm-dd");
   } else {
     sheet.getRange(rowNumber, 18).setNumberFormat("$#,##0.00");
     sheet.getRange(rowNumber, 19).setNumberFormat("yyyy-mm-dd");
@@ -254,12 +322,17 @@ function sendTelegramNotification_(formType, inquiryId, payload, meta) {
     return false;
   }
 
+  const typeLabel = formType === "booking" ? "Service Request" :
+    formType === "custom-software" ? "Custom Software Intake" : "Corporate Inquiry";
+  const nameValue = formType === "booking" ? payload.fullName :
+    formType === "custom-software" ? payload.name : payload.name;
+
   const lines = [
     "🔔 <b>New EV1 Media inquiry</b>",
     "",
     "<b>ID:</b> " + escapeTelegramHtml_(inquiryId),
-    "<b>Type:</b> " + escapeTelegramHtml_(formType === "booking" ? "Service Request" : "Corporate Inquiry"),
-    "<b>Name:</b> " + escapeTelegramHtml_(formType === "booking" ? payload.fullName : payload.name),
+    "<b>Type:</b> " + escapeTelegramHtml_(typeLabel),
+    "<b>Name:</b> " + escapeTelegramHtml_(nameValue),
     "<b>Email:</b> " + escapeTelegramHtml_(payload.email),
     "<b>Phone:</b> " + escapeTelegramHtml_(payload.phone || "Not provided")
   ];
@@ -268,6 +341,12 @@ function sendTelegramNotification_(formType, inquiryId, payload, meta) {
     lines.push("<b>Service:</b> " + escapeTelegramHtml_(payload.service || "Not specified"));
     lines.push("<b>Location:</b> " + escapeTelegramHtml_(payload.serviceAddress || "Not provided"));
     lines.push("<b>Project details:</b> " + escapeTelegramHtml_(payload.message || "Not provided"));
+  } else if (formType === "custom-software") {
+    lines.push("<b>Organization:</b> " + escapeTelegramHtml_(payload.organization || "Not provided"));
+    lines.push("<b>Organization type:</b> " + escapeTelegramHtml_(payload.organizationType || "Not specified"));
+    lines.push("<b>Budget range:</b> " + escapeTelegramHtml_(payload.budget || "Not specified"));
+    lines.push("<b>Desired launch:</b> " + escapeTelegramHtml_(payload.launchDate || "Not specified"));
+    lines.push("<b>Project:</b> " + escapeTelegramHtml_(payload.projectDescription || "Not provided"));
   } else {
     lines.push("<b>Inquiry category:</b> " + escapeTelegramHtml_(payload.service || "Not specified"));
     lines.push("<b>Message:</b> " + escapeTelegramHtml_(payload.message || "Not provided"));
