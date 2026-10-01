@@ -1,12 +1,16 @@
-// Chat Widget Configuration
-const WHATSAPP_NUMBER = '2393516598'; // EV1 Media Services WhatsApp Business number
+// EV1 Media AI Chat Widget
+// The browser never receives an AI provider API key. Requests are proxied through
+// the EV1 Media Google Apps Script web app, which reads secrets from Script Properties.
+
+const WHATSAPP_NUMBER = "2393516598";
+const EV1MEDIA_CHAT_ENDPOINT = "https://script.google.com/macros/s/AKfycbwE1jEa_6SSWJT0DGCC7Zs_mKgtoOsrprC6W2iLuth-7hgOrg-EE5FVBD5CDwfg05MVvQ/exec";
 
 class ChatWidget {
     constructor() {
         this.isOpen = false;
         this.messages = [];
-        this.conversationContext = [];
-        this.userInfo = { name: '', lastQuestion: '' };
+        this.userInfo = { name: "", lastQuestion: "" };
+        this.sessionId = this.getOrCreateSessionId();
         this.init();
     }
 
@@ -17,34 +21,46 @@ class ChatWidget {
         this.addWelcomeMessage();
     }
 
+    getOrCreateSessionId() {
+        const key = "ev1media_chat_session";
+        let value = sessionStorage.getItem(key);
+
+        if (!value) {
+            value = "web-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+            sessionStorage.setItem(key, value);
+        }
+
+        return value;
+    }
+
     createChatButton() {
-        const button = document.createElement('div');
-        button.id = 'chat-button';
+        const button = document.createElement("div");
+        button.id = "chat-button";
         button.innerHTML = `
-            <img src="images/dj-avatar.png" alt="DJ Support" class="dj-avatar-img">
+            <img src="images/dj-avatar.png" alt="EV1 Media Support" class="dj-avatar-img">
             <span class="chat-notification" id="chat-notification">1</span>
         `;
         document.body.appendChild(button);
     }
 
     createChatWindow() {
-        const chatWindow = document.createElement('div');
-        chatWindow.id = 'chat-window';
+        const chatWindow = document.createElement("div");
+        chatWindow.id = "chat-window";
         chatWindow.innerHTML = `
             <div class="chat-header">
                 <div class="chat-header-info">
                     <div class="chat-status-dot"></div>
                     <div>
-                        <div class="chat-title">EV1 Media Support</div>
-                        <div class="chat-status">Typically replies instantly</div>
+                        <div class="chat-title">EV1 Media Assistant</div>
+                        <div class="chat-status">AI-assisted support</div>
                     </div>
                 </div>
-                <button class="chat-close" id="chat-close">&times;</button>
+                <button class="chat-close" id="chat-close" aria-label="Close chat">&times;</button>
             </div>
             <div class="chat-messages" id="chat-messages"></div>
             <div class="chat-input-container">
-                <textarea id="chat-input" placeholder="Type your message..." rows="1"></textarea>
-                <button id="chat-send">
+                <textarea id="chat-input" placeholder="Ask about AV, networking or custom software..." rows="1" maxlength="1500"></textarea>
+                <button id="chat-send" aria-label="Send message">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path d="M2 10L18 2L10 18L8 11L2 10Z" fill="white"/>
                     </svg>
@@ -55,12 +71,12 @@ class ChatWidget {
     }
 
     setupEventListeners() {
-        document.getElementById('chat-button').addEventListener('click', () => this.toggleChat());
-        document.getElementById('chat-close').addEventListener('click', () => this.toggleChat());
-        document.getElementById('chat-send').addEventListener('click', () => this.sendMessage());
-        document.getElementById('chat-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
+        document.getElementById("chat-button").addEventListener("click", () => this.toggleChat());
+        document.getElementById("chat-close").addEventListener("click", () => this.toggleChat());
+        document.getElementById("chat-send").addEventListener("click", () => this.sendMessage());
+        document.getElementById("chat-input").addEventListener("keypress", (event) => {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
                 this.sendMessage();
             }
         });
@@ -68,255 +84,235 @@ class ChatWidget {
 
     toggleChat() {
         this.isOpen = !this.isOpen;
-        const chatWindow = document.getElementById('chat-window');
-        const chatButton = document.getElementById('chat-button');
-        const notification = document.getElementById('chat-notification');
-        
+        const chatWindow = document.getElementById("chat-window");
+        const chatButton = document.getElementById("chat-button");
+        const notification = document.getElementById("chat-notification");
+
         if (this.isOpen) {
-            chatWindow.classList.add('open');
-            chatButton.classList.add('hidden');
-            notification.style.display = 'none';
+            chatWindow.classList.add("open");
+            chatButton.classList.add("hidden");
+            notification.style.display = "none";
+            document.getElementById("chat-input").focus();
         } else {
-            chatWindow.classList.remove('open');
-            chatButton.classList.remove('hidden');
+            chatWindow.classList.remove("open");
+            chatButton.classList.remove("hidden");
         }
     }
 
     addWelcomeMessage() {
         const welcomeMessages = [
-            "Hi! Welcome to EV1 Media!",
-            "I can help direct corporate and AV service inquiries.",
-            "How can I assist you today?"
+            "Hi! Welcome to EV1 Media.",
+            "I can help with custom AV integration, networking and custom software development.",
+            "What are you looking to build or improve?"
         ];
-        
+
         setTimeout(() => {
-            welcomeMessages.forEach((msg, index) => {
-                setTimeout(() => {
-                    this.addMessage(msg, 'bot');
-                }, index * 800);
+            welcomeMessages.forEach((message, index) => {
+                setTimeout(() => this.addMessage(message, "bot"), index * 500);
             });
-        }, 1000);
+        }, 500);
     }
 
-    sendMessage() {
-        const input = document.getElementById('chat-input');
+    async sendMessage() {
+        const input = document.getElementById("chat-input");
+        const sendButton = document.getElementById("chat-send");
         const message = input.value.trim();
-        
-        if (message) {
-            this.addMessage(message, 'user');
-            input.value = '';
-            input.style.height = 'auto';
-            
-            // Simulate typing
-            this.showTypingIndicator();
-            
-            // Get bot response
-            setTimeout(() => {
-                this.hideTypingIndicator();
-                const response = this.getBotResponse(message);
-                this.addMessage(response, 'bot');
-            }, 1000 + Math.random() * 1000);
+
+        if (!message || sendButton.disabled) return;
+
+        this.userInfo.lastQuestion = message;
+        this.captureName(message);
+        this.addMessage(message, "user");
+        input.value = "";
+        input.style.height = "auto";
+        sendButton.disabled = true;
+        this.showTypingIndicator();
+
+        try {
+            const result = await this.requestAI(message);
+            this.hideTypingIndicator();
+
+            if (result && result.ok && result.reply) {
+                this.addMessage(result.reply, "bot", result.action || "");
+            } else {
+                const fallback = this.getFallbackResponse(message);
+                this.addMessage(fallback.reply, "bot", fallback.action);
+            }
+        } catch (error) {
+            console.warn("EV1 Media AI chat unavailable; using local fallback.", error);
+            this.hideTypingIndicator();
+            const fallback = this.getFallbackResponse(message);
+            this.addMessage(fallback.reply, "bot", fallback.action);
+        } finally {
+            sendButton.disabled = false;
+            input.focus();
         }
     }
 
-    addMessage(text, sender) {
-        const messagesContainer = document.getElementById('chat-messages');
-        const messageDiv = document.createElement('div');
+    captureName(message) {
+        if (this.userInfo.name) return;
+
+        const match = message.match(/(?:my name is|i'm|i am)\s+([a-zA-ZÀ-ÿ'-]{2,30})/i);
+        if (match) this.userInfo.name = match[1];
+    }
+
+    requestAI(message) {
+        return new Promise((resolve, reject) => {
+            const callbackName = "__ev1Chat_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
+            const script = document.createElement("script");
+            const priorHistory = this.messages
+                .slice(0, -1)
+                .slice(-6)
+                .map((item) => ({
+                    role: item.sender === "user" ? "user" : "assistant",
+                    content: item.text.slice(0, 1000)
+                }));
+
+            const params = new URLSearchParams({
+                action: "chat",
+                callback: callbackName,
+                message,
+                history: JSON.stringify(priorHistory),
+                sessionId: this.sessionId,
+                page: window.location.href
+            });
+
+            const timeout = setTimeout(() => {
+                cleanup();
+                reject(new Error("Chat request timed out."));
+            }, 15000);
+
+            const cleanup = () => {
+                clearTimeout(timeout);
+                if (script.parentNode) script.parentNode.removeChild(script);
+                try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
+            };
+
+            window[callbackName] = (payload) => {
+                cleanup();
+                resolve(payload);
+            };
+
+            script.onerror = () => {
+                cleanup();
+                reject(new Error("Chat endpoint could not be reached."));
+            };
+
+            script.src = EV1MEDIA_CHAT_ENDPOINT + "?" + params.toString();
+            document.body.appendChild(script);
+        });
+    }
+
+    addMessage(text, sender, action = "") {
+        const messagesContainer = document.getElementById("chat-messages");
+        const messageDiv = document.createElement("div");
         messageDiv.className = `chat-message ${sender}`;
+
+        const actionHtml = sender === "bot" ? this.getActionHtml(action) : "";
+
         messageDiv.innerHTML = `
-            <div class="message-content">${this.formatMessage(text)}</div>
-            <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+            <div class="message-content">${this.formatMessage(text)}${actionHtml}</div>
+            <div class="message-time">${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</div>
         `;
+
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        
         this.messages.push({ text, sender, time: new Date() });
     }
 
     formatMessage(text) {
-        // Convert URLs to links
-        const urlRegex = /(https?:\/\/[^\s]+)/g;
-        text = text.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
-        
-        // Convert line breaks
-        text = text.replace(/\n/g, '<br>');
-        
-        return text;
+        const safe = String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+        return safe
+            .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>')
+            .replace(/\n/g, "<br>");
+    }
+
+    getActionHtml(action) {
+        const actions = {
+            booking: '<div style="margin-top:10px"><a href="booking.html"><strong>Request AV / Network Service →</strong></a></div>',
+            software: '<div style="margin-top:10px"><a href="custom-software-intake.html"><strong>Start a Custom Software Project →</strong></a></div>',
+            contact: '<div style="margin-top:10px"><a href="contact.html"><strong>Contact EV1 Media →</strong></a></div>',
+            whatsapp: '<div style="margin-top:10px"><button onclick="chatWidget.connectToWhatsApp()" style="background:#25D366;color:white;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:600">Continue on WhatsApp</button></div>'
+        };
+
+        return actions[action] || "";
     }
 
     showTypingIndicator() {
-        const messagesContainer = document.getElementById('chat-messages');
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'chat-message bot typing-indicator';
-        typingDiv.id = 'typing-indicator';
-        typingDiv.innerHTML = `
-            <div class="message-content">
-                <span></span><span></span><span></span>
-            </div>
-        `;
+        const messagesContainer = document.getElementById("chat-messages");
+        const typingDiv = document.createElement("div");
+        typingDiv.className = "chat-message bot typing-indicator";
+        typingDiv.id = "typing-indicator";
+        typingDiv.innerHTML = '<div class="message-content"><span></span><span></span><span></span></div>';
         messagesContainer.appendChild(typingDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
     hideTypingIndicator() {
-        const indicator = document.getElementById('typing-indicator');
+        const indicator = document.getElementById("typing-indicator");
         if (indicator) indicator.remove();
     }
 
-    getBotResponse(message) {
-        const lowerMessage = message.toLowerCase();
-        
-        // Store conversation context
-        this.conversationContext.push(lowerMessage);
-        this.userInfo.lastQuestion = message;
-        
-        // Check for name in message
-        if (!this.userInfo.name && (lowerMessage.includes('my name is') || lowerMessage.includes("i'm ") || lowerMessage.includes("i am "))) {
-            const nameMatch = message.match(/(?:my name is|i'm|i am)\s+([a-zA-Z]+)/i);
-            if (nameMatch) {
-                this.userInfo.name = nameMatch[1];
-                return `Nice to meet you, ${this.userInfo.name}! How can I help you today?`;
-            }
-        }
-        
-        // Greetings (check first to be friendly)
-        if (lowerMessage.match(/^(hello|hi|hey|good morning|good afternoon|good evening|yo|sup|greetings)/)) {
-            const greeting = this.userInfo.name ? `Hello again, ${this.userInfo.name}!` : "Hello!";
-            return `${greeting} Thanks for reaching out to EV1 Media.\n\nI can help you with:\n- AV and technical services\n- Business partnerships and corporate inquiries\n- Booking and pricing\n\nWhat would you like to know?`;
-        }
-        // Corporate and venture inquiries
+    getFallbackResponse(message) {
+        const text = message.toLowerCase();
 
-        if (this.matchesIntent(lowerMessage, ['partnership', 'partner', 'press', 'media inquiry', 'corporate inquiry', 'investor', 'venture'])) {
-            return "For partnerships, media requests, or general corporate inquiries, please use our <a href='contact.html'>corporate contact form</a> and select the matching inquiry type. You can also email <a href='mailto:info@ev1media.com'>info@ev1media.com</a>.";
+        if (/\b(software|app|portal|dashboard|automation|workflow|database|platform|api|integration)\b/.test(text)) {
+            return {
+                reply: "Yes. EV1 Media builds custom software around an organization's workflow, including internal platforms, dashboards, portals, automations and integrations. Tell me what process you want to replace or improve.",
+                action: "software"
+            };
         }
 
-        // Service inquiries with natural language
-        if (this.matchesIntent(lowerMessage, ['service', 'what do you do', 'what do you offer', 'tell me about', 'what can you do', 'help me with'])) {
-            return "We offer two main services:\n\n<strong>Audio Services</strong> - Sound rental, live audio engineering, and church sound restoration\n\n<strong>Networking Services</strong> - Structured cabling, rack builds, and managed network setup\n\nWhich would you like to know more about?";
+        if (/\b(audio|sound|video|livestream|streaming|projection|display|av|network|wifi|wi-fi|cabling|rack|switch|vlan)\b/.test(text)) {
+            return {
+                reply: "EV1 Media designs custom AV and network systems around your space and workflow, including audio, video, livestreaming, projection, structured cabling, Wi-Fi and network infrastructure. Tell me what you have now and what you want to improve.",
+                action: "booking"
+            };
         }
-        
-        // Pricing with context awareness
-        if (this.matchesIntent(lowerMessage, ['price', 'cost', 'how much', 'pricing', 'budget', 'afford', 'expensive', 'cheap', 'rate'])) {
-            const lastContext = this.conversationContext.slice(-3).join(' ');
-            let response = "Our pricing varies based on your specific needs:\n\n";
-            
-            if (lastContext.includes('sound') || lastContext.includes('av') || lastContext.includes('audio') || lastContext.includes('rental')) {
-                response += "<strong>Audio Packages:</strong>\n- Speech Package (2 top speakers + mic): $500-$800\n- Full System (2 tops + subs): $800-$1,500\n- Custom Package: Contact for quote\n";
-            } else if (lastContext.includes('network') || lastContext.includes('wifi') || lastContext.includes('cable') || lastContext.includes('rack')) {
-                response += "<strong>Networking Services:</strong>\n- Structured cabling and rack build: $700-$4,000+\n- Managed network setup: $500-$3,000+\n- Custom network remediation: Contact for quote\n";
-            } else {
-                response += "Audio services: $350 - $4,500+\nNetworking services: $500 - $4,000+\n";
-            }
-            
-            response += "\nWould you like a custom quote? I can connect you with our team!";
-            return response;
+
+        if (/\b(price|pricing|cost|quote|budget|how much)\b/.test(text)) {
+            return {
+                reply: "Pricing depends on the scope, equipment, installation conditions and software requirements. EV1 Media can prepare a project-specific quote after we understand what you need.",
+                action: "contact"
+            };
         }
-        
-        // Booking with urgency detection
-        if (this.matchesIntent(lowerMessage, ['book', 'schedule', 'appointment', 'reserve', 'hire', 'rent', 'need', 'want to book', 'interested in'])) {
-            return "Great! I'd love to help you book a service. You have a few options:\n\n<a href='booking.html'><strong>Fill out our booking form</strong></a>\n<strong>Call us:</strong> (239) 351-6598\n<strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat on WhatsApp</button>\n\nOr I can connect you with our team right now. What works best for you?";
+
+        if (/\b(book|schedule|hire|start|project|consult|consultation)\b/.test(text)) {
+            return {
+                reply: "Absolutely. Tell me whether this is an AV/network project or a custom software project, and I can direct you to the right intake.",
+                action: "contact"
+            };
         }
-        
-        // Sound Rental with detailed understanding
-        if (this.matchesIntent(lowerMessage, ['sound', 'audio', 'speaker', 'microphone', 'mic', 'av', 'equipment', 'system', 'rental', 'event', 'concert', 'church'])) {
-            return "Our audio services include:\n\n<strong>Speech Package</strong> - 2 top speakers + mic\n<strong>Full System</strong> - 2 tops + subs\n<strong>Custom Package</strong> - Tell us what you need\n<strong>Church Sound Restoration</strong> - System restructuring, upgrades, cable management, streaming fixes, and volunteer training\n\nAll packages include 1 mixer and 2 microphones. We also offer DJ services as an add-on.\n\nWould you like to <a href='/#audio-services'>view details</a>, <a href='booking.html'>book now</a>, or chat with our team on <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">WhatsApp</button>?";
+
+        if (/^(hello|hi|hey|good morning|good afternoon|good evening)\b/.test(text)) {
+            return {
+                reply: "Hello! I can help you with custom AV integration, networking and custom software development. What are you looking to build or improve?",
+                action: ""
+            };
         }
-        
-        // Networking with context
-        if (this.matchesIntent(lowerMessage, ['network', 'networking', 'wifi', 'wi-fi', 'cabling', 'rack', 'switch', 'vlan', 'internet', 'streaming'])) {
-            return "Our Networking services include:\n\n<strong>Structured Cabling and Rack Build</strong>\n<strong>Managed Network Setup</strong>\n<strong>Network cleanup and optimization</strong>\n\nWould you like to <a href='/#networking-services'>learn more</a>, <a href='booking.html'>start a project</a>, or discuss via <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">WhatsApp</button>?";
-        }
-        
-        // Contact information
-        if (this.matchesIntent(lowerMessage, ['contact', 'phone', 'email', 'reach', 'call', 'message', 'talk to', 'speak with'])) {
-            return "You can reach us:\n\n<strong>Phone:</strong> <a href='tel:+12393516598'>(239) 351-6598</a>\n<strong>Email:</strong> <a href='mailto:info@ev1media.com'>info@ev1media.com</a>\n<strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Message on WhatsApp</button>\n<strong>Location:</strong> Serving Florida\n\nWe're available 24/7. You can also <a href='contact.html'>visit our contact page</a>.";
-        }
-        
-        // Hours/Availability
-        if (this.matchesIntent(lowerMessage, ['hour', 'open', 'available', 'when', 'time', 'business hour'])) {
-            return "We're available <strong>24/7</strong> to serve you.\n\nFor immediate assistance:\n<strong>Call:</strong> (239) 351-6598\n<strong>WhatsApp:</strong> <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat Now</button>\n\nHow can I help you today?";
-        }
-        
-        // Location
-        if (this.matchesIntent(lowerMessage, ['location', 'where', 'area', 'serve', 'travel', 'come to'])) {
-            return "We serve churches and businesses across Florida. We can travel for larger events and can discuss your specific location. Where is your event or business located?";
-        }
-        
-        // Packages
-        if (this.matchesIntent(lowerMessage, ['package', 'option', 'what size', 'different type'])) {
-            return "We offer sound system packages:\n\n<strong>Speech Package:</strong> 2 top speakers + mic + mixer ($500-$800)\n<strong>Full System:</strong> 2 top speakers + subs + mic + mixer ($800-$1,500)\n<strong>Custom Package:</strong> Tell us exactly what you need.\n\nAll packages include professional setup and 1 mixer with 2 microphones. Ready to <a href='booking.html'>book</a> or <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;\">discuss on WhatsApp</button>?";
-        }
-        
-        // DJ Services
-        if (this.matchesIntent(lowerMessage, ['dj', 'music', 'entertainment', 'party'])) {
-            return "Yes. We offer DJ services as an add-on to our sound packages.\n\n<strong>DJ Service:</strong> $300-$800 (depending on event duration)\n\nOur DJs can provide music for:\n- Weddings\n- Parties\n- Corporate events\n- Church events\n- And more\n\nWant to discuss your event? <button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat on WhatsApp</button>";
-        }
-        
-        // Thanks/Appreciation
-        if (this.matchesIntent(lowerMessage, ['thank', 'thanks', 'appreciate', 'awesome', 'great', 'perfect'])) {
-            return "You're very welcome! Is there anything else I can help you with today?";
-        }
-        
-        // Yes/No responses (contextual)
-        if (lowerMessage.match(/^(yes|yeah|yep|sure|ok|okay|y)$/)) {
-            return "Great! How can I assist you further? Would you like to:\n\n<a href='booking.html'>Book a service</a>\n<button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 600;\">Chat with our team</button>\nCall us at (239) 351-6598";
-        }
-        
-        if (lowerMessage.match(/^(no|nope|nah|not really|n)$/)) {
-            return "No problem! Feel free to ask me anything else, or I can connect you with our team for more personalized assistance. ??";
-        }
-        
-        // Goodbye
-        if (this.matchesIntent(lowerMessage, ['bye', 'goodbye', 'see you', 'later', 'have a good'])) {
-            return "Thank you for chatting with EV1 Media Services. Have a great day!\n\nFeel free to reach out anytime:\n(239) 351-6598\n<button onclick=\"chatWidget.connectToWhatsApp()\" style=\"background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;\">WhatsApp</button>";
-        }
-        
-        // Unknown/Complex query - offer human assistance
-        return this.getUnknownResponseWithSupport(message);
+
+        return {
+            reply: "I can help with EV1 Media's custom AV, networking and software services. If your question needs a team member, you can continue with us directly.",
+            action: "whatsapp"
+        };
     }
-    
-    matchesIntent(message, keywords) {
-        return keywords.some(keyword => message.includes(keyword));
-    }
-    
-    getUnknownResponseWithSupport(userMessage) {
-        const responses = [
-            "I want to make sure you get the best answer! Let me connect you with our team who can help with your specific question.",
-            "That's a great question! Our team can provide you with detailed information about that.",
-            "I'd like to give you the most accurate information. Let me connect you with someone who specializes in this!"
-        ];
-        
-        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-        
-        // Send notification to WhatsApp with user's question
-        this.notifyTeamOnWhatsApp(userMessage);
-        
-        return `${randomResponse}\n\n<strong>Chat with our team now:</strong>\n<button onclick=\"chatWidget.connectToWhatsApp('${encodeURIComponent(userMessage)}')\" style=\"background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1em; margin-top: 10px; box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);\">Continue on WhatsApp</button>\n\n<em>You can also:</em>\nCall: <a href='tel:+12393516598'>(239) 351-6598</a>\nEmail: <a href='mailto:info@ev1media.com'>info@ev1media.com</a>`;
-    }
-    
-    connectToWhatsApp(customMessage = '') {
-        const message = customMessage || this.userInfo.lastQuestion || 'Hi! I have a question about your services.';
+
+    connectToWhatsApp(customMessage = "") {
+        const message = customMessage || this.userInfo.lastQuestion || "Hi! I have a question about EV1 Media services.";
         const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-            `Hello! I was chatting on your website.\n\nMy question: ${message}\n\n${this.userInfo.name ? `My name: ${this.userInfo.name}` : ''}`
+            `Hello! I was chatting with the EV1 Media website assistant.\n\nMy question: ${message}\n\n${this.userInfo.name ? `My name: ${this.userInfo.name}` : ""}`
         )}`;
-        window.open(whatsappURL, '_blank');
-    }
-    
-    notifyTeamOnWhatsApp(userMessage) {
-        // This creates a notification link that can be auto-sent
-        const notificationMessage = `New Website Chat Inquiry\n\nVisitor Question: "${userMessage}"\n\n${this.userInfo.name ? `Visitor Name: ${this.userInfo.name}\n` : ''}Time: ${new Date().toLocaleString()}\n\nConversation History:\n${this.conversationContext.slice(-5).join('\n')}`;
-        
-        // Log for debugging (in production, this could trigger an actual notification)
-        console.log('Team Notification:', notificationMessage);
+        window.open(whatsappURL, "_blank", "noopener");
     }
 }
 
-// Initialize chat widget when page loads
 let chatWidget;
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     chatWidget = new ChatWidget();
 });
-
-
-
-
